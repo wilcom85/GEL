@@ -1,0 +1,46 @@
+<?php
+session_start();
+if(!$_SESSION["usuario"]= "myusername"){
+header("location:\\index.php");
+}
+?>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900" rel="stylesheet" />
+	<link href="../css/estilo/default.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="../css/estilo/fonts.css" rel="stylesheet" type="text/css" media="all" />
+</head>
+<body>
+ 	<div><?php echo "Usted se ha registrado como: " .$_SESSION['$usuario']; ?> 
+    </div>
+ 	<header id="logo">
+		<div align="center">
+        	<img src="../img/logoMinTIC.png" width="254" height="65">
+            <img src="../img/ospinternational.jpg" width="137" height="67">
+            <img src="../img/devant.jpg" width="137" height="67">
+        </div>
+ 	</header>
+    <article id="featured-wrapper">
+	   		<h1>CONSORCIO SOFTWARE 2012</h1>
+       		<p>Calificación de Aplicaciones - Proyecto Vive Gobierno Móvil</p>
+    </article>
+
+    <div id="page-wrapper">
+            <nav>
+                <div class="menu">
+                    <ul>
+                        <li><a href="#">Retos</a></li>
+                        <li><a href="#">Equipos</a></li>
+                        <li><a href="#">Persomas</a></li>
+                        <li><a href="#">Evaluación</a></li>
+                        <li><a href="#">Resultados</a></li>
+                    </ul>
+                </div>
+            </nav>
+            <article></article>
+            <section></section>
+    	</div>
+    <footer></footer>
+</body>
+</html>
