@@ -34,6 +34,7 @@
 			session_start();
 			$_SESSION['$usuario'] = $myusername;
 			$_SESSION['$clave'] = $mypassword;
+                        $_SESSION['$panel'] = "panelAdmin.html";
 			header("location:admin_login_success.php");
 		}
 		if($row[3] == 'jurado' ){
@@ -41,6 +42,7 @@
 			session_start();
 			$_SESSION['$usuario'] = $myusername;
 			$_SESSION['$clave'] = $mypassword;
+                        $_SESSION['$panel'] = "panelUser.html";
 			header("location:user_login_success.php");
 		}
 	}

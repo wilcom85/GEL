@@ -5,7 +5,6 @@
     }
     //Forzar el uso de codificación utf-8
     header('Content-Type: text/html; charset=UTF-8');
-    $consultarReto="../php/consultar_reto.php";
 ?>
 <html>
     <head>
@@ -42,10 +41,10 @@
                         <li class="topfirst"><a href="#" style="width:140px;"><span><img src="admin_login_success_files/css3menu0/122.png" alt=""/>Retos</span></a>
                         <ul>
                             <li>
-                                <a href="#"> Consultar Retos</a>
+                                <a href="#">Consultar Retos</a>
                             </li>
                             <li onclick= >
-                                <a href="#"> </a>
+                                <a href="#">Nuevo Reto</a>
                             </li>
                         </ul></li>
                         <li class="topmenu"><a href="#" style="width:140px;"><span><img src="admin_login_success_files/css3menu0/54.png" alt=""/>Equipos</span></a>
@@ -72,7 +71,7 @@
                     </div>
                 </nav>
                 <article id="page-wrapper">
-                    <iframe src= "<?php echo $frameSet; ?>"
+                    <iframe src= "<?php echo $_SESSION['$panel']; ?>"
                             name="AllInfo"
                             style="width:85%; height:350px; margin:5px;">
                     </iframe>
