@@ -40,12 +40,16 @@
                         <ul id="css3menu0" class="topmenu">
                         <li class="topfirst"><a href="#" style="width:140px;"><span><img src="admin_login_success_files/css3menu0/122.png" alt=""/>Retos</span></a>
                         <ul>
-                            <li>
-                                <a href="#">Consultar Retos</a>
-                            </li>
-                            <li onclick= >
-                                <a href="#">Nuevo Reto</a>
-                            </li>
+                            <form name="opcionRetos"
+                                  method="post"
+                                  action="opcionRetos.php">
+                                <li>
+                                    <a name="consultar" href="opcionRetos.php" type="submit" id="consultar" >Consultar Retos</a>                                    
+                                </li>
+                                <li>
+                                    <a name="nuevos" href="opcionRetos.php" type="submit" id="nuevos">Nuevo Reto</a>
+                                </li>
+                            </form>
                         </ul></li>
                         <li class="topmenu"><a href="#" style="width:140px;"><span><img src="admin_login_success_files/css3menu0/54.png" alt=""/>Equipos</span></a>
                         <ul>
