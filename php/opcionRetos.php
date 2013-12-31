@@ -6,7 +6,16 @@
  * and open the template in the editor.
  */
     include './menuOption.php';
+
     $menuOption = new menuOption();
     menuOption::$CONSULTARRETO;
+    $_SESSION['panel']="consultar_reto.php";
 ?>
-    
+
+<html>
+    <head>
+    </head>
+    <p>haciendo click <a href="admin_login_success.php">aquí</a></p>
+
+</html>
+

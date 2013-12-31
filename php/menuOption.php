@@ -16,9 +16,9 @@ class menuOption{
     static $CONSULTARRETO="consultar_reto.php";
     static $REGISTRARRETO="registrar_reto.php";
     public function consultarRetos(){
-        $_SESSION["panel"] = $CONSULTARRETO;
+        $_SESSION['panel'] = $CONSULTARRETO;
     }
     public function registrarRetos(){
-        $_SESSION["panel"] = $REGISTRARRETO;
+        $_SESSION['panel'] = $REGISTRARRETO;
     }
 }
