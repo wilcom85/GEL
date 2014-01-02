@@ -508,3 +508,27 @@
 	{
 		color: rgba(255,255,255,0.9);
 	}
+
+/*********************************************************************************/
+/* Clases GEL                                                                     */
+/*********************************************************************************/
+        .trBotones{
+            text-align:center;
+        }
+        
+        .etiquetaForm
+        {
+            text-align: right;
+            text-decoration: #4E4D4D;
+            text-shadow: calc;
+        }
+        
+        .tablaformulario
+        {
+            margin-left: 5%;
+            margin-right: 5%;
+            border-radius: 10px;
+            border-color: #191919;
+            border-style: solid;
+            width: 90%;
+        }

@@ -42,17 +42,19 @@
                         <!-- Start css3menu.com BODY section -->
                         <ul id="css3menu0" class="topmenu">
                         <li class="topfirst"><a href="#" style="width:140px;"><span><img src="admin_login_success_files/css3menu0/122.png" alt=""/>Retos</span></a>
-                        <ul>
-                            <li><a href="admin_consultar_reto.php">Consultar Retos</a></li>
-                            <li><a href="#">Nuevo Reto</a></li>             
-                        </ul></li>
+                            <ul>
+                                <li><a href="admin_consultar_reto.php">Consultar Retos</a></li>
+                                <li><a href="admin_crear_reto.php">Nuevo Reto</a></li>             
+                            </ul>
+                        </li>
                         <li class="topmenu"><a href="#" style="width:140px;"><span><img src="admin_login_success_files/css3menu0/54.png" alt=""/>Equipos</span></a>
-                        <ul>
-                                <li><a href="#">Consultar Equipos</a></li>
-                                <li>
-                                    <a href="#">Nuevo Equipo</a>                              
-                                </li>
-                        </ul></li>
+                            <ul>
+                                    <li><a href="#">Consultar Equipos</a></li>
+                                    <li>
+                                        <a href="#">Nuevo Equipo</a>                              
+                                    </li>
+                            </ul>
+                        </li>
                         <li class="topmenu"><a href="#" style="width:140px;"><span><img src="admin_login_success_files/css3menu0/47.png" alt=""/>Personas</span></a>
                         <ul>
                                 <li><a href="#">Consultar Personas</a></li>
