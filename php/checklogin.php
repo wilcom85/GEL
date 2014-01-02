@@ -8,6 +8,7 @@
 	$password=""; //Clave del usuario de MySQL
 	$db_name="vive_gob_movil"; //Nombre de la Base de Datos
 	$tbl_name="members";  //Nombre de la Tabla
+        //
 	//Conectar al servidor de base de datos
 	mysql_connect("$host","$username","$password") or die("No es posible conectarse a la base de datos: ". mysql_error());
 	mysql_select_db("$db_name")or die("No es posible seleccionar una base de datos");
@@ -17,7 +18,7 @@
 	//Proteger inyección de MySQL
 	$myusername = stripslashes($myusername);
 	$mypassword = stripslashes($mypassword);
-	$myusername = mysql_real_escape_string($myusername);
+        $myusername = mysql_real_escape_string($myusername);
 	$mypassword = mysql_real_escape_string($mypassword);
 	$sql="SELECT * FROM $tbl_name WHERE username = '$myusername' and password='$mypassword'";
 	$result = mysql_query($sql);
@@ -35,6 +36,7 @@
 			$_SESSION['$usuario'] = $myusername;
 			$_SESSION['$clave'] = $mypassword;
                         $_SESSION['$panel'] = "panelAdmin.html";
+                        $_SESSION['$rol'] = $row[3];
 			header("location:admin_login_success.php");
 		}
 		if($row[3] == 'jurado' ){
@@ -43,6 +45,7 @@
 			$_SESSION['$usuario'] = $myusername;
 			$_SESSION['$clave'] = $mypassword;
                         $_SESSION['$panel'] = "panelUser.html";
+                        $_SESSION['$rol'] = $row[3];
 			header("location:user_login_success.php");
 		}
 	}
