@@ -1,18 +1,23 @@
 <?php
+        include './mySqlConnection.php';
 	//Forzar el uso de codificación utf-8
 	header('Content-Type: text/html; charset=UTF-8');
 	//Definición de Variables
 	ob_start();
-	$host="localhost:3306"; //Nombre del Host
-	$username="root"; //Nombre del usuario de MySQL
-	$password=""; //Clave del usuario de MySQL
-	$db_name="vive_gob_movil"; //Nombre de la Base de Datos
-	$tbl_name="members";  //Nombre de la Tabla
+        $dbconnect = new mySqlConnection();
+        $tbl_name = "members"; //nombre de la tabla
+        $dbconnect->establecerConexion($tbl_name);
+	$host= $dbconnect->getServer();
+	$username= $dbconnect->getUser(); //Nombre del usuario de MySQL
+	//$password=""; //Clave del usuario de MySQL
+	$db_name= $dbconnect->getDataBase(); //Nombre de la Base de Datos
         //
 	//Conectar al servidor de base de datos
-	mysql_connect("$host","$username","$password") or die("No es posible conectarse a la base de datos: ". mysql_error());
-	mysql_select_db("$db_name")or die("No es posible seleccionar una base de datos");
-	//Usuario y clave enviados desde el formulario
+	//mysql_connect("$host","$username","$password") or die("No es posible conectarse a la base de datos: ". mysql_error());
+	//mysql_select_db("$db_name")or die("No es posible seleccionar una base de datos");
+	
+
+        //Usuario y clave enviados desde el formulario
 	$myusername=$_POST['myusername'];
 	$mypassword=$_POST['mypassword'];
 	//Proteger inyección de MySQL
