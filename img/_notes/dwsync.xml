@@ -1,32 +1,67 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <dwsync>
-<file name="closelabel.gif" server="C:/wamp2/www/GEL/" local="130302307585862199" remote="130302307580000000" Dst="0" />
-<file name="facebook.png" server="C:/wamp2/www/GEL/" local="130302307581899539" remote="130302307580000000" Dst="0" />
-<file name="flickr.png" server="C:/wamp2/www/GEL/" local="130302307584231090" remote="130302307580000000" Dst="0" />
-<file name="icon_about.png" server="C:/wamp2/www/GEL/" local="130302307588193755" remote="130302307580000000" Dst="0" />
-<file name="icon_contact.png" server="C:/wamp2/www/GEL/" local="130302307584911587" remote="130302307580000000" Dst="0" />
-<file name="icon_portfolio.png" server="C:/wamp2/www/GEL/" local="130302307585561982" remote="130302307580000000" Dst="0" />
-<file name="icon_services.png" server="C:/wamp2/www/GEL/" local="130302307584561310" remote="130302307580000000" Dst="0" />
-<file name="icon_testimonial.png" server="C:/wamp2/www/GEL/" local="130302307584631374" remote="130302307580000000" Dst="0" />
-<file name="icon_testimonial1.png" server="C:/wamp2/www/GEL/" local="130302307585642031" remote="130302307580000000" Dst="0" />
-<file name="linkedin.png" server="C:/wamp2/www/GEL/" local="130302307584771515" remote="130302307580000000" Dst="0" />
-<file name="loading.gif" server="C:/wamp2/www/GEL/" local="130302307583180385" remote="130302307580000000" Dst="0" />
-<file name="menu_box.png" server="C:/wamp2/www/GEL/" local="130302307584701434" remote="130302307580000000" Dst="0" />
-<file name="nextlabel.gif" server="C:/wamp2/www/GEL/" local="130302307584351191" remote="130302307580000000" Dst="0" />
-<file name="page_nav_bg.png" server="C:/wamp2/www/GEL/" local="130302307584851551" remote="130302307580000000" Dst="0" />
-<file name="previous.png" server="C:/wamp2/www/GEL/" local="130302307587603340" remote="130302307580000000" Dst="0" />
-<file name="prevlabel.gif" server="C:/wamp2/www/GEL/" local="130302307586442565" remote="130302307580000000" Dst="0" />
-<file name="templatemo_background.png" server="C:/wamp2/www/GEL/" local="130302307588123687" remote="130302307580000000" Dst="0" />
-<file name="templatemo_footer.png" server="C:/wamp2/www/GEL/" local="130302307587543300" remote="130302307580000000" Dst="0" />
-<file name="templatemo_header.png" server="C:/wamp2/www/GEL/" local="130302307587673391" remote="130302307580000000" Dst="0" />
-<file name="templatemo_home_btn.png" server="C:/wamp2/www/GEL/" local="130302307585211744" remote="130302307580000000" Dst="0" />
-<file name="templatemo_image_01.jpg" server="C:/wamp2/www/GEL/" local="130302307585151704" remote="130302307580000000" Dst="0" />
-<file name="templatemo_image_02.jpg" server="C:/wamp2/www/GEL/" local="130302307581739436" remote="130302307580000000" Dst="0" />
-<file name="templatemo_list.png" server="C:/wamp2/www/GEL/" local="130302307588063668" remote="130302307580000000" Dst="0" />
-<file name="templatemo_logo.png" server="C:/wamp2/www/GEL/" local="130302307585371872" remote="130302307580000000" Dst="0" />
-<file name="templatemo_next.png" server="C:/wamp2/www/GEL/" local="130302307584151037" remote="130302307580000000" Dst="0" />
-<file name="templatemo_wrapper.png" server="C:/wamp2/www/GEL/" local="130302307585301826" remote="130302307580000000" Dst="0" />
-<file name="twitter.png" server="C:/wamp2/www/GEL/" local="130302307585752109" remote="130302307580000000" Dst="0" />
-<file name="yahoo.png" server="C:/wamp2/www/GEL/" local="130302307585952247" remote="130302307580000000" Dst="0" />
-<file name="youtube.png" server="C:/wamp2/www/GEL/" local="130302307585451926" remote="130302307580000000" Dst="0" />
+<file name="closelabel.gif" server="C:/wamp2/www/GEL/" local="130302307585862199" remote="130302307580000000" />
+<file name="facebook.png" server="C:/wamp2/www/GEL/" local="130302307581899539" remote="130302307580000000" />
+<file name="flickr.png" server="C:/wamp2/www/GEL/" local="130302307584231090" remote="130302307580000000" />
+<file name="icon_about.png" server="C:/wamp2/www/GEL/" local="130302307588193755" remote="130302307580000000" />
+<file name="icon_contact.png" server="C:/wamp2/www/GEL/" local="130302307584911587" remote="130302307580000000" />
+<file name="icon_portfolio.png" server="C:/wamp2/www/GEL/" local="130302307585561982" remote="130302307580000000" />
+<file name="icon_services.png" server="C:/wamp2/www/GEL/" local="130302307584561310" remote="130302307580000000" />
+<file name="icon_testimonial.png" server="C:/wamp2/www/GEL/" local="130302307584631374" remote="130302307580000000" />
+<file name="icon_testimonial1.png" server="C:/wamp2/www/GEL/" local="130302307585642031" remote="130302307580000000" />
+<file name="linkedin.png" server="C:/wamp2/www/GEL/" local="130302307584771515" remote="130302307580000000" />
+<file name="loading.gif" server="C:/wamp2/www/GEL/" local="130302307583180385" remote="130302307580000000" />
+<file name="menu_box.png" server="C:/wamp2/www/GEL/" local="130302307584701434" remote="130302307580000000" />
+<file name="nextlabel.gif" server="C:/wamp2/www/GEL/" local="130302307584351191" remote="130302307580000000" />
+<file name="page_nav_bg.png" server="C:/wamp2/www/GEL/" local="130302307584851551" remote="130302307580000000" />
+<file name="previous.png" server="C:/wamp2/www/GEL/" local="130302307587603340" remote="130302307580000000" />
+<file name="prevlabel.gif" server="C:/wamp2/www/GEL/" local="130302307586442565" remote="130302307580000000" />
+<file name="templatemo_background.png" server="C:/wamp2/www/GEL/" local="130302307588123687" remote="130302307580000000" />
+<file name="templatemo_footer.png" server="C:/wamp2/www/GEL/" local="130302307587543300" remote="130302307580000000" />
+<file name="templatemo_header.png" server="C:/wamp2/www/GEL/" local="130302307587673391" remote="130302307580000000" />
+<file name="templatemo_home_btn.png" server="C:/wamp2/www/GEL/" local="130302307585211744" remote="130302307580000000" />
+<file name="templatemo_image_01.jpg" server="C:/wamp2/www/GEL/" local="130302307585151704" remote="130302307580000000" />
+<file name="templatemo_image_02.jpg" server="C:/wamp2/www/GEL/" local="130302307581739436" remote="130302307580000000" />
+<file name="templatemo_list.png" server="C:/wamp2/www/GEL/" local="130302307588063668" remote="130302307580000000" />
+<file name="templatemo_logo.png" server="C:/wamp2/www/GEL/" local="130302307585371872" remote="130302307580000000" />
+<file name="templatemo_next.png" server="C:/wamp2/www/GEL/" local="130302307584151037" remote="130302307580000000" />
+<file name="templatemo_wrapper.png" server="C:/wamp2/www/GEL/" local="130302307585301826" remote="130302307580000000" />
+<file name="twitter.png" server="C:/wamp2/www/GEL/" local="130302307585752109" remote="130302307580000000" />
+<file name="yahoo.png" server="C:/wamp2/www/GEL/" local="130302307585952247" remote="130302307580000000" />
+<file name="youtube.png" server="C:/wamp2/www/GEL/" local="130302307585451926" remote="130302307580000000" />
+<file name="closelabel.gif" server="C:/wamp/www/" local="130332802806061349" remote="130332802800000000" />
+<file name="devant.jpg" server="C:/wamp/www/" local="130332802806071349" remote="130332802800000000" />
+<file name="facebook.png" server="C:/wamp/www/" local="130332802806081350" remote="130332802800000000" />
+<file name="flickr.png" server="C:/wamp/www/" local="130332802806081350" remote="130332802800000000" />
+<file name="Home-48.png" server="C:/wamp/www/" local="130332802805691328" remote="130332802800000000" />
+<file name="icon_about.png" server="C:/wamp/www/" local="130332802806091351" remote="130332802800000000" />
+<file name="icon_contact.png" server="C:/wamp/www/" local="130332802806101351" remote="130332802800000000" />
+<file name="icon_portfolio.png" server="C:/wamp/www/" local="130332802806111352" remote="130332802800000000" />
+<file name="icon_services.png" server="C:/wamp/www/" local="130332802806111352" remote="130332802800000000" />
+<file name="icon_testimonial.png" server="C:/wamp/www/" local="130332802806121352" remote="130332802800000000" />
+<file name="icon_testimonial1.png" server="C:/wamp/www/" local="130332802806151354" remote="130332802800000000" />
+<file name="linkedin.png" server="C:/wamp/www/" local="130332802806151354" remote="130332802800000000" />
+<file name="loading.gif" server="C:/wamp/www/" local="130332802806161355" remote="130332802800000000" />
+<file name="logoMinTIC.png" server="C:/wamp/www/" local="130332802806171355" remote="130332802800000000" />
+<file name="menu_box.png" server="C:/wamp/www/" local="130332802806181356" remote="130332802800000000" />
+<file name="nextlabel.gif" server="C:/wamp/www/" local="130332802813891797" remote="130332802810000000" />
+<file name="ospinternational.jpg" server="C:/wamp/www/" local="130332802813891797" remote="130332802810000000" />
+<file name="page_nav_bg.png" server="C:/wamp/www/" local="130332802813901797" remote="130332802810000000" />
+<file name="People-256.png" server="C:/wamp/www/" local="130332802805911340" remote="130332802800000000" />
+<file name="People-64.png" server="C:/wamp/www/" local="130332802805931341" remote="130332802800000000" />
+<file name="previous.png" server="C:/wamp/www/" local="130332802814121810" remote="130332802810000000" />
+<file name="prevlabel.gif" server="C:/wamp/www/" local="130332802814121810" remote="130332802810000000" />
+<file name="templatemo_background.png" server="C:/wamp/www/" local="130332802873165187" remote="130332802870000000" />
+<file name="templatemo_footer.png" server="C:/wamp/www/" local="130332802873175188" remote="130332802870000000" />
+<file name="templatemo_header.png" server="C:/wamp/www/" local="130332802873185188" remote="130332802870000000" />
+<file name="templatemo_home_btn.png" server="C:/wamp/www/" local="130332802873195189" remote="130332802870000000" />
+<file name="templatemo_image_01.jpg" server="C:/wamp/www/" local="130332802873205189" remote="130332802870000000" />
+<file name="templatemo_image_02.jpg" server="C:/wamp/www/" local="130332802873215190" remote="130332802870000000" />
+<file name="templatemo_list.png" server="C:/wamp/www/" local="130332802873215190" remote="130332802870000000" />
+<file name="templatemo_logo.png" server="C:/wamp/www/" local="130332802873225190" remote="130332802870000000" />
+<file name="templatemo_next.png" server="C:/wamp/www/" local="130332802873245192" remote="130332802870000000" />
+<file name="templatemo_wrapper.png" server="C:/wamp/www/" local="130332802873255192" remote="130332802870000000" />
+<file name="twitter.png" server="C:/wamp/www/" local="130332802873415201" remote="130332802870000000" />
+<file name="yahoo.png" server="C:/wamp/www/" local="130332802873415201" remote="130332802870000000" />
+<file name="youtube.png" server="C:/wamp/www/" local="130332802873435202" remote="130332802870000000" />
 </dwsync>

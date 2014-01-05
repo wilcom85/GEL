@@ -12,19 +12,22 @@
  * @author stitc_000
  */
 class mySqlConnection {
-    private $server = "localhost:3306";
+    private $server = "127.0.0.1:3306";
     private $username = "root";
-    private $password = "";
+    private $password = "80378556";
     private $dbname = "vive_gob_movil";
+    private $connection;
+    private $selection;
     
     //put your code here
     public function establecerConexion() {
         //Conectar al servidor de base de datos
-	mysql_connect($this->server,$this->username,$this->password) or die("No es posible conectarse a la base de datos: ". mysql_error());
-	mysql_select_db($this->dbname)or die("No es posible seleccionar una base de datos");
+	$this->connection = mysql_connect($this->server,$this->username,$this->password) or die("No es posible conectarse a la base de datos: ". mysql_error());
+	$this->selection = mysql_select_db($this->dbname)or die("No es posible seleccionar una base de datos");
     }
     
     public function insertarDatos($tblname,$array1,$array2){
+        //CONCATENA LOS CAMPOS Y LOS VALORES PARA CREAR UN QUERY DE INSERCIÓN
         $tamano1 = count($array1)+1;
         $tamano2 = count($array2)+1;
         $campos;
@@ -39,7 +42,9 @@ class mySqlConnection {
         $sql = "INSERT INTO " .$tblname ." (" .$campos .") VALUES (" .$valores .");";
     }
     
-    
+    public function seleccionarTabla($tblname){
+        
+    }
     
     
     public function getServer() {
@@ -50,5 +55,14 @@ class mySqlConnection {
     }
     public function getDataBase(){
         return $this->dbname;
+    }
+    public function getPassword(){
+        return $this->password;
+    }
+    public function getConnection(){
+        return $this->connection;
+    }
+    public function getSelection(){
+        return $this->selection;
     }
 }
