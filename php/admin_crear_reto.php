@@ -44,7 +44,7 @@
                 <nav>    
                 </nav>
                 <article id="page-wrapper">
-                    <form>
+                    <form name="crearReto" method="post" action="nuevoReto.php">
                         <table class="tablaformulario" id="tablacrearReto">
                             <tr>
                                 <td>

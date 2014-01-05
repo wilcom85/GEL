@@ -28,25 +28,33 @@ class mySqlConnection {
     
     public function insertarDatos($tblname,$array1,$array2){
         //CONCATENA LOS CAMPOS Y LOS VALORES PARA CREAR UN QUERY DE INSERCIÓN
-        $tamano1 = count($array1)+1;
-        $tamano2 = count($array2)+1;
-        $campos;
-        $valores;
-        for($i = 0; $i < $tamano1;$i++){
-            $campos = $campos ."'" .$tamano1[i] ."',";
+        $tamano1 = count($array1);
+        $tamano2 = count($array2);
+        $campos="";
+        $valores="";
+        $i=0;
+        $a=0;
+        //CONVERTIR ARRAY DE CAMPOS EN CADENA DE CARACTERES
+        for($i = 1; $i < $tamano1;$i++){
+            $campos = $campos ."'" .$array1[$i] ."',";
             echo $campos;
         }
-        for($i = 0; $i < $tamano2;$i++){
-            $valores = $valores ."'" .$tamano2[i] ."',";
+        echo $campos;
+        //CONVERTIR ARRAY DE VALORES EN CADENA DE CARACTERES
+        for($a = 1; $a < $tamano2;$a++){
+            $valores = $valores ."'" .$array2[$a] ."',";
         }
-        $sql = "INSERT INTO " .$tblname ." (" .$campos .") VALUES (" .$valores .");";
-    }
+        echo $valores;
+        //EJECUTAR QUERY
+        $sql = "INSERT INTO " .$tblname ."(" .$campos .") VALUES (" .$valores .");";
+        var_dump($sql);
+        mysql_query($sql);
+        echo "OK";
+}
     
     public function seleccionarTabla($tblname){
         
-    }
-    
-    
+    }  
     public function getServer() {
         return $this->server;
     }

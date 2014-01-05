@@ -4,16 +4,17 @@
 <file name="admin_login_success.php" server="C:/wamp2/www/GEL/" local="130302299529334157" remote="130302299520000000" />
 <file name="headerfooter.php" server="C:/wamp2/www/GEL/" local="130302225371757458" remote="130302225370000000" />
 <file name="admin_consultar_reto.php" server="C:/wamp/www/" local="130332802874115241" remote="130332802870000000" />
-<file name="admin_crear_reto.php" server="C:/wamp/www/" local="130332802874125242" remote="130332802870000000" />
+<file name="admin_crear_reto.php" server="C:/wamp/www/" local="130333717888041044" remote="130333717880000000" />
 <file name="admin_login_success.htmlbk" server="C:/wamp/www/" local="130332802874155244" remote="130332802870000000" />
 <file name="admin_login_success.php" server="C:/wamp/www/" local="130332802874165244" remote="130332802870000000" />
 <file name="checklogin.php" server="C:/wamp/www/" local="130332825057834077" remote="130332825050000000" />
 <file name="consultar_reto.php" server="C:/wamp/www/" local="130333680577747018" remote="130333680570000000" />
 <file name="headerfooter.php" server="C:/wamp/www/" local="130332802874285251" remote="130332802870000000" />
 <file name="menuOption.php" server="C:/wamp/www/" local="130332802874295252" remote="130332802870000000" />
-<file name="mySqlConnection.php" server="C:/wamp/www/" local="130333597584630083" remote="130333597580000000" />
+<file name="mySqlConnection.php" server="C:/wamp/www/" local="130333760045262299" remote="130333760040000000" />
 <file name="opcionRetos.php" server="C:/wamp/www/" local="130332802874595269" remote="130332802870000000" />
 <file name="panelAdmin.html" server="C:/wamp/www/" local="130332802874615270" remote="130332802870000000" />
 <file name="panelUser.html" server="C:/wamp/www/" local="130332802874625271" remote="130332802870000000" />
 <file name="user_login_success.php" server="C:/wamp/www/" local="130332802874635271" remote="130332802870000000" />
+<file name="nuevoReto.php" server="C:/wamp/www/" local="130333754133104143" remote="130333754130000000" />
 </dwsync>
