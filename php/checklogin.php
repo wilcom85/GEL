@@ -40,8 +40,8 @@
 			session_start();
 			$_SESSION['$usuario'] = $myusername;
 			$_SESSION['$clave'] = $mypassword;
-            $_SESSION['$panel'] = "panelAdmin.html";
-            $_SESSION['$rol'] = $row[3];
+                        $_SESSION['$panel'] = "panelAdmin.html";
+                        $_SESSION['$rol'] = $row[3];
 			header("location:admin_login_success.php");
 		}
 		if($row[3] == 'jurado' ){
@@ -49,8 +49,8 @@
 			session_start();
 			$_SESSION['$usuario'] = $myusername;
 			$_SESSION['$clave'] = $mypassword;
-            $_SESSION['$panel'] = "panelUser.html";
-            $_SESSION['$rol'] = $row[3];
+                        $_SESSION['$panel'] = "panelUser.html";
+                        $_SESSION['$rol'] = $row[3];
 			header("location:user_login_success.php");
 		}
 	}

@@ -35,21 +35,29 @@ class mySqlConnection {
         $i=0;
         $a=0;
         //CONVERTIR ARRAY DE CAMPOS EN CADENA DE CARACTERES
-        for($i = 1; $i < $tamano1;$i++){
-            $campos = $campos ."'" .$array1[$i] ."',";
-            echo $campos;
+        for($i = 0; $i < $tamano1;$i++){
+            $campos = $campos .$array1[$i];
+            if ($i<$tamano1-1){
+                $campos=$campos.",";
+            }
         }
-        echo $campos;
         //CONVERTIR ARRAY DE VALORES EN CADENA DE CARACTERES
-        for($a = 1; $a < $tamano2;$a++){
-            $valores = $valores ."'" .$array2[$a] ."',";
+        for($a = 0; $a < $tamano2;$a++){
+            $valores = $valores ."'" .$array2[$a]."'";
+            if ($a<$tamano2-1){
+                $valores=$valores .",";
+            }
         }
-        echo $valores;
         //EJECUTAR QUERY
         $sql = "INSERT INTO " .$tblname ."(" .$campos .") VALUES (" .$valores .");";
-        var_dump($sql);
-        mysql_query($sql);
-        echo "OK";
+        $result = mysql_query($sql);
+        If ($result == 1){
+            echo "El nuevo registro se ha creado exitosamente";
+            sleep(5);
+        }else{
+            echo "falló la creación del registro";
+            sleep(5);
+        }
 }
     
     public function seleccionarTabla($tblname){

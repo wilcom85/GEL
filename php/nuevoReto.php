@@ -26,8 +26,7 @@
 	$numeroReto = mysql_real_escape_string($numeroReto);
         //DEFINIR ARRAY DE CAMPOS
         $arrayCampos = array("nombre","iteracion");
-        var_dump($arrayCampos);
         $arrayValores = array($nombreReto,$numeroReto);
-        var_dump($arrayValores);
-        $dbconnect->insertarDatos($tbl_name, $arrayCampos, $arrayValores);     
+        $dbconnect->insertarDatos("retos", $arrayCampos, $arrayValores);
+        header("location:admin_login_success.php");
 ?>
