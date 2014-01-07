@@ -10,8 +10,7 @@
 	//Definición de Variables
 	ob_start();
         $dbconnect = new mySqlConnection();
-        $tbl_name = "members"; //nombre de la tabla
-        $dbconnect->establecerConexion($tbl_name);
+        $dbconnect->establecerConexion();
 	$host= $dbconnect->getServer();
 	$username= $dbconnect->getUser(); //Nombre del usuario de MySQL
 	$password= $dbconnect->getPassword(); //Clave del usuario de MySQL
@@ -28,5 +27,5 @@
         $arrayCampos = array("nombre","iteracion");
         $arrayValores = array($nombreReto,$numeroReto);
         $dbconnect->insertarDatos("retos", $arrayCampos, $arrayValores);
-        header("location:admin_login_success.php");
+        //header("location:admin_login_success.php");
 ?>

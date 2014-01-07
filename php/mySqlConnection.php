@@ -11,10 +11,12 @@
  *
  * @author stitc_000
  */
+include './dialogue.php';
+
 class mySqlConnection {
     private $server = "127.0.0.1:3306";
     private $username = "root";
-    private $password = "80378556";
+    private $password = "";
     private $dbname = "vive_gob_movil";
     private $connection;
     private $selection;
@@ -49,17 +51,24 @@ class mySqlConnection {
             }
         }
         //EJECUTAR QUERY
+            
+        $dialogue = new dialogue();
         $sql = "INSERT INTO " .$tblname ."(" .$campos .") VALUES (" .$valores .");";
-        $result = mysql_query($sql);
-        If ($result == 1){
-            echo "El nuevo registro se ha creado exitosamente";
-            sleep(5);
-        }else{
-            echo "falló la creación del registro";
-            sleep(5);
+        try{
+            $result = mysql_query($sql);
+            If ($result == 1){
+                $dialogue->dialogueSuccess("El nuevo registro se ha creado exitosamente");
+                //echo "<div id='dialog' title='Exito'><p>El nuevo registro se ha creado exitosamente</p></div>";
+            }else{
+                $dialogue->dialogueError("Falló la creación del registro");
+                //echo "<div id='dialog' title='Fallo'><p>falló la creación del registro</p></div>";
+            }
+        } catch (Exception $ex) {
+            $dialogue->dialogueError('Excepción capturada: ', $ex->getMessage() ,  '\n');
+            //echo "<div id='dialog' title='Fallo'><p></p></div>";
         }
 }
-    
+
     public function seleccionarTabla($tblname){
         
     }  
@@ -82,3 +91,24 @@ class mySqlConnection {
         return $this->selection;
     }
 }
+?>
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="../css/jquery/jquery-ui.css">
+        <script src="../jquery/jquery-1.10.2.js"></script>
+        <script src="../jquery/jquery-ui.js"></script>
+        <!--Script de cuadro de dialogo-->
+        <script>
+            $(function() {
+                $( "#dialog" ).dialog({
+                    width: 960,
+                    hide: 'slide',
+                    position: 'top',
+                    show: 'slide',
+                    close: function(event, ui) { location.href = 'admin_login_success.php' }
+                });
+            });
+        </script>
+    </head>
+</html>
