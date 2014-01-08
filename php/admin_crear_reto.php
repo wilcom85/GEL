@@ -64,7 +64,7 @@
                             </tr>
                             <tr class="trBotones">
                                 <td>
-                                    <input type="button" title="cancelar" value="Cancelar">
+                                    <input type="button" title="cancelar" value="Cancelar" onclick = "location.href='admin_login_success.php'">
                                 </td>
                                 <td>                                        
                                     <input type="submit" name="guardar" value="Guardar">
