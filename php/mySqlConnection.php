@@ -21,13 +21,13 @@ class mySqlConnection {
     private $connection;
     private $selection;
     
-    //put your code here
+    //PERMITE CONECTARSE A LA BASE DE DATOS
     public function establecerConexion() {
         //Conectar al servidor de base de datos
 	$this->connection = mysql_connect($this->server,$this->username,$this->password) or die("No es posible conectarse a la base de datos: ". mysql_error());
 	$this->selection = mysql_select_db($this->dbname)or die("No es posible seleccionar una base de datos");
     }
-    
+    //PERMITE INSERTAR DATOS EN UNA TABLA
     public function insertarDatos($tblname,$array1,$array2){
         //CONCATENA LOS CAMPOS Y LOS VALORES PARA CREAR UN QUERY DE INSERCIÓN
         $tamano1 = count($array1);
@@ -67,11 +67,25 @@ class mySqlConnection {
             $dialogue->dialogueError('Excepción capturada: ', $ex->getMessage() ,  '\n');
             //echo "<div id='dialog' title='Fallo'><p></p></div>";
         }
-}
-
-    public function seleccionarTabla($tblname){
-        
+    }
+    /*
+    * 
+    * ---DEVUELVE UN ARRAY CON EL RESULTADO DE UNA CONSULTA SIN CONDICION---
+    * 
+    */
+    public function seleccionarDatos($fieldname,$tblname){
+        $dialogue = new dialogue();
+        $sql = "SELECT " .$fieldname ." FROM " .$tblname .";";
+        try{
+            $result = mysql_query($sql) or die ("Error en: $sql:" . mysql_error());
+            return $result;
+        } catch (Exception $ex) {
+            $dialogue->dialogueError('Excepción capturada: ', $ex->getMessage() ,  '\n');
+        }
+        mysql_free_result($result);
     }  
+    
+ 
     public function getServer() {
         return $this->server;
     }

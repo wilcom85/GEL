@@ -51,7 +51,7 @@
                             <ul>
                                     <li><a href="#">Consultar Equipos</a></li>
                                     <li>
-                                        <a href="#">Nuevo Equipo</a>                              
+                                        <a href="admin_crear_equipo.php">Nuevo Equipo</a>                              
                                     </li>
                             </ul>
                         </li>
