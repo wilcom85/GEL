@@ -58,13 +58,13 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <p class="etiquetaForm">Iteración:</p>
+                                    <p class="etiquetaForm">Nombre del reto:</p>
                                 </td>
                                 <td>
                                     <select name="reto">
                                         <!-- llenado automático del drop down list -->
                                         <?php
-                                            $fieldname = "nombre";
+                                            $fieldname = "id,nombre";
                                             $tblname = "retos";
                                             $connection = new mySqlConnection();
                                             $connection->establecerConexion();
@@ -75,15 +75,10 @@
                                             }
                                             echo mysql_num_rows($resultQry);
                                             while($row = mysql_fetch_array($resultQry)){
-                                                ?>
-                                                <!--imprimir los resultados de la consulta en la lista.
-                                                <option><?php echo $row[0];?></option>
-                                                <?php
-                                                $i++;
+                                                    echo ("<option  VALUE=\"$row[0]\" " . ($resultQry == $row[0] ? " selected" : "") . ">$row[1]</option>");
                                             }
                                         ?>
                                     </select>
-                                </td>
                             </tr>
                             <tr class="trBotones">
                                 <td>

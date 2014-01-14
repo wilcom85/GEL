@@ -17,7 +17,7 @@ class dialogue {
         echo "<div id='dialog' title='Fallo'><p><img src='../img/Error-32.png'>" .$message ."</p></div>";
     }
     public function dialogueSuccess($message){
-        echo "<div id='dialog' title='Fallo'><p><img src='../img/Tick-48.png'>" .$message ."</p></div>";
+        echo "<div id='dialog' title='Exito'><p><img src='../img/Tick-48.png'>" .$message ."</p></div>";
     }
 }
 ?>

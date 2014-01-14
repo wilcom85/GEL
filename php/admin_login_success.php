@@ -49,7 +49,7 @@
                         </li>
                         <li class="topmenu"><a href="#" style="width:140px;"><span><img src="admin_login_success_files/css3menu0/54.png" alt=""/>Equipos</span></a>
                             <ul>
-                                    <li><a href="#">Consultar Equipos</a></li>
+                                <li><a href="admin_consultar_equipo.php">Consultar Equipos</a></li>
                                     <li>
                                         <a href="admin_crear_equipo.php">Nuevo Equipo</a>                              
                                     </li>
