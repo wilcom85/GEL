@@ -40,4 +40,5 @@
         echo "No se encontraron datos en la base de datos";
     }
     ob_end_flush();
+    $dbconnect->cerrarConexion();
  ?>

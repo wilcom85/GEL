@@ -30,10 +30,16 @@
                     <tr>
                     <td> <?=$datos["id"]?> </td>
                     <td> <?=$datos["nombre"]?> </td>
+                    <?php
+                        $buscar2= $dbconnect->seleccionarDatosCondicion("nombre", "retos", "id=" .$datos["fk_id_reto"]);
+                        $datos2 = mysql_fetch_array($buscar2);
+                    ?>
+                    <td> <?=$datos2["nombre"]?> </td>
                     </tr>
                     <?php
                 }
                 mysql_free_result($buscar);
+                mysql_free_result($buscar2);
             ?>
         </table>
         <?php
@@ -41,4 +47,5 @@
         echo "No se encontraron datos en la base de datos";
     }
     ob_end_flush();
+    $dbconnect->cerrarConexion();
  ?>

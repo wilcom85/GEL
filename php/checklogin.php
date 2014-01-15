@@ -58,4 +58,5 @@
 		echo "Usuario o clave inválidos";
 	}
 	ob_end_flush();
+        $dbconnect->cerrarConexion();
 ?> 

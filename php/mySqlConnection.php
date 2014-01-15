@@ -16,7 +16,7 @@ include './dialogue.php';
 class mySqlConnection {
     private $server = "127.0.0.1:3306";
     private $username = "root";
-    private $password = "";
+    private $password = "80378556";
     private $dbname = "vive_gob_movil";
     private $connection;
     private $selection;
@@ -84,7 +84,27 @@ class mySqlConnection {
         }
         mysql_free_result($result);
     }  
+
+    /*
+    * 
+    * ---DEVUELVE UN ARRAY CON EL RESULTADO DE UNA CONSULTA CONDICIONADA---
+    * 
+    */
+    public function seleccionarDatosCondicion($fieldname,$tblname,$condition){
+        $dialogue = new dialogue();
+        $sql = "SELECT " .$fieldname ." FROM " .$tblname ." WHERE " .$condition .";";
+        try{
+            $result = mysql_query($sql) or die ("Error en: $sql:" . mysql_error());
+            return $result;
+        } catch (Exception $ex) {
+            $dialogue->dialogueError('Excepción capturada: ', $ex->getMessage() ,  '\n');
+        }
+        mysql_free_result($result);
+    }
     
+    public function cerrarConexion(){
+        mysql_close($this->connection);
+    }
  
     public function getServer() {
         return $this->server;
