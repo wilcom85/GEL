@@ -57,8 +57,8 @@
                         </li>
                         <li class="topmenu"><a href="#" style="width:140px;"><span><img src="admin_login_success_files/css3menu0/47.png" alt=""/>Personas</span></a>
                         <ul>
-                                <li><a href="#">Consultar Personas</a></li>
-                                <li><a href="#">Nueva Persona</a></li>
+                            <li><a href="admin_consultar_persona.php">Consultar Personas</a></li>
+                            <li><a href="admin_crear_persona.php">Nueva Persona</a></li>
                         </ul></li>
                         <li class="topmenu"><a href="#" style="width:140px;"><span><img src="admin_login_success_files/css3menu0/2.png" alt=""/>Evaluaciones</span></a>
                         <ul>
