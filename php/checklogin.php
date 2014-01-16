@@ -5,7 +5,7 @@
 	//Definición de Variables
 	ob_start();
         $dbconnect = new mySqlConnection();
-        $tbl_name = "members"; //nombre de la tabla
+        $tbl_name = "persona"; //nombre de la tabla
         $dbconnect->establecerConexion($tbl_name);
 	$host= $dbconnect->getServer();
 	$username= $dbconnect->getUser(); //Nombre del usuario de MySQL
@@ -25,7 +25,8 @@
 	$mypassword = stripslashes($mypassword);
         $myusername = mysql_real_escape_string($myusername);
 	$mypassword = mysql_real_escape_string($mypassword);
-	$sql="SELECT * FROM $tbl_name WHERE username = '$myusername' and password='$mypassword'";
+	$sql="SELECT * FROM $tbl_name WHERE usuario = '$myusername' and clave ='$mypassword'";
+        echo $sql;
 	$result = mysql_query($sql);
 	//Mysql_num_row cuenta la fila de la tabla
 	$count = mysql_num_rows($result);
@@ -35,7 +36,7 @@
 		$row = mysql_fetch_array($result);
 		
 		//Si el usuario es administrador, ingresa al home de Admin
-		if($row[3] == 'administrador' ){
+		if($row[5] == 'administrador' ){
 			//Registrar $myusername y $mypassword y redireccionar al home del usuario logueado.
 			session_start();
 			$_SESSION['$usuario'] = $myusername;
@@ -44,7 +45,7 @@
                         $_SESSION['$rol'] = $row[3];
 			header("location:admin_login_success.php");
 		}
-		if($row[3] == 'jurado' ){
+		if($row[5] == 'jurado' ){
 			//Registrar $myusername y $mypassword y redireccionar al home del usuario logueado.
 			session_start();
 			$_SESSION['$usuario'] = $myusername;

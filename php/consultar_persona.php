@@ -23,6 +23,7 @@
                 <th>ID</th>
                 <th>Nombres</th>
                 <th>Apellidos</th>
+                <th>Tipo Usuario</th>
             </tr>
             <?php
                 while ($datos = mysql_fetch_array($buscar)){
@@ -31,6 +32,7 @@
                     <td> <?=$datos["id"]?> </td>
                     <td> <?=$datos["nombre"]?> </td>
                     <td> <?=$datos["apellido"]?> </td>
+                    <td> <?=$datos["tipo"]?> </td>
                     </tr>
                     <?php
                 }

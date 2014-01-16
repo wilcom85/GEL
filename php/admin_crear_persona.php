@@ -19,6 +19,30 @@
         <script type="text/javascript" src="../js/myJs/refrescar_iframe.js"></script>
         <script type="text/javascript">
             refrescar = new refrescarFrame('AllInfo');
+            //Función que valida los campos del formulario
+            function validarEnvio(){
+                if(document.crearPersona.cedulaPersona.value.length==0){
+                    alert("El campo Cédula es obligatorio")
+                    document.crearPersona.cedulaPersona.focus();
+                    return(0);
+                }
+                if(document.crearPersona.nombrePersona.value.length==0){
+                    alert("El campo Nombre es obligatorio")
+                    document.crearPersona.nombrePersona.focus();
+                    return(0);
+                }
+                if(document.crearPersona.apellidoPersona.value.length==0){
+                    alert("El campo Apellido es obligatorio")
+                    document.crearPersona.apellidoPersona.focus();
+                    return(0);
+                }
+                if(document.crearPersona.clavePersona.value != document.crearPersona.conficlavePersona.value){
+                    alert("La clave y la confirmación no coinciden")
+                    document.crearPersona.clavePersona.focus();
+                    return(0);
+                }
+                document.crearPersona.submit();
+            }
         </script>
     </head>
     <body>
@@ -48,6 +72,14 @@
                         <table class="tablaformulario" id="tablacrearPersona">
                             <tr>
                                 <td>
+                                    <p class="etiquetaForm">Cédula:</p>
+                                </td>
+                                <td>
+                                    <input name="cedulaPersona" type="text" id="cedulaPersona">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
                                     <p class="etiquetaForm">Nombre:</p>
                                 </td>
                                 <td>
@@ -62,12 +94,47 @@
                                     <input type="text" name="apellidoPersona" id="apellidoPersona" ><br>
                                 </td>
                             </tr>
+                            <tr>
+                                <td>
+                                    <p class="etiquetaForm">Usuario:</p>
+                                </td>
+                                <td>                                        
+                                    <input type="text" name="usuarioPersona" id="usuarioPersona" ><br>
+                                </td>
+                            </tr>   
+                            <tr>
+                                <td>
+                                    <p class="etiquetaForm">Clave:</p>
+                                </td>
+                                <td>                                        
+                                    <input type="password" name="clavePersona" id="clavePersona" ><br>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p class="etiquetaForm">Confirmar Clave:</p>
+                                </td>
+                                <td>                                        
+                                    <input type="password" name="conficlavePersona" id="conficlavePersona" ><br>
+                                </td>
+                            </tr>    
+                            <tr>
+                                <td>
+                                    <p class="etiquetaForm">Tipo Usuario:</p>
+                                </td>
+                                <td>                                        
+                                    <select name="tipoUsuario">
+                                        <option value="administrador">Administrador</option>
+                                        <option value="jurado">Jurado</option>
+                                    </select><br>
+                                </td>
+                            </tr> 
                             <tr class="trBotones">
                                 <td>
                                     <input type="button" title="cancelar" value="Cancelar" onclick = "location.href='admin_login_success.php'">
                                 </td>
                                 <td>                                        
-                                    <input type="submit" name="guardar" value="Guardar">
+                                    <input type="button" name="guardar" value="Guardar" onClick="validarEnvio()">
                                 </td>
                             </tr>
                         </table>
