@@ -23,6 +23,9 @@
                 <th>ID</th>
                 <th>Nombre</th>
                 <th>Reto</th>
+                <th>Jurado Funcional</th>
+                <th>Jurado Técnico</th>
+                <th>Jurado Externo</th>
             </tr>
             <?php
                 while ($datos = mysql_fetch_array($buscar)){
@@ -30,11 +33,30 @@
                     <tr>
                     <td> <?=$datos["id"]?> </td>
                     <td> <?=$datos["nombre"]?> </td>
+                    <!--Imprime el nombre del reto-->
                     <?php
                         $buscar2= $dbconnect->seleccionarDatosCondicion("nombre", "retos", "id=" .$datos["fk_id_reto"]);
                         $datos2 = mysql_fetch_array($buscar2);
                     ?>
                     <td> <?=$datos2["nombre"]?> </td>
+                    <!--Imprime el nombre del Jurado Funcional-->
+                    <?php
+                        $buscar3 = $dbconnect->seleccionarDatosCondicion("nombre,apellido", "persona", "id=" .$datos["fk_id_juradoFuncional"]);
+                        $datos3 = mysql_fetch_array($buscar3);
+                    ?>
+                    <td> <?=$datos3["nombre"]?> <?=$datos3["apellido"]?></td>
+                    <!--I?=$datos3["nombre"]?>mprime el nombre del Jurado Tecnico-->
+                    <?php
+                        $buscar4 = $dbconnect->seleccionarDatosCondicion("nombre,apellido", "persona", "id=" .$datos["fk_id_juradoTecnico"]);
+                        $datos4 = mysql_fetch_array($buscar4);
+                    ?>
+                    <td> <?=$datos4["nombre"]?> <?=$datos4["apellido"]?></td>
+                    <!--Imprime el nombre del Jurado Externo-->
+                    <?php
+                        $buscar5 = $dbconnect->seleccionarDatosCondicion("nombre,apellido", "persona", "id=" .$datos["fk_id_juradoExterno"]);
+                        $datos5 = mysql_fetch_array($buscar5);
+                    ?>
+                    <td> <?=$datos5["nombre"]?> <?=$datos5["apellido"]?></td>
                     </tr>
                     <?php
                 }

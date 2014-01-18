@@ -26,7 +26,7 @@
         $myusername = mysql_real_escape_string($myusername);
 	$mypassword = mysql_real_escape_string($mypassword);
 	$sql="SELECT * FROM $tbl_name WHERE usuario = '$myusername' and clave ='$mypassword'";
-        echo $sql;
+        //echo $sql;
 	$result = mysql_query($sql);
 	//Mysql_num_row cuenta la fila de la tabla
 	$count = mysql_num_rows($result);

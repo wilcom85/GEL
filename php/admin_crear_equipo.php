@@ -20,6 +20,35 @@
         <script type="text/javascript" src="../js/myJs/refrescar_iframe.js"></script>
         <script type="text/javascript">
             refrescar = new refrescarFrame('AllInfo');
+                        //Función que valida los campos del formulario
+            function validarEnvio(){
+                if(document.crearEquipo.nombreEquipo.value.length==0){
+                    alert("El campo Nombre de Equipo es obligatorio")
+                    document.crearEquipo.nombreEquipo.focus();
+                    return(0);
+                }
+                if(document.crearEquipo.reto.value.length==0){
+                    alert("Por favor seleccione un reto para el equipo")
+                    document.crearEquipo.reto.focus();
+                    return(0);
+                }
+                if(document.crearEquipo.juradoFuncional.value.length==0){
+                    alert("Por favor seleccione un Jurado Funcional para el equipo")
+                    document.crearEquipo.juradoFuncional.focus();
+                    return(0);
+                }
+                if(document.crearEquipo.juradoTecnico.value.length==0){
+                    alert("Por favor seleccione un Jurado Técnico para el equipo")
+                    document.crearEquipo.juradoTecnico.focus();
+                    return(0);
+                }
+                if(document.crearEquipo.juradoExterno.value.length==0){
+                    alert("Por favor seleccione un Jurado Externo para el equipo")
+                    document.crearEquipo.juradoExterno.focus();
+                    return(0);
+                }
+                document.crearEquipo.submit();
+            }
         </script>
     </head>
     <body>
@@ -62,6 +91,7 @@
                                 </td>
                                 <td>
                                     <select name="reto">
+                                        <option value="">Seleccione</option>
                                         <!-- llenado automático del drop down list -->
                                         <?php
                                             $fieldname = "id,nombre";
@@ -80,12 +110,90 @@
                                         ?>
                                     </select>
                             </tr>
+                            <tr>
+                                <td>
+                                    <p class="etiquetaForm">Jurado Funcional:</p>
+                                </td>
+                                <td>
+                                    <select name="juradoFuncional">
+                                        <option value="">Seleccione</option>
+                                        <!-- llenado automático del drop down list -->
+                                        <?php
+                                            $fieldname = "id,nombre,apellido";
+                                            $tblname = "persona";
+                                            $condition="tipo = 'jurado'";
+                                            $connection = new mySqlConnection();
+                                            $connection->establecerConexion();
+                                            $resultQry = $connection->seleccionarDatosCondicion($fieldname, $tblname, $condition);
+                                            //validar si ls consulta SQL arroja resultados
+                                            if (mysql_num_rows($resultQry)==0){ 
+                                                echo "no existen datos";exit(0);
+                                            }
+                                            echo mysql_num_rows($resultQry);
+                                            while($row = mysql_fetch_array($resultQry)){
+                                                    echo ("<option  VALUE=\"$row[0]\" " . ($resultQry == $row[0] ? " selected" : "") . ">$row[1] $row[2]</option>");
+                                            }
+                                        ?>
+                                    </select>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p class="etiquetaForm">Jurado Técnico:</p>
+                                </td>
+                                <td>
+                                    <select name="juradoTecnico">
+                                        <option value="">Seleccione</option>
+                                        <!-- llenado automático del drop down list -->
+                                        <?php
+                                            $fieldname = "id,nombre,apellido";
+                                            $tblname = "persona";
+                                            $condition="tipo = 'jurado'";
+                                            $connection = new mySqlConnection();
+                                            $connection->establecerConexion();
+                                            $resultQry = $connection->seleccionarDatosCondicion($fieldname, $tblname, $condition);
+                                            //validar si ls consulta SQL arroja resultados
+                                            if (mysql_num_rows($resultQry)==0){ 
+                                                echo "no existen datos";exit(0);
+                                            }
+                                            echo mysql_num_rows($resultQry);
+                                            while($row = mysql_fetch_array($resultQry)){
+                                                    echo ("<option  VALUE=\"$row[0]\" " . ($resultQry == $row[0] ? " selected" : "") . ">$row[1] $row[2]</option>");
+                                            }
+                                        ?>
+                                    </select>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p class="etiquetaForm">Jurado Externo:</p>
+                                </td>
+                                <td>
+                                    <select name="juradoExterno">
+                                        <option value="">Seleccione</option>
+                                        <!-- llenado automático del drop down list -->
+                                        <?php
+                                            $fieldname = "id,nombre,apellido";
+                                            $tblname = "persona";
+                                            $condition="tipo = 'jurado'";
+                                            $connection = new mySqlConnection();
+                                            $connection->establecerConexion();
+                                            $resultQry = $connection->seleccionarDatosCondicion($fieldname, $tblname, $condition);
+                                            //validar si ls consulta SQL arroja resultados
+                                            if (mysql_num_rows($resultQry)==0){ 
+                                                echo "no existen datos";exit(0);
+                                            }
+                                            echo mysql_num_rows($resultQry);
+                                            while($row = mysql_fetch_array($resultQry)){
+                                                    echo ("<option  value=\"$row[0]\" " . ($resultQry == $row[0] ? " selected" : "") . ">$row[1] $row[2]</option>");
+                                            }
+                                        ?>
+                                    </select>
+                            </tr>
                             <tr class="trBotones">
                                 <td>
                                     <input type="button" title="cancelar" value="Cancelar" onclick = "location.href='admin_login_success.php'">
                                 </td>
                                 <td>                                        
-                                    <input type="submit" name="guardar" value="Guardar">
+                                    <input type="button" name="guardar" value="Guardar" onClick="validarEnvio()">
                                 </td>
                             </tr>
                         </table>

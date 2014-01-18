@@ -4,11 +4,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/wamp/www/GEL/php/checklogin.php</file>
-            <file>file:/C:/wamp/www/GEL/css/estilo/default.css</file>
-            <file>file:/C:/wamp/www/GEL/index.php</file>
-            <file>file:/C:/wamp/www/GEL/php/admin_login_success.php</file>
-            <file>file:/C:/wamp/www/GEL/php/admin_crear_reto.php</file>
+            <file>file:/C:/wamp/www/GEL/trunk/php/consultar_persona.php</file>
+            <file>file:/C:/wamp/www/GEL/trunk/php/admin_consultar_equipo.php</file>
+            <file>file:/C:/wamp/www/GEL/trunk/php/admin_consultar_reto.php</file>
+            <file>file:/C:/wamp/www/GEL/trunk/php/consultar_equipo.php</file>
         </group>
     </open-files>
 </project-private>

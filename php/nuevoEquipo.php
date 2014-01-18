@@ -16,16 +16,29 @@
 	$password= $dbconnect->getPassword(); //Clave del usuario de MySQL
 	$db_name= $dbconnect->getDataBase(); //Nombre de la Base de Datos
         //SE RECIBEN DATOS DEL FORMULARIO
-        $nombreEquipo = $_POST['nombreEquipo'];
-        $idReto = $_POST['reto'];
-        //SE PROTEGE LA INYECCIÓN DE MYSQL
-        $nombreReto = stripslashes($nombreEquipo);
-	$numeroReto = stripslashes($idReto);
-        $nombreReto = mysql_real_escape_string($nombreEquipo);
-	$numeroReto = mysql_real_escape_string($idReto);
-        //DEFINIR ARRAY DE CAMPOS
-        $arrayCampos = array("nombre","fk_id_reto");
-        $arrayValores = array($nombreEquipo,$idReto);
-        $dbconnect->insertarDatos("equipos", $arrayCampos, $arrayValores);
-        //header("location:admin_login_success.php");
-?>
+        try{
+            $nombreEquipo = $_POST['nombreEquipo'];
+            $idReto = $_POST['reto'];
+            $idJuradoFuncional = $_POST['juradoFuncional'];
+            $idJuradoTecnico = $_POST['juradoTecnico'];
+            $idJuradoExterno = $_POST['juradoExterno'];
+            //SE PROTEGE LA INYECCIÓN DE MYSQL
+            $nombreReto = stripslashes($nombreEquipo);
+            $idReto = stripslashes($idReto);
+            $idJuradoFuncional = stripslashes($idJuradoFuncional);
+            $idJuradoTecnico = stripslashes($idJuradoTecnico);
+            $idJuradoExterno = stripslashes($idJuradoExterno);
+            $nombreReto = mysql_real_escape_string($nombreEquipo);
+            $idReto = mysql_real_escape_string($idReto);
+            $idJuradoFuncional = mysql_real_escape_string($idJuradoFuncional);
+            $idJuradoTecnico = mysql_real_escape_string($idJuradoTecnico);
+            $idJuradoExterno = mysql_real_escape_string($idJuradoExterno);
+            //DEFINIR ARRAY DE CAMPOS
+            $arrayCampos = array("nombre","fk_id_reto","fk_id_juradoFuncional","fk_id_juradoTecnico","fk_id_juradoExterno");
+            $arrayValores = array($nombreEquipo,$idReto,$idJuradoFuncional,$idJuradoTecnico,$idJuradoExterno);
+            $dbconnect->insertarDatos("equipos", $arrayCampos, $arrayValores);
+            //header("location:admin_login_success.php");
+        } catch (Exception $ex) {
+            echo "Excepción Capturada: ", $ex->getMessage(),"\n";
+        }
+    ?>
