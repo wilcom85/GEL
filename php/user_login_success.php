@@ -1,8 +1,14 @@
 <?php
-session_start();
-if(!$_SESSION["usuario"]= "myusername"){
-header("location:\\index.php");
-}
+    session_start();
+    try{
+        if($_SESSION['$rol']<> "jurado"){
+            header("location:../index.php");
+        }
+    }catch(Exeption $e){
+        
+    }
+    //Forzar el uso de codificación utf-8
+    header('Content-Type: text/html; charset=UTF-8');
 ?>
 
 <html>
@@ -22,7 +28,7 @@ header("location:\\index.php");
     </head>
     <body>
         <div>
-            <?php echo "Usted se ha registrado como: " .$_SESSION['$usuario']; ?> 
+            <?php echo "Usted se ha registrado como: " .$_SESSION['$usuario'] . " ".$_SESSION['$rol'] ; ?> 
         </div>
         <header id="logo">
             <div align="center">

@@ -1,7 +1,11 @@
 <?php
     session_start();
-    if(!$_SESSION["usuario"]= "myusername"){
-        header("location:\\index.php");
+    try{
+        if($_SESSION['$rol']<> "administrador"){
+            header("location:../index.php");
+        }
+    }catch(Exeption $e){
+        
     }
     //Forzar el uso de codificación utf-8
     header('Content-Type: text/html; charset=UTF-8');
