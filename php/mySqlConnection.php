@@ -16,7 +16,7 @@ include './dialogue.php';
 class mySqlConnection {
     private $server = "127.0.0.1:3306";
     private $username = "root";
-    private $password = "80378556";
+    private $password = "";
     private $dbname = "vive_gob_movil";
     private $connection;
     private $selection;

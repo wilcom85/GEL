@@ -1,4 +1,5 @@
 <?php
+    include 'mySqlConnection.php';
     session_start();
     try{
         if($_SESSION['$rol']<> "administrador"){
@@ -100,7 +101,7 @@
                                             $fieldname = "id,nombre";
                                             $tblname = "retos";
                                             $connection = new mySqlConnection();
-                                            $connection->establecerConexion();
+                                            $connection -> establecerConexion();
                                             $resultQry = $connection->seleccionarDatos($fieldname, $tblname);
                                             //validar si ls consulta SQL arroja resultados
                                             if (mysql_num_rows($resultQry)==0){ 
