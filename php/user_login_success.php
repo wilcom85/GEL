@@ -53,7 +53,7 @@
                         </li>
                         <li class="topmenu"><a href="#" style="width:180px;"><span><img src="admin_login_success_files/css3menu0/54.png" alt=""/>Mis Equipos</span></a>
                             <ul>
-                                    <li><a href="#">Mis Evaliaciones</a></li>
+                                <li><a href="user_calificar_equipo.php">Mis Evaliaciones</a></li>
                             </ul>
                         <li class="topmenu"><a href="#" style="width:180px;"><span><img src="admin_login_success_files/css3menu0/2.png" alt=""/>Mis Evaluaciones</span></a>
                         <ul>

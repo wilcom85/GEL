@@ -39,6 +39,7 @@
 		if($row[5] == 'administrador' ){
 			//Registrar $myusername y $mypassword y redireccionar al home del usuario logueado.
 			session_start();
+                        $_SESSION['$idUsuario'] = $row[0];
 			$_SESSION['$usuario'] = $myusername;
 			$_SESSION['$clave'] = $mypassword;
                         $_SESSION['$panel'] = "panelAdmin.html";
@@ -48,6 +49,7 @@
 		if($row[5] == 'jurado' ){
 			//Registrar $myusername y $mypassword y redireccionar al home del usuario logueado.
 			session_start();
+                        $_SESSION['$idUsuario'] = $row[0];
 			$_SESSION['$usuario'] = $myusername;
 			$_SESSION['$clave'] = $mypassword;
                         $_SESSION['$panel'] = "panelUser.html";
