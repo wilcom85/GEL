@@ -532,3 +532,8 @@
             border-style: solid;
             width: 90%;
         }
+        
+        .tituloTabla
+        {
+            text-decoration: #2A70E8;
+        }
