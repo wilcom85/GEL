@@ -30,7 +30,6 @@
             
             <!--Encabezado de la tabla con los criterios de Evaliación-->
             <tr>
-                <th>ID</th>
                 <th>Reto</th>
                 <th>Equipo</th>
             <?php
@@ -50,25 +49,158 @@
             
             <!--Contenido de la tabla-->
             <?php
-                $fieldnameevaluacion = " t1.nombre, t2.nombre";
+                $fieldnameevaluacion = " t1.fk_id_juradoFuncional, t1.nombre, t2.nombre";
                 $tblnameevaluacion = "equipos AS t1, retos AS t2";
                 $conditionevaluacion = "t1.fk_id_juradoFuncional = " .$_SESSION['$idUsuario']. " AND t1.fk_id_reto = t2.id";
                 $buscarevaluacion = $dbconnect->seleccionarDatosCondicion($fieldnameevaluacion, $tblnameevaluacion, $conditionevaluacion);
                 if(mysql_num_rows($buscarevaluacion) > 0){
                     while($datosevaluacion = mysql_fetch_array($buscarevaluacion)){
                         ?>
-                            <td>
+                            <tr>
+                                <th><?=$datosevaluacion[2]?></th>
                                 <th><?=$datosevaluacion[1]?></th>
-                                <th><?=$datosevaluacion[0]?></th>
-                            </td>
+                                <?php
+                                    $fieldnamecalif = "t1.valor_calificacion, t2.id";
+                                    $tblnamecalif = "valor_calificacion AS t1, calificacion AS t2";
+                                    $conditioncalif = "t1.fk_id_calificacion = t2.id AND t2.fk_id_jurado = '" .$datosevaluacion[0] ."'";
+                                    $buscarcalif = $dbconnect->seleccionarDatosCondicion($fieldnamecalif, $tblnamecalif, $conditioncalif);
+                                    $contadorcalif = 0;
+                                    $arraydatoscalif = array();
+                                    while($datoscalif = mysql_fetch_array($buscarcalif)){
+                                        $arraydatoscalif[] =$datoscalif[0];      
+                                        //echo $arraydatoscalif[$contadorcalif];
+                                        $contadorcalif ++ ;
+                                    }
+                                    ?>
+                                    <form name="calificaciones" method="post" action="editarCalificacion.php">
+                                        <th>
+                                            <select name="tiemporespuesta" >
+                                                <option <?php if($arraydatoscalif[0]==='0'){echo "selected";}?>>0</option>
+                                                <option <?php if($arraydatoscalif[0]==='1'){echo "selected";}?>>1</option>
+                                                <option <?php if($arraydatoscalif[0]==='2'){echo "selected";}?>>2</option>
+                                                <option <?php if($arraydatoscalif[0]==='3'){echo "selected";}?>>3</option>
+                                                <option <?php if($arraydatoscalif[0]==='4'){echo "selected";}?>>4</option>
+                                                <option <?php if($arraydatoscalif[0]==='5'){echo "selected";}?>>5</option>
+                                            </select>
+                                        </th>
+                                        <th>
+                                            <select name="presentacion">
+                                                <option <?php if($arraydatoscalif[1]==='0'){echo "selected";}?>>0</option>
+                                                <option <?php if($arraydatoscalif[1]==='1'){echo "selected";}?>>1</option>
+                                                <option <?php if($arraydatoscalif[1]==='2'){echo "selected";}?>>2</option>
+                                                <option <?php if($arraydatoscalif[1]==='3'){echo "selected";}?>>3</option>
+                                                <option <?php if($arraydatoscalif[1]==='4'){echo "selected";}?>>4</option>
+                                                <option <?php if($arraydatoscalif[1]==='5'){echo "selected";}?>>5</option>
+                                            </select>
+                                        </th>
+                                        <th>
+                                            <select name="trespuesta">
+                                                <option <?php if($arraydatoscalif[2]==='0'){echo "selected";}?>>0</option>
+                                                <option <?php if($arraydatoscalif[2]==='1'){echo "selected";}?>>1</option>
+                                                <option <?php if($arraydatoscalif[2]==='2'){echo "selected";}?>>2</option>
+                                                <option <?php if($arraydatoscalif[2]==='3'){echo "selected";}?>>3</option>
+                                                <option <?php if($arraydatoscalif[2]==='4'){echo "selected";}?>>4</option>
+                                                <option <?php if($arraydatoscalif[2]==='5'){echo "selected";}?>>5</option>
+                                            </select>
+                                        </th>
+                                        <th>
+                                            <select name="lgrafico">
+                                                <option <?php if($arraydatoscalif[3]==='0'){echo "selected";}?>>0</option>
+                                                <option <?php if($arraydatoscalif[3]==='1'){echo "selected";}?>>1</option>
+                                                <option <?php if($arraydatoscalif[3]==='2'){echo "selected";}?>>2</option>
+                                                <option <?php if($arraydatoscalif[3]==='3'){echo "selected";}?>>3</option>
+                                                <option <?php if($arraydatoscalif[3]==='4'){echo "selected";}?>>4</option>
+                                                <option <?php if($arraydatoscalif[3]==='5'){echo "selected";}?>>5</option>
+                                            </select>
+                                        </th>
+                                        <th>
+                                            <select name="ucolores">
+                                                <option <?php if($arraydatoscalif[4]==='0'){echo "selected";}?>>0</option>
+                                                <option <?php if($arraydatoscalif[4]==='1'){echo "selected";}?>>1</option>
+                                                <option <?php if($arraydatoscalif[4]==='2'){echo "selected";}?>>2</option>
+                                                <option <?php if($arraydatoscalif[4]==='3'){echo "selected";}?>>3</option>
+                                                <option <?php if($arraydatoscalif[4]==='4'){echo "selected";}?>>4</option>
+                                                <option <?php if($arraydatoscalif[4]==='5'){echo "selected";}?>>5</option>
+                                            </select>
+                                        </th>
+                                        <th>
+                                            <select name="nitidez">
+                                                <option <?php if($arraydatoscalif[5]==='0'){echo "selected";}?>>0</option>
+                                                <option <?php if($arraydatoscalif[5]==='1'){echo "selected";}?>>1</option>
+                                                <option <?php if($arraydatoscalif[5]==='2'){echo "selected";}?>>2</option>
+                                                <option <?php if($arraydatoscalif[5]==='3'){echo "selected";}?>>3</option>
+                                                <option <?php if($arraydatoscalif[5]==='4'){echo "selected";}?>>4</option>
+                                                <option <?php if($arraydatoscalif[5]==='5'){echo "selected";}?>>5</option>
+                                            </select>
+                                        </th>
+                                        <th>
+                                            <select name="problematica">
+                                                <option <?php if($arraydatoscalif[6]==='0'){echo "selected";}?>>0</option>
+                                                <option <?php if($arraydatoscalif[6]==='1'){echo "selected";}?>>1</option>
+                                                <option <?php if($arraydatoscalif[6]==='2'){echo "selected";}?>>2</option>
+                                                <option <?php if($arraydatoscalif[6]==='3'){echo "selected";}?>>3</option>
+                                                <option <?php if($arraydatoscalif[6]==='4'){echo "selected";}?>>4</option>
+                                                <option <?php if($arraydatoscalif[6]==='5'){echo "selected";}?>>5</option>
+                                            </select>
+                                        </th>
+                                        <th>
+                                            <select name="viabilidad">
+                                                <option <?php if($arraydatoscalif[7]==='0'){echo "selected";}?>>0</option>
+                                                <option <?php if($arraydatoscalif[7]==='1'){echo "selected";}?>>1</option>
+                                                <option <?php if($arraydatoscalif[7]==='2'){echo "selected";}?>>2</option>
+                                                <option <?php if($arraydatoscalif[7]==='3'){echo "selected";}?>>3</option>
+                                                <option <?php if($arraydatoscalif[7]==='4'){echo "selected";}?>>4</option>
+                                                <option <?php if($arraydatoscalif[7]==='5'){echo "selected";}?>>5</option>
+                                            </select>
+                                        </th>
+                                        <th>
+                                            <select name="completitud">
+                                                <option <?php if($arraydatoscalif[8]==='0'){echo "selected";}?>>0</option>
+                                                <option <?php if($arraydatoscalif[8]==='1'){echo "selected";}?>>1</option>
+                                                <option <?php if($arraydatoscalif[8]==='2'){echo "selected";}?>>2</option>
+                                                <option <?php if($arraydatoscalif[8]==='3'){echo "selected";}?>>3</option>
+                                                <option <?php if($arraydatoscalif[8]==='4'){echo "selected";}?>>4</option>
+                                                <option <?php if($arraydatoscalif[8]==='5'){echo "selected";}?>>5</option>
+                                            </select>
+                                        </th>
+                                        <th>
+                                            <select name="innovacion">
+                                                <option <?php if($arraydatoscalif[9]==='0'){echo "selected";}?>>0</option>
+                                                <option <?php if($arraydatoscalif[9]==='1'){echo "selected";}?>>1</option>
+                                                <option <?php if($arraydatoscalif[9]==='2'){echo "selected";}?>>2</option>
+                                                <option <?php if($arraydatoscalif[9]==='3'){echo "selected";}?>>3</option>
+                                                <option <?php if($arraydatoscalif[9]==='4'){echo "selected";}?>>4</option>
+                                                <option <?php if($arraydatoscalif[9]==='5'){echo "selected";}?>>5</option>
+                                            </select>                                        
+                                        </th>
+                                        <th>
+                                            <select name="combinacion">
+                                                <option <?php if($arraydatoscalif[10]==='0'){echo "selected";}?>>0</option>
+                                                <option <?php if($arraydatoscalif[10]==='1'){echo "selected";}?>>1</option>
+                                                <option <?php if($arraydatoscalif[10]==='2'){echo "selected";}?>>2</option>
+                                                <option <?php if($arraydatoscalif[10]==='3'){echo "selected";}?>>3</option>
+                                                <option <?php if($arraydatoscalif[10]==='4'){echo "selected";}?>>4</option>
+                                                <option <?php if($arraydatoscalif[10]==='5'){echo "selected";}?>>5</option>
+                                            </select>
+                                        </th>
+                                        <th>
+                                            <select name="renovacion">
+                                                <option <?php if($arraydatoscalif[11]==='0'){echo "selected";}?>>0</option>
+                                                <option <?php if($arraydatoscalif[11]==='1'){echo "selected";}?>>1</option>
+                                                <option <?php if($arraydatoscalif[11]==='2'){echo "selected";}?>>2</option>
+                                                <option <?php if($arraydatoscalif[11]==='3'){echo "selected";}?>>3</option>
+                                                <option <?php if($arraydatoscalif[11]==='4'){echo "selected";}?>>4</option>
+                                                <option <?php if($arraydatoscalif[11]==='5'){echo "selected";}?>>5</option>
+                                            </select>
+                                        </th>
+                                    </form>               
+                                </tr>
                         <?php
                     }
                 }else{
                     echo "No se encontraron datos de evaluación";
                 }
             ?>
-            
-            
         </table>
         <?php
     } else {

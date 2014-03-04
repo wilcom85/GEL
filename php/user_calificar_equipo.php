@@ -50,7 +50,7 @@
                 <article id="page-wrapper">
                     <iframe src= "consultar_evaluacion.php"
                             name="AllInfo"
-                            style="width:85%; height:350px; margin:10px 80px;">
+                            style="width:90%; height:350px; margin:10px 30px;">
                     </iframe>
                 </article>
             </div>

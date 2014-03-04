@@ -69,10 +69,15 @@
                                 <li><a href="#">Consultar Evaluaciones</a></li>
                                 <li><a href="#">Nueva Evaluacion</a></li>
                         </ul></li>
-                        <li class="toplast"><a href="#" style="width:140px;"><span><img src="admin_login_success_files/css3menu0/81.png" alt=""/>Resultados</span></a>
+                        
+                        <li class="topmenu"><a href="#" style="width:140px;"><span><img src="admin_login_success_files/css3menu0/81.png" alt=""/>Resultados</span></a>
                         <ul>
                                 <li><a href="#">Consultar Resultados</a></li>
+                                
                         </ul></li>
+                        
+                        <li class="toplast"><a href="destruirSesion.php" style="width:140px;"><span><img src="../img/1393565821_Log Out.png" alt="" width="50px"/>Salir</span></a>
+                        </li>
                         </ul><p class="_css3m"><a href="http://css3menu.com/">Create Drop Down Menu HTML </a> by Css3Menu.com</p>
                         <!-- End css3menu.com BODY section -->
                     </div>
