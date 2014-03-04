@@ -38,6 +38,41 @@
             $arrayValores = array($nombreEquipo,$idReto,$idJuradoFuncional,$idJuradoTecnico,$idJuradoExterno);
             $dbconnect->insertarDatos("equipos", $arrayCampos, $arrayValores);
             //header("location:admin_login_success.php");
+            $fieldnameid = "id";
+            $tblnameid = "equipos";
+            $conditionid = "nombre = '" .$nombreReto ."'";
+            $idequipo = $dbconnect->seleccionarDatosCondicion($fieldnameid, $tblnameid, $conditionid);
+            $datosequipo = mysql_fetch_array($idequipo);
+            
+            //Insertar valores en la tabla de calificaciones - Jurado Funcional.
+            try{
+                $arrayCamposCalf = array("fk_id_equipo","fk_id_jurado");
+                $arrayValoresCalf = array($datosequipo[0],$idJuradoFuncional);
+                $dbconnect->insertarDatos("calificacion", $arrayCamposCalf, $arrayValoresCalf); 
+            }
+            catch (Exception $ex) {
+                echo "Excepción Capturada: ", $ex->getMessage(),"\n";
+            }
+            
+            //Insertar valores en la tabla de calificaciones - Jurado Tecnico.
+            try{
+                $arrayCamposCalt = array("fk_id_equipo","fk_id_jurado");
+                $arrayValoresCalt = array($datosequipo[0],$idJuradoTecnico);
+                $dbconnect->insertarDatos("calificacion", $arrayCamposCalt, $arrayValoresCalt); 
+            }
+            catch (Exception $ex) {
+                echo "Excepción Capturada: ", $ex->getMessage(),"\n";
+            }
+            
+            //Insertar valores en la tabla de calificaciones - Jurado Tecnico.
+            try{
+                $arrayCamposCale = array("fk_id_equipo","fk_id_jurado");
+                $arrayValoresCale = array($datosequipo[0],$idJuradoExterno);
+                $dbconnect->insertarDatos("calificacion", $arrayCamposCale, $arrayValoresCale); 
+            }
+            catch (Exception $ex) {
+                echo "Excepción Capturada: ", $ex->getMessage(),"\n";
+            }
         } catch (Exception $ex) {
             echo "Excepción Capturada: ", $ex->getMessage(),"\n";
         }
