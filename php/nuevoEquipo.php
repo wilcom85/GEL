@@ -48,7 +48,18 @@
             try{
                 $arrayCamposCalf = array("fk_id_equipo","fk_id_jurado");
                 $arrayValoresCalf = array($datosequipo[0],$idJuradoFuncional);
-                $dbconnect->insertarDatos("calificacion", $arrayCamposCalf, $arrayValoresCalf); 
+                $dbconnect->insertarDatos("calificacion", $arrayCamposCalf, $arrayValoresCalf);
+                //Crear set de calificaciones funcionales para el equipo.
+                $fieldnamecalf = "id";
+                $tblnamecalf = "calificacion";
+                $conditioncalf = "fk_id_equipo = '" .$datosequipo[0] ."' AND fk_id_jurado = '".$idJuradoFuncional ."'";
+                $idcalf = $dbconnect->seleccionarDatosCondicion($fieldnamecalf, $tblnamecalf, $conditioncalf);
+                $datoscalf = mysql_fetch_array($idcal);
+                for($i=0;$i<=11;$i++){
+                    $arrayCamposValf = array("fk_id_criterio","fk_id_calificacion","valor_calificacion");
+                    $arrayValoresCalf2 = array($i,$datoscalf[0],"0");
+                    $dbconnect->insertarDatos("valor_calificacion", $arrayCamposValf, $arrayValoresCalf2);
+                }
             }
             catch (Exception $ex) {
                 echo "Excepción Capturada: ", $ex->getMessage(),"\n";
@@ -59,6 +70,18 @@
                 $arrayCamposCalt = array("fk_id_equipo","fk_id_jurado");
                 $arrayValoresCalt = array($datosequipo[0],$idJuradoTecnico);
                 $dbconnect->insertarDatos("calificacion", $arrayCamposCalt, $arrayValoresCalt); 
+                
+                //Crear set de calificaciones tecnicas para el equipo.
+                $fieldnamecalt = "id";
+                $tblnamecalt = "calificacion";
+                $conditioncalt = "fk_id_equipo = '" .$datosequipo[0] ."' AND fk_id_jurado = '".$idJuradoTecnico ."'";
+                $idcalt = $dbconnect->seleccionarDatosCondicion($fieldnamecalt, $tblnamecalt, $conditioncalt);
+                $datoscalt = mysql_fetch_array($idcal);
+                for($i=0;$i<=11;$i++){
+                    $arrayCamposValt = array("fk_id_criterio","fk_id_calificacion","valor_calificacion");
+                    $arrayValoresCalt2 = array($i,$datoscalt[0],"0");
+                    $dbconnect->insertarDatos("valor_calificacion", $arrayCamposValt, $arrayValoresCalt2);
+                }
             }
             catch (Exception $ex) {
                 echo "Excepción Capturada: ", $ex->getMessage(),"\n";
@@ -69,6 +92,18 @@
                 $arrayCamposCale = array("fk_id_equipo","fk_id_jurado");
                 $arrayValoresCale = array($datosequipo[0],$idJuradoExterno);
                 $dbconnect->insertarDatos("calificacion", $arrayCamposCale, $arrayValoresCale); 
+                
+                //Crear set de calificaciones externas para el equipo.
+                $fieldnamecale = "id";
+                $tblnamecale = "calificacion";
+                $conditioncale = "fk_id_equipo = '" .$datosequipo[0] ."' AND fk_id_jurado = '".$idJuradoExterno ."'";
+                $idcale = $dbconnect->seleccionarDatosCondicion($fieldnamecale, $tblnamecale, $conditioncale);
+                $datoscale = mysql_fetch_array($idcal);
+                for($i=0;$i<=11;$i++){
+                    $arrayCamposVale = array("fk_id_criterio","fk_id_calificacion","valor_calificacion");
+                    $arrayValoresCale2 = array($i,$datoscale[0],"0");
+                    $dbconnect->insertarDatos("valor_calificacion", $arrayCamposVale, $arrayValoresCale2);
+                }
             }
             catch (Exception $ex) {
                 echo "Excepción Capturada: ", $ex->getMessage(),"\n";
