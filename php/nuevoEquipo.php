@@ -54,7 +54,7 @@
                 $tblnamecalf = "calificacion";
                 $conditioncalf = "fk_id_equipo = '" .$datosequipo[0] ."' AND fk_id_jurado = '".$idJuradoFuncional ."'";
                 $idcalf = $dbconnect->seleccionarDatosCondicion($fieldnamecalf, $tblnamecalf, $conditioncalf);
-                $datoscalf = mysql_fetch_array($idcal);
+                $datoscalf = mysql_fetch_array($idcalf);
                 for($i=0;$i<=11;$i++){
                     $arrayCamposValf = array("fk_id_criterio","fk_id_calificacion","valor_calificacion");
                     $arrayValoresCalf2 = array($i,$datoscalf[0],"0");
@@ -76,7 +76,7 @@
                 $tblnamecalt = "calificacion";
                 $conditioncalt = "fk_id_equipo = '" .$datosequipo[0] ."' AND fk_id_jurado = '".$idJuradoTecnico ."'";
                 $idcalt = $dbconnect->seleccionarDatosCondicion($fieldnamecalt, $tblnamecalt, $conditioncalt);
-                $datoscalt = mysql_fetch_array($idcal);
+                $datoscalt = mysql_fetch_array($idcalt);
                 for($i=0;$i<=11;$i++){
                     $arrayCamposValt = array("fk_id_criterio","fk_id_calificacion","valor_calificacion");
                     $arrayValoresCalt2 = array($i,$datoscalt[0],"0");
@@ -98,7 +98,7 @@
                 $tblnamecale = "calificacion";
                 $conditioncale = "fk_id_equipo = '" .$datosequipo[0] ."' AND fk_id_jurado = '".$idJuradoExterno ."'";
                 $idcale = $dbconnect->seleccionarDatosCondicion($fieldnamecale, $tblnamecale, $conditioncale);
-                $datoscale = mysql_fetch_array($idcal);
+                $datoscale = mysql_fetch_array($idcale);
                 for($i=0;$i<=11;$i++){
                     $arrayCamposVale = array("fk_id_criterio","fk_id_calificacion","valor_calificacion");
                     $arrayValoresCale2 = array($i,$datoscale[0],"0");
@@ -111,4 +111,6 @@
         } catch (Exception $ex) {
             echo "Excepción Capturada: ", $ex->getMessage(),"\n";
         }
+    ob_end_flush();
+    $dbconnect->cerrarConexion();
     ?>
