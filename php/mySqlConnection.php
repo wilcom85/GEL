@@ -114,6 +114,19 @@ class mySqlConnection {
         mysql_free_result($result);
     }
     
+    public function actualizarDato($tabla,$campo,$dato,$condicion){
+        $dialogue = new dialogue();
+        $sql = "UPDATE ".$tabla ." SET ".$campo." = ".$dato." WHERE ".$condicion.";";
+        //echo $sql;
+        try{
+            $result = mysql_query($sql) or die ("Error en: $sql:" .mysql_error());
+            return $result;
+        } catch (Exception $ex) {
+            $dialogue->dialogueError('Excepción capturada: ', $ex->getMessage() ,  '\n');
+        }
+        mysql_free_result($result);
+    }
+    
     public function cerrarConexion(){
         mysql_close($this->connection);
     }
