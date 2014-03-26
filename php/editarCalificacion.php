@@ -5,16 +5,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-include './mySqlConnection.php';
-header('Content-Type: text/html; charset=UTF-8');
-ob_start();
+    include './mySqlConnection.php';
+    header('Content-Type: text/html; charset=UTF-8');
+    ob_start();
         $dbconnect = new mySqlConnection();
         $dbconnect->establecerConexion();
 	$host= $dbconnect->getServer();
 	$username= $dbconnect->getUser(); //Nombre del usuario de MySQL
 	$password= $dbconnect->getPassword(); //Clave del usuario de MySQL
 	$db_name= $dbconnect->getDataBase(); //Nombre de la Base de Datos
-        //SE RECIBEN DATOS DEL FORMULARIO
+        //SE RECIBEN DATOS DEL FORMULARIO   
+        echo $_POST['numero'];
         $numero = $_POST['numero'];
         $item1 = $_POST['item1'];
         $item2 = $_POST['item2'];
@@ -81,14 +82,43 @@ ob_start();
         
         for($i=0;$i<=10;$i++){
 //            echo $arrayActualizacionCal[$i];
-//            echo "<script type='text/javascript'>alert('$arrayActualizacionCal[$i]');</script>";
-
-   
+//           echo "<script type='text/javascript'>alert('$arrayActualizacionCal[$i]');</script>";
+//          Guardar datos en la base de datos de calificaciones.    
             $tabla="valor_calificacion";
             $campo="valor_calificacion";
             $dato = $arrayActualizacionCal[$i];
             $condicion = "fk_id_calificacion = ".$numero." AND fk_id_criterio = ".$i;
             $dbconnect->actualizarDato($tabla, $campo, $dato, $condicion);
-        }
-        header("location:consultar_evaluacion.php");
-        
+            $totalcalificacion = $arrayActualizacionCal[$i]*2;
+            $aspectos = $dbconnect->consultaTodosOrdenada("valor_pregunta", "aspectos_calificacion", "id");
+            while($datosaspectos = mysql_fetch_array($aspectos))
+            {
+                    $arraydatosaspectos[] = $datosaspectos[0];
+                    
+            }
+            
+            if ($i==0 or $i==1){
+                $totalcalificacion = $totalcalificacion * ($arraydatosaspectos[0]/10) ;
+            }
+            if ($i==2 or $i==3){
+                $totalcalificacion = $totalcalificacion * ($arraydatosaspectos[1]/10) ;
+            }
+            if ($i==4 or $i==5){
+                $totalcalificacion = $totalcalificacion * ($arraydatosaspectos[2]/10) ;
+            }
+            if ($i==6 or $i==7){
+                $totalcalificacion = $totalcalificacion * ($arraydatosaspectos[3]/10) ;
+            }
+            if ($i==8){
+                $totalcalificacion = $totalcalificacion * ($arraydatosaspectos[4]/10) ;
+            }
+            if ($i==9 or $i==10){
+                $totalcalificacion = $totalcalificacion * ($arraydatosaspectos[5]/10) ;
+            }
+            $tablacal="valor_calificacion";
+            $campocal=" total_calificacion ";
+            $dbconnect->actualizarDato($tablacal, $campocal, $totalcalificacion, $condicion);
+        }   
+         header("location: consultar_evaluacion.php");
+         ob_end_flush();
+         $dbconnect->cerrarConexion();
