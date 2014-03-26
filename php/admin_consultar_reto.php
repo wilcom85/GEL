@@ -26,6 +26,7 @@
         </script>
     </head>
     <body>
+        
         <div>
             <?php echo "Usted se ha registrado como: " .$_SESSION['$usuario']; ?> 
         </div>

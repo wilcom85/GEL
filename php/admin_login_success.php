@@ -72,8 +72,8 @@
                         
                         <li class="topmenu"><a href="#" style="width:140px;"><span><img src="admin_login_success_files/css3menu0/81.png" alt=""/>Resultados</span></a>
                         <ul>
-                                <li><a href="#">Consultar Resultados</a></li>
-                                
+                            <li><a href="admin_consultar_resultados.php">Consultar Resultados</a></li>
+        
                         </ul></li>
                         
                         <li class="toplast"><a href="destruirSesion.php" style="width:140px;"><span><img src="../img/1393565821_Log Out.png" alt="" width="50px"/>Salir</span></a>

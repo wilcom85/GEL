@@ -20,12 +20,14 @@ class mySqlConnection {
     private $dbname = "vive_gob_movil";
     private $connection;
     private $selection;
+    private $dialogue;
     
-    //PERMITE CONECTARSE A LA BASE DE DATOS
+    //PERMITE CONECTARSE A LA BASE DE DATOSd
     public function establecerConexion() {
         //Conectar al servidor de base de datos
 	$this->connection = mysql_connect($this->server,$this->username,$this->password) or die("No es posible conectarse a la base de datos: ". mysql_error());
 	$this->selection = mysql_select_db($this->dbname)or die("No es posible seleccionar una base de datos");
+
     }
     //PERMITE INSERTAR DATOS EN UNA TABLA
     public function insertarDatos($tblname,$array1,$array2){
@@ -52,19 +54,19 @@ class mySqlConnection {
         }
         //EJECUTAR QUERY
             
-        $dialogue = new dialogue();
+        //$this-> dialogue = new dialogue();
         $sql = "INSERT INTO " .$tblname ."(" .$campos .") VALUES (" .$valores .");";
         try{
             $result = mysql_query($sql);
             If ($result == 1){
-                $dialogue->dialogueSuccess("El nuevo registro se ha creado exitosamente");
+                $this-> dialogue->dialogueSuccess("El nuevo registro se ha creado exitosamente");
                 //echo "<div id='dialog' title='Exito'><p>El nuevo registro se ha creado exitosamente</p></div>";
             }else{
-                $dialogue->dialogueError("Falló la creación del registro");
+                $this->dialogue->dialogueError("Falló la creación del registro");
                 //echo "<div id='dialog' title='Fallo'><p>falló la creación del registro</p></div>";
             }
         } catch (Exception $ex) {
-            $dialogue->dialogueError('Excepción capturada: ', $ex->getMessage() ,  '\n');
+            $this->dialogue->dialogueError('Excepción capturada: ', $ex->getMessage() ,  '\n');
             //echo "<div id='dialog' title='Fallo'><p></p></div>";
         }
     }
@@ -74,13 +76,13 @@ class mySqlConnection {
     * 
     */
     public function seleccionarDatos($fieldname,$tblname){
-        $dialogue = new dialogue();
+        $this->dialogue = new dialogue();
         $sql = "SELECT " .$fieldname ." FROM " .$tblname .";";
         try{
             $result = mysql_query($sql) or die ("Error en: $sql:" . mysql_error());
             return $result;
         } catch (Exception $ex) {
-            $dialogue->dialogueError('Excepción capturada: ', $ex->getMessage() ,  '\n');
+            $this->dialogue->dialogueError('Excepción capturada: ', $ex->getMessage() ,  '\n');
         }
         mysql_free_result($result);
     }  
@@ -91,31 +93,31 @@ class mySqlConnection {
     * 
     */
     public function seleccionarDatosCondicion($fieldname,$tblname,$condition){
-        $dialogue = new dialogue();
+        //$this->dialogue = new dialogue();
         $sql = "SELECT " .$fieldname ." FROM " .$tblname ." WHERE " .$condition .";";
         try{
             $result = mysql_query($sql) or die ("Error en: $sql:" . mysql_error());
             return $result;
         } catch (Exception $ex) {
-            $dialogue->dialogueError('Excepción capturada: ', $ex->getMessage() ,  '\n');
+            $this->dialogue->dialogueError('Excepción capturada: ', $ex->getMessage() ,  '\n');
         }
         mysql_free_result($result);
     }
     
     public function consultaTodosOrdenada($fieldname,$tblname,$orderby){
-        $dialogue = new dialogue();
+        //$this->dialogue = new dialogue();
         $sql = "SELECT " .$fieldname ." FROM " .$tblname ." ORDER BY " .$orderby .";";
         try{
             $result = mysql_query($sql) or die ("Error en: $sql:" . mysql_error());
             return $result;
         } catch (Exception $ex) {
-            $dialogue->dialogueError('Excepción capturada: ', $ex->getMessage() ,  '\n');
+            $this->dialogue->dialogueError('Excepción capturada: ', $ex->getMessage() ,  '\n');
         }
         mysql_free_result($result);
     }
     
     public function actualizarDato($tabla,$campo,$dato,$condicion){
-        $dialogue = new dialogue();
+        //$dialogue = new dialogue();
         $sql = "UPDATE ".$tabla ." SET ".$campo." = ".$dato." WHERE ".$condicion.";";
         //echo $sql;
         try{

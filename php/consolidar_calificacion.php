@@ -5,74 +5,94 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-    header('Content-Type: text/html; charset=UTF-8');    
+header('Content-Type: text/html; charset=UTF-8');    
 
-    include 'mySqlConnection.php';
-    include 'arrayFunctions.php';
+//include 'mySqlConnection.php';
+//include 'arrayFunctions.php';
 class consolidar_Calificacion{
     
+    private $dbconnect;
+    private $arrayManagement;
+    
+    private function conexion (){
+        $this->dbconnect = new mySqlConnection();
+        $this->dbconnect->establecerConexion();  
+    }
+    
     function consultarIdCalificaciones ($idEquipo){
-        session_start();
+        $self = new self();
+        $self->conexion();
+//session_start();
         //Definición de Variables
-        ob_cleanob_start();
-        $dbconnect = new mySqlConnection();
-        $dbconnect->establecerConexion();
+        //  
         $fieldname="id";
         $tblname="calificacion";
         $condition = "fk_id_equipo = " .$idEquipo;
-        $buscar = $dbconnect->seleccionarDatosCondicion($fieldname, $tblname, $condition);
+        $buscar = $self->dbconnect->seleccionarDatosCondicion($fieldname, $tblname, $condition);
         $arrayManagement = new arrayFunction;
         //Se usa la clase arrayFunction para obtener un array con los elementos de la consulta.
         $arrayIdCalificacion = $arrayManagement->datosAArray($buscar);
-        $dbconnect->cerrarConexion();
+        return $arrayIdCalificacion;
+        $self->dbconnect->cerrarConexion();
+        ob_end_flush();
     }
     
     function consultarResultadoCalificacion($idCalificacion){
-        $dbconnect = new mySqlConnection();
-        $dbconnect->establecerConexion();
-        $fieldname="t1.valor_calificacion, t1.total_calificacion";
-        $tblname="valor_calificacion";
-        $condition = "fk_id_calificacion= " .$idCalificacion ."ORDER BY fk_id_criterio";
-        $buscar = $dbconnect->seleccionarDatosCondicion($fieldname, $tblname, $condition);
-        $arrayManagement = new arrayFunction;
+        ob_start();
+        $self = new self();
+        $self->conexion();
+//        $dbconnect = new mySqlConnection();
+//        $dbconnect->establecerConexion();
+        $fieldname="t1.total_calificacion";
+        $tblname="valor_calificacion AS t1";
+        $condition = "fk_id_calificacion= " .$idCalificacion ." ORDER BY fk_id_criterio";
+        $buscar = $self->dbconnect->seleccionarDatosCondicion($fieldname, $tblname, $condition);
+        $self-> arrayManagement = new arrayFunction;
         //Se usa la clase arrayFunction para obtener un array con los elementos de la consulta.
-        $arrayValorCalificacion = $arrayManagement->datosAArray($buscar);
-        $dbconnect->cerrarConexion();
+        $arrayValorCalificacion = $self->arrayManagement->datosAArray($buscar);       
+        return$arrayValorCalificacion;
+       
+        
+        
+        $self->dbconnect->cerrarConexion();
+        ob_end_flush();
     }
     
     function agruparResultadosCalificacion($arrayValoresCalif){
-        $calificacionUsabilidad;
-        $calificacionInterGrafica;
-        $calificacionFuncionalidad;
-        $calificacionInnovacion;
-        $calificacionInteredes;
-        $calificacionViabilidad;
-        for($i==0; $i<count($arrayValoreCalif);$i++){
+        $calificacionUsabilidad=0.0;
+        $calificacionInterGrafica=0.0;
+        $calificacionFuncionalidad=0.0;
+        $calificacionInnovacion=0.0;
+        $calificacionInteredes=0.0;
+        $calificacionViabilidad=0.0;
+        for($i=0; $i<count($arrayValoresCalif);$i++){
             if($i==0 or $i==1){
-                $calificacionUsabilidad = $calificacionUsabilidad + $arrayValoreCalif[$i];
+                
+                $calificacionUsabilidad = $calificacionUsabilidad + $arrayValoresCalif[$i];
             }
             if($i==2 or $i==3){
-                $calificacionInterGrafica = $calificacionInterGrafica + $arrayValoreCalif[$i];
+                $calificacionInterGrafica = $calificacionInterGrafica + $arrayValoresCalif[$i];
             }
             if($i==4 or $i==5){
-                $calificacionFuncionalidad = $calificacionFuncionalidad + $arrayValoreCalif[$i];
+                $calificacionFuncionalidad = $calificacionFuncionalidad + $arrayValoresCalif[$i];
             }
             if($i==6 or $i==7){
-                $calificacionInnovacion = $calificacionInnovacion + $arrayValoreCalif[$i];
+                $calificacionInnovacion = $calificacionInnovacion + $arrayValoresCalif[$i];
             }
             if($i==8){
-                $calificacionInteredes = $arrayValoreCalif[$i];
+                $calificacionInteredes = $arrayValoresCalif[$i];
             }
             if($i==9 or $i==10){
-                $calificacionViabilidad = $calificacionViabilidad + $arrayValoreCalif[$i];
+                $calificacionViabilidad = $calificacionViabilidad + $arrayValoresCalif[$i];
             }
+            //echo $arrayValoresCalif[$i];
         }
         $calificacionUsabilidad = $calificacionUsabilidad/2;
         $calificacionInterGrafica = $calificacionInterGrafica/2;
         $calificacionFuncionalidad = $calificacionFuncionalidad/2;
         $calificacionInnovacion = $calificacionInnovacion/2;
         $calificacionViabilidad = $calificacionViabilidad/2;
-        
+        //echo $calificacionUsabilidad;
         $arrayCalifAgrupadas = array('usabilidad'=>$calificacionUsabilidad,
                                      'grafica'=>$calificacionInterGrafica,
                                      'funcionalidad'=>$calificacionFuncionalidad,
@@ -82,5 +102,5 @@ class consolidar_Calificacion{
         return $arrayCalifAgrupadas;
     } 
 }
- ?>
+?>
 
