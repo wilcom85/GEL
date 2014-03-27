@@ -99,7 +99,7 @@
                 $conditioncale = "fk_id_equipo = '" .$datosequipo[0] ."' AND fk_id_jurado = '".$idJuradoExterno ."'";
                 $idcale = $dbconnect->seleccionarDatosCondicion($fieldnamecale, $tblnamecale, $conditioncale);
                 $datoscale = mysql_fetch_array($idcale);
-                for($i=0;$i<=15;$i++){
+                for($i=0;$i<=10;$i++){
                     $arrayCamposVale = array("fk_id_criterio","fk_id_calificacion","valor_calificacion");
                     $arrayValoresCale2 = array($i,$datoscale[0],"0");
                     $dbconnect->insertarDatos("valor_calificacion", $arrayCamposVale, $arrayValoresCale2);

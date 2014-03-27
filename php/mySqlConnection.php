@@ -31,7 +31,9 @@ class mySqlConnection {
     }
     //PERMITE INSERTAR DATOS EN UNA TABLA
     public function insertarDatos($tblname,$array1,$array2){
-        //CONCATENA LOS CAMPOS Y LOS VALORES PARA CREAR UN QUERY DE INSERCIÓN
+        $self = new self();
+        $self->dialogue = new dialogue();
+//CONCATENA LOS CAMPOS Y LOS VALORES PARA CREAR UN QUERY DE INSERCIÓN
         $tamano1 = count($array1);
         $tamano2 = count($array2);
         $campos="";
@@ -54,20 +56,20 @@ class mySqlConnection {
         }
         //EJECUTAR QUERY
             
-        //$this-> dialogue = new dialogue();
+        $self-> dialogue = new dialogue();
         $sql = "INSERT INTO " .$tblname ."(" .$campos .") VALUES (" .$valores .");";
         try{
             $result = mysql_query($sql);
             If ($result == 1){
-                $this-> dialogue->dialogueSuccess("El nuevo registro se ha creado exitosamente");
-                //echo "<div id='dialog' title='Exito'><p>El nuevo registro se ha creado exitosamente</p></div>";
+                $self-> dialogue->dialogueSuccess("El nuevo registro se ha creado exitosamente");
+                echo "<div id='dialog' title='Exito'><p>El nuevo registro se ha creado exitosamente</p></div>";
             }else{
-                $this->dialogue->dialogueError("Falló la creación del registro");
-                //echo "<div id='dialog' title='Fallo'><p>falló la creación del registro</p></div>";
+                $self->dialogue->dialogueError("Falló la creación del registro");
+                echo "<div id='dialog' title='Fallo'><p>falló la creación del registro</p></div>";
             }
         } catch (Exception $ex) {
-            $this->dialogue->dialogueError('Excepción capturada: ', $ex->getMessage() ,  '\n');
-            //echo "<div id='dialog' title='Fallo'><p></p></div>";
+            dialogueError('Excepción capturada: ', $ex->getMessage() ,  '\n');
+            echo "<div id='dialog' title='Fallo'><p></p></div>";
         }
     }
     /*
@@ -76,13 +78,14 @@ class mySqlConnection {
     * 
     */
     public function seleccionarDatos($fieldname,$tblname){
-        $this->dialogue = new dialogue();
+        $self=new self();
+          $self->dialogue = new dialogue();
         $sql = "SELECT " .$fieldname ." FROM " .$tblname .";";
         try{
             $result = mysql_query($sql) or die ("Error en: $sql:" . mysql_error());
             return $result;
         } catch (Exception $ex) {
-            $this->dialogue->dialogueError('Excepción capturada: ', $ex->getMessage() ,  '\n');
+            $self->dialogue->dialogueError('Excepción capturada: ', $ex->getMessage() ,  '\n');
         }
         mysql_free_result($result);
     }  
@@ -93,38 +96,41 @@ class mySqlConnection {
     * 
     */
     public function seleccionarDatosCondicion($fieldname,$tblname,$condition){
-        //$this->dialogue = new dialogue();
+        $self = new self();
+        $self->dialogue = new dialogue();
         $sql = "SELECT " .$fieldname ." FROM " .$tblname ." WHERE " .$condition .";";
         try{
             $result = mysql_query($sql) or die ("Error en: $sql:" . mysql_error());
             return $result;
         } catch (Exception $ex) {
-            $this->dialogue->dialogueError('Excepción capturada: ', $ex->getMessage() ,  '\n');
+            $self->dialogue->dialogueError('Excepción capturada: ', $ex->getMessage() ,  '\n');
         }
         mysql_free_result($result);
     }
     
     public function consultaTodosOrdenada($fieldname,$tblname,$orderby){
-        //$this->dialogue = new dialogue();
+        $self = new self();
+        $this->dialogue = new dialogue();
         $sql = "SELECT " .$fieldname ." FROM " .$tblname ." ORDER BY " .$orderby .";";
         try{
             $result = mysql_query($sql) or die ("Error en: $sql:" . mysql_error());
             return $result;
         } catch (Exception $ex) {
-            $this->dialogue->dialogueError('Excepción capturada: ', $ex->getMessage() ,  '\n');
+            $self->dialogue->dialogueError('Excepción capturada: ', $ex->getMessage() ,  '\n');
         }
         mysql_free_result($result);
     }
     
     public function actualizarDato($tabla,$campo,$dato,$condicion){
-        //$dialogue = new dialogue();
+        $self = new self();
+        $self->dialogue = new dialogue();
         $sql = "UPDATE ".$tabla ." SET ".$campo." = ".$dato." WHERE ".$condicion.";";
         //echo $sql;
         try{
             $result = mysql_query($sql) or die ("Error en: $sql:" .mysql_error());
             return $result;
         } catch (Exception $ex) {
-            $dialogue->dialogueError('Excepción capturada: ', $ex->getMessage() ,  '\n');
+            $self->dialogue->dialogueError('Excepción capturada: ', $ex->getMessage() ,  '\n');
         }
         mysql_free_result($result);
     }

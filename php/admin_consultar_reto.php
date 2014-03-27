@@ -51,7 +51,7 @@
                 <article id="page-wrapper">
                     <iframe src= "consultar_reto.php"
                             name="AllInfo"
-                            style="width:85%; height:350px; margin:10px 80px;">
+                            style="width:85%; height:550px; margin:10px 80px;">
                     </iframe>
                 </article>
             </div>

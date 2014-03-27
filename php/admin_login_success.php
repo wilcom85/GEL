@@ -85,7 +85,7 @@
                 <article id="page-wrapper">
                     <iframe src= "<?php echo $_SESSION['$panel']; ?>"
                             name="AllInfo"
-                            style="width:85%; height:350px; margin:5px;">
+                            style="width:85%; height:410px; margin:5px;">
                     </iframe>
                 </article>
             </div>

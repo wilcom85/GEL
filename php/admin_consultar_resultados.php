@@ -106,6 +106,7 @@
                 $calificacionInnovacion=0.0;
                 $calificacionInteredes=0.0;
                 $calificacionViabilidad=0.0;
+                $grantotal = 0.0;
                 for($i=0;$i<count($arrayEquipos);$i++){
                     $fieldnamer = "t1.nombre";
                     $tblnamer = "retos AS t1, equipos AS t2";
@@ -124,6 +125,7 @@
                     <td><?php echo $nombreactual[0]; ?></td>
                     <?php
                     $idCalificaciones = $consolidar->consultarIdCalificaciones($arrayEquipos[$i]);
+                    $totalFinal = 0.0;
                     //$cantidad = count($idCalificaciones);
                     for($n=0;$n<count($idCalificaciones);$n++){
                         $calificaciones=$consolidar->consultarResultadoCalificacion($idCalificaciones[$n]);
@@ -134,7 +136,8 @@
                         $calificacionInnovacion=$calificacionInnovacion + $totalcalificacion['innovacion'];
                         $calificacionInteredes=$calificacionInteredes + $totalcalificacion['redes'];
                         $calificacionViabilidad=$calificacionViabilidad + $totalcalificacion['viabilidad'];
-                        //echo $totalcalificacion['usabilidad'];                      
+                        //echo $totalcalificacion['usabilidad'];  
+                        $grantotal = $grantotal + $consolidar->granTotal($calificaciones);
                     }
                     ?>
                     <td><?php echo $calificacionUsabilidad; ?></td>
@@ -143,14 +146,16 @@
                     <td><?php echo $calificacionInnovacion; ?></td>
                     <td><?php echo $calificacionInteredes; ?></td>
                     <td><?php echo $calificacionViabilidad; ?></td>
-                    <?php $sumacalificaciones = $calificacionUsabilidad + 
-                                                $calificacionInterGrafica + 
-                                                $calificacionFuncionalidad + 
-                                                $calificacionInnovacion + 
-                                                $calificacionInteredes + 
-                                                $calificacionViabilidad?>
-                    <td><?php echo $sumacalificaciones ?></td>
-                    <?php $total = $sumacalificaciones/3; ?>
+                    <?php // $sumacalificaciones = $calificacionUsabilidad + 
+//                                                $calificacionInterGrafica + 
+//                                                $calificacionFuncionalidad + 
+//                                                $calificacionInnovacion + 
+//                                                $calificacionInteredes + 
+//                                                $calificacionViabilidad
+                    ?>
+                    
+                    <td><?php echo $grantotal ?></td>
+                    <?php $total = $grantotal/3; ?>
                     <td><?php echo $total?></td>
                     <?php
                }

@@ -3,6 +3,7 @@
     header('Content-Type: text/html; charset=UTF-8');    
 
     include 'mySqlConnection.php';
+    include './arrayFunctions.php';
     session_start();
     //Definición de Variables
     ob_start();
@@ -12,7 +13,7 @@
     $username = $dbconnect -> getUser(); //Nombre del usuario de MySQL
     $password = $dbconnect -> getPassword(); //Clave del usuario de MySQL
     $db_name = $dbconnect -> getDataBase(); //Nombre de la Base de Datos
-    $tbl_name ="equipos";  //Nombre de la Tabla
+     //Nombre de la Tabla
     ?>
     <html lang="es">
         
@@ -77,7 +78,9 @@
                             $buscarevaluacion = $dbconnect->seleccionarDatosCondicion($fieldnameevaluacion, $tblnameevaluacion, $conditionevaluacion);
                             if(mysql_num_rows($buscarevaluacion) > 0){
                                 $contadorregistros = 0;
+                                $arrayIdCal ;
                                 while($datosevaluacion = mysql_fetch_array($buscarevaluacion)){
+                                    $datosaArray = new arrayFunction; 
                                     ?>
                                         <tr>
                                             <td><?=$datosevaluacion[2]?></td>
@@ -95,10 +98,17 @@
                                                     //echo $arraydatoscalif[$contadorcalif];
                                                     $contadorcalif1 ++ ;
                                                 }
+                                                if($contadorregistros == 0){
+                                                    $fieldnamecal="distinct t2.id";
+                                                    $tblnamecal = "calificacion AS t2,valor_calificacion AS t1";
+                                                    $conditioncal="t1.fk_id_calificacion = t2.id AND t2.fk_id_jurado = '" .$datosevaluacion[0] ."'";
+                                                    $idscalif= $dbconnect->seleccionarDatosCondicion($fieldnamecal, $tblnamecal, $conditioncal);
+                                                    $arrayIdCal = $datosaArray->datosAArray($idscalif);
+                                                }
                                                 ?>
                                                 <form name="calificacionesFuncional" method="post" action="editarCalificacion.php">
                                                     <td>
-                                                        <input type="text" name="numero" readonly="readonly" value="<?php echo $arrayidcalif[$contadorregistros]?>" size="4"/>
+                                                        <input type="text" name="numero" readonly="readonly" value="<?php echo $arrayIdCal[$contadorregistros]?>" size="4"/>
                                                     </td>
                                                     <td>
                                                         <select name="item0" >
@@ -164,7 +174,7 @@
                                                         <select name="item6">
                                                             <option value="0"<?php if($arraydatoscalif1[6]==='0'){echo "selected";}?>>0</option>
                                                             <option value="1"<?php if($arraydatoscalif1[6]==='1'){echo "selected";}?>>1</option>
-                                                            <optionif($arraydatoscalif1[6]==='2'){echo "/option>
+                                                            <option value="2"<?php if($arraydatoscalif1[6]==='2'){echo "selected";}?>>2</option>
                                                             <option value="3"<?php if($arraydatoscalif1[6]==='3'){echo "selected";}?>>3</option>
                                                             <option value="4"<?php if($arraydatoscalif1[6]==='4'){echo "selected";}?>>4</option>
                                                             <option value="5"<?php if($arraydatoscalif1[6]==='5'){echo "selected";}?>>5</option>
@@ -216,8 +226,9 @@
                                                 </form>               
                                            </tr>
                                     <?php
+                                $contadorregistros++;    
                                 }
-                                $contadorregistros++;
+                                
                             }else{
                                 echo "No se encontraron datos de evaluación";
                             }
@@ -285,7 +296,9 @@
                             $buscarevaluaciont = $dbconnect->seleccionarDatosCondicion($fieldnameevaluaciont, $tblnameevaluaciont, $conditionevaluaciont);
                             if(mysql_num_rows($buscarevaluaciont) > 0){
                                 $contadorregistrost = 0;
+                                $arrayIdCalt;
                                 while($datosevaluaciont = mysql_fetch_array($buscarevaluaciont)){
+                                    $datosaArray2 = new arrayFunction; 
                                     ?>
                                         <tr class="alt">
                                             <td><?=$datosevaluaciont[2]?></td>
@@ -303,10 +316,19 @@
                                                     //echo $arraydatoscalif[$contadorcalif];
                                                     $contadorcalif3 ++ ;
                                                 }
+                                                if($contadorregistrost == 0){
+                                                    $fieldnamecalt="distinct t2.id";
+                                                    $tblnamecalt = "calificacion AS t2,valor_calificacion AS t1";
+                                                    $conditioncalt="t1.fk_id_calificacion = t2.id AND t2.fk_id_jurado = '" .$datosevaluaciont[0] ."'";
+                                                    $idscalift= $dbconnect->seleccionarDatosCondicion($fieldnamecalt, $tblnamecalt, $conditioncalt);
+                                                    $arrayIdCalt = $datosaArray2->datosAArray($idscalift);
+                                                }
                                                 ?>
+                                                
+                                                
                                                 <form action="editarCalificacion.php" method="post" name="calificacionesTecnica" >
                                                     <td>
-                                                        <input type="text" name="numero" readonly="readonly" value="<?php echo $arraydcalif3[$contadorregistrost]?>" size="4"/>
+                                                        <input type="text" name="numero" readonly="readonly" value="<?php echo $arrayIdCalt[$contadorregistrost]?>" size="4"/>
                                                     </td>
                                                     <td>
                                                         <select name="item0" >
@@ -424,8 +446,9 @@
                                                 </form>               
                                            </tr>
                                     <?php
+                                $contadorregistrost++;    
                                 }
-                                $contadorregistrost++;
+                                
                             }else{
                                 echo "No se encontraron datos de evaluación";
                             }
@@ -493,7 +516,9 @@
                             $buscarevaluacione = $dbconnect->seleccionarDatosCondicion($fieldnameevaluacione, $tblnameevaluacione, $conditionevaluacione);
                             if(mysql_num_rows($buscarevaluacione) > 0){
                                 $contadorregistrose = 0;
+                                $arrayIdCale;
                                 while($datosevaluacione = mysql_fetch_array($buscarevaluacione)){
+                                    $datosaArray3 = new arrayFunction; 
                                     ?>
                                         <tr class="alt">
                                             <td><?=$datosevaluacione[2]?></td>
@@ -511,10 +536,20 @@
                                                     //echo $arraydatoscalif[$contadorcalif];
                                                     $contadorcalif2 ++ ;
                                                 }
+                                                if($contadorregistrose == 0){
+                                                    $fieldnamecale="distinct t2.id";
+                                                    $tblnamecale = "calificacion AS t2,valor_calificacion AS t1";
+                                                    $conditioncale="t1.fk_id_calificacion = t2.id AND t2.fk_id_jurado = '" .$datosevaluacione[0] ."'";
+                                                    $idscalife= $dbconnect->seleccionarDatosCondicion($fieldnamecale, $tblnamecale, $conditioncale);
+                                                    $arrayIdCale = $datosaArray3->datosAArray($idscalife);
+                                                }
+                                                
                                                 ?>
+                                                
                                                 <form name="calificacionesExterna" method="post" action="editarCalificacion.php">
                                                     <td>
-                                                        <input type="text" name="numero" readonly="readonly" value="<?php echo $arraydcalif2[$contadorregistrose]?>" size="4">
+                                                        <input type="text" name="numero" readonly="readonly" value="<?php echo $arrayIdCale[$contadorregistrose]?>" size="4">
+                                                        
                                                     </td>
                                                     <td>
                                                         <select name="item0" >
@@ -682,8 +717,9 @@
                                                 </form>               
                                            </tr>
                                     <?php
+                                $contadorregistrose++;    
                                 }
-                                $contadorregistrose++;
+                                
                             }else{
                                 echo "No se encontraron datos de evaluación";
                             }

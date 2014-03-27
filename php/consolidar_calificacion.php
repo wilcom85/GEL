@@ -51,9 +51,6 @@ class consolidar_Calificacion{
         //Se usa la clase arrayFunction para obtener un array con los elementos de la consulta.
         $arrayValorCalificacion = $self->arrayManagement->datosAArray($buscar);       
         return$arrayValorCalificacion;
-       
-        
-        
         $self->dbconnect->cerrarConexion();
         ob_end_flush();
     }
@@ -101,6 +98,14 @@ class consolidar_Calificacion{
                                      'viabilidad'=>$calificacionViabilidad);
         return $arrayCalifAgrupadas;
     } 
+    
+    function granTotal ($arraycalificaciones){
+        $suma=0.0;
+        for($i=0;$i<count($arraycalificaciones);$i++){
+            $suma = $suma + $arraycalificaciones[$i];
+        }
+        return $suma;
+    }
 }
 ?>
 
