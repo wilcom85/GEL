@@ -6,7 +6,7 @@
             <url>php/consultar_evaluacion.php</url>
             <bookmark id="1">
                 <name/>
-                <line>344</line>
+                <line>428</line>
                 <key/>
             </bookmark>
         </file>
@@ -14,9 +14,12 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/wamp/www/GEL/trunk/php/consultar_evaluacion.php</file>
-            <file>file:/C:/wamp/www/GEL/trunk/php/arrayFunctions.php</file>
+            <file>file:/C:/wamp/www/GEL/trunk/php/admin_consultar_resultados.php</file>
             <file>file:/C:/wamp/www/GEL/trunk/php/mySqlConnection.php</file>
-            <file>file:/C:/wamp/www/GEL/trunk/php/consultar_equipo.php</file>
+            <file>file:/C:/wamp/www/GEL/trunk/php/arrayFunctions.php</file>
+            <file>file:/C:/wamp/www/GEL/trunk/php/consolidar_calificacion.php</file>
+            <file>file:/C:/wamp/www/GEL/trunk/php/nuevoEquipo.php</file>
+            <file>file:/C:/wamp/www/GEL/trunk/php/editarCalificacion.php</file>
         </group>
     </open-files>
 </project-private>

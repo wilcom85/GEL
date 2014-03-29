@@ -27,12 +27,13 @@ class consolidar_Calificacion{
         //  
         $fieldname="id";
         $tblname="calificacion";
-        $condition = "fk_id_equipo = " .$idEquipo;
+        $condition = "fk_id_equipo = " .$idEquipo." ORDER BY id";
         $buscar = $self->dbconnect->seleccionarDatosCondicion($fieldname, $tblname, $condition);
         $arrayManagement = new arrayFunction;
         //Se usa la clase arrayFunction para obtener un array con los elementos de la consulta.
         $arrayIdCalificacion = $arrayManagement->datosAArray($buscar);
         return $arrayIdCalificacion;
+       
         $self->dbconnect->cerrarConexion();
         ob_end_flush();
     }
@@ -56,6 +57,7 @@ class consolidar_Calificacion{
     }
     
     function agruparResultadosCalificacion($arrayValoresCalif){
+        
         $calificacionUsabilidad=0.0;
         $calificacionInterGrafica=0.0;
         $calificacionFuncionalidad=0.0;
@@ -99,10 +101,62 @@ class consolidar_Calificacion{
         return $arrayCalifAgrupadas;
     } 
     
+    function agruparResultadosCalificacionBid($arrayValoresCalif){
+        $calificacionUsabilidad=0.0;
+        $calificacionInterGrafica=0.0;
+        $calificacionFuncionalidad=0.0;
+        $calificacionInnovacion=0.0;
+        $calificacionInteredes=0.0;
+        $calificacionViabilidad=0.0;
+        for($i=0; $i<count($arrayValoresCalif);$i++){
+            if($i==0 or $i==1){
+                
+                $calificacionUsabilidad = $calificacionUsabilidad + $arrayValoresCalif[$i][1];
+            }
+            if($i==2 or $i==3){
+                $calificacionInterGrafica = $calificacionInterGrafica + $arrayValoresCalif[$i][1];
+            }
+            if($i==4 or $i==5){
+                $calificacionFuncionalidad = $calificacionFuncionalidad + $arrayValoresCalif[$i][1];
+            }
+            if($i==6 or $i==7){
+                $calificacionInnovacion = $calificacionInnovacion + $arrayValoresCalif[$i][1];
+            }
+            if($i==8){
+                $calificacionInteredes = $arrayValoresCalif[$i][1];
+            }
+            if($i==9 or $i==10){
+                $calificacionViabilidad = $calificacionViabilidad + $arrayValoresCalif[$i][1];
+            }
+            //echo $arrayValoresCalif[$i];
+        }
+        $calificacionUsabilidad = $calificacionUsabilidad/2;
+        $calificacionInterGrafica = $calificacionInterGrafica/2;
+        $calificacionFuncionalidad = $calificacionFuncionalidad/2;
+        $calificacionInnovacion = $calificacionInnovacion/2;
+        $calificacionViabilidad = $calificacionViabilidad/2;
+        //echo $calificacionUsabilidad;
+        $arrayCalifAgrupadas = array('usabilidad'=>$calificacionUsabilidad,
+                                     'grafica'=>$calificacionInterGrafica,
+                                     'funcionalidad'=>$calificacionFuncionalidad,
+                                     'innovacion'=>$calificacionInnovacion,
+                                     'redes'=>$calificacionInteredes,
+                                     'viabilidad'=>$calificacionViabilidad);
+        return $arrayCalifAgrupadas;
+    }
+    
     function granTotal ($arraycalificaciones){
         $suma=0.0;
         for($i=0;$i<count($arraycalificaciones);$i++){
             $suma = $suma + $arraycalificaciones[$i];
+        }
+        return $suma;
+    }
+
+    function granTotalBid ($arraycalificaciones){
+        $suma=0.0;
+        for($i=0;$i<count($arraycalificaciones);$i++){
+            $suma = $suma + $arraycalificaciones[$i][1];
         }
         return $suma;
     }

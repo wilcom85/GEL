@@ -5,6 +5,7 @@
  * and open the template in the editor.
  */
         include './mySqlConnection.php';
+       // include './dialogue.php';
 	//Forzar el uso de codificación utf-8
 	header('Content-Type: text/html; charset=UTF-8');
 	//Definición de Variables
@@ -44,6 +45,23 @@
             $idequipo = $dbconnect->seleccionarDatosCondicion($fieldnameid, $tblnameid, $conditionid);
             $datosequipo = mysql_fetch_array($idequipo);
             
+            //Saber cuantas preguntas hay
+            //$campoPreguntas = "fk_id_aspectos, COUNT(*)";
+            //$tblPreguntas = "criterios Group by fk_id_aspectos";
+            //$conditionPregunta = "criterio is not null";
+            //$datosPreguntas=$dbconnect->seleccionarDatos($campoPreguntas, $tblPreguntas);
+            $sql = "SELECT * FROM criterios";
+            $datosPreguntas=10;//mysql_query($sql);
+            
+            
+            
+//            $campoEquipo = "id, COUNT(id)";
+//            $tblEquipo = "equipos";
+//            //$conditionPregunta = "criterio is not null";
+//            $datosEquipos=$dbconnect->seleccionarDatos($campoEquipo, $tblEquipo);
+////            $dialogue=new dialogue();
+//            $dialogue->dialogueError($datosEquipos);
+            
             //Insertar valores en la tabla de calificaciones - Jurado Funcional.
             try{
                 $arrayCamposCalf = array("fk_id_equipo","fk_id_jurado");
@@ -55,9 +73,9 @@
                 $conditioncalf = "fk_id_equipo = '" .$datosequipo[0] ."' AND fk_id_jurado = '".$idJuradoFuncional ."'";
                 $idcalf = $dbconnect->seleccionarDatosCondicion($fieldnamecalf, $tblnamecalf, $conditioncalf);
                 $datoscalf = mysql_fetch_array($idcalf);
-                for($i=0;$i<=15;$i++){
+                for($i=0;$i<=$datosPreguntas;$i++){
                     $arrayCamposValf = array("fk_id_criterio","fk_id_calificacion","valor_calificacion");
-                    $arrayValoresCalf2 = array($i,$datoscalf[0],"0");
+                    $arrayValoresCalf2 = array($i,$datoscalf[0],"null");
                     $dbconnect->insertarDatos("valor_calificacion", $arrayCamposValf, $arrayValoresCalf2);
                 }
             }
@@ -77,9 +95,9 @@
                 $conditioncalt = "fk_id_equipo = '" .$datosequipo[0] ."' AND fk_id_jurado = '".$idJuradoTecnico ."'";
                 $idcalt = $dbconnect->seleccionarDatosCondicion($fieldnamecalt, $tblnamecalt, $conditioncalt);
                 $datoscalt = mysql_fetch_array($idcalt);
-                for($i=0;$i<=15;$i++){
+                for($i=0;$i<=$datosPreguntas;$i++){
                     $arrayCamposValt = array("fk_id_criterio","fk_id_calificacion","valor_calificacion");
-                    $arrayValoresCalt2 = array($i,$datoscalt[0],"0");
+                    $arrayValoresCalt2 = array($i,$datoscalt[0],"null");
                     $dbconnect->insertarDatos("valor_calificacion", $arrayCamposValt, $arrayValoresCalt2);
                 }
             }
@@ -99,9 +117,9 @@
                 $conditioncale = "fk_id_equipo = '" .$datosequipo[0] ."' AND fk_id_jurado = '".$idJuradoExterno ."'";
                 $idcale = $dbconnect->seleccionarDatosCondicion($fieldnamecale, $tblnamecale, $conditioncale);
                 $datoscale = mysql_fetch_array($idcale);
-                for($i=0;$i<=10;$i++){
+                for($i=0;$i<=$datosPreguntas;$i++){
                     $arrayCamposVale = array("fk_id_criterio","fk_id_calificacion","valor_calificacion");
-                    $arrayValoresCale2 = array($i,$datoscale[0],"0");
+                    $arrayValoresCale2 = array($i,$datoscale[0],"null");
                     $dbconnect->insertarDatos("valor_calificacion", $arrayCamposVale, $arrayValoresCale2);
                 }
             }

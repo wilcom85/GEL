@@ -89,63 +89,162 @@
                     <p class="etiquetaEncabezado">Calificación Total</p>
                 </th>
             </tr>
-            <tr>
+            
                 <?php
                 
                 $datosArray = new arrayFunction;
                 $connection = new mySqlConnection;
                 $consolidar = new consolidar_Calificacion;
                 $connection->establecerConexion();
-                $fieldname = "t1.id"; 
-                $tblname = "equipos AS t1";
+                $fieldname = "DISTINCT t1.id, t1.nombre"; 
+                $tblname = "retos AS t1"; 
                 $datos = $connection->seleccionarDatos($fieldname, $tblname);
-                $arrayEquipos = $datosArray->datosAArray($datos);
-                $calificacionUsabilidad=0.0;
-                $calificacionInterGrafica=0.0;
-                $calificacionFuncionalidad=0.0;
-                $calificacionInnovacion=0.0;
-                $calificacionInteredes=0.0;
-                $calificacionViabilidad=0.0;
-                $grantotal = 0.0;
-                for($i=0;$i<count($arrayEquipos);$i++){
-                    $fieldnamer = "t1.nombre";
-                    $tblnamer = "retos AS t1, equipos AS t2";
-                    $conditionr = "t1.id = t2.fk_id_reto";
-                    $datosr = $connection->seleccionarDatosCondicion($fieldnamer, $tblnamer, $conditionr);
-                    $retoactual = $datosArray->datosAArray($datosr);
-                    ?>
-                    <td><?php echo $retoactual[0];?></td>
-                    <?php 
-                        $fieldnamen = "nombre";
-                        $tblnamen = "equipos";
-                        $conditionn = "id = ".$arrayEquipos[$i];
-                        $datosn = $connection->seleccionarDatosCondicion($fieldnamen, $tblnamen, $conditionn);
-                        $nombreactual = $datosArray->datosAArray($datosn);
-                    ?>
-                    <td><?php echo $nombreactual[0]; ?></td>
-                    <?php
-                    $idCalificaciones = $consolidar->consultarIdCalificaciones($arrayEquipos[$i]);
-                    $totalFinal = 0.0;
-                    //$cantidad = count($idCalificaciones);
-                    for($n=0;$n<count($idCalificaciones);$n++){
-                        $calificaciones=$consolidar->consultarResultadoCalificacion($idCalificaciones[$n]);
-                        $totalcalificacion = $consolidar->agruparResultadosCalificacion($calificaciones);
-                        $calificacionUsabilidad=$calificacionUsabilidad + $totalcalificacion['usabilidad'];
-                        $calificacionInterGrafica=$calificacionInterGrafica + $totalcalificacion['grafica'];
-                        $calificacionFuncionalidad=$calificacionFuncionalidad + $totalcalificacion['funcionalidad'];
-                        $calificacionInnovacion=$calificacionInnovacion + $totalcalificacion['innovacion'];
-                        $calificacionInteredes=$calificacionInteredes + $totalcalificacion['redes'];
-                        $calificacionViabilidad=$calificacionViabilidad + $totalcalificacion['viabilidad'];
-                        //echo $totalcalificacion['usabilidad'];  
-                        $grantotal = $grantotal + $consolidar->granTotal($calificaciones);
+                $arrayRetos = $datosArray->datosAArray($datos);
+//                $calificacionUsabilidad=0.0;
+//                $calificacionInterGrafica=0.0;
+                $datos = $connection->seleccionarDatos($fieldname, $tblname);
+                $arrayRetos = $datosArray->datosAArrayBid($datos);
+//                $calificacionUsabilidad=0.0;
+                $calificacionUsabilidad = 0.0;
+                            $calificacionInterGrafica=0.0;
+                            $calificacionFuncionalidad=0.0;
+                            $calificacionInnovacion=0.0;
+                            $calificacionInteredes=0.0;
+                            $calificacionViabilidad=0.0;
+                            $grantotal = 0.0;
+//                
+                for($i=0;$i<count($arrayRetos);$i++){
+                    //$self = new self();
+                    $fieldnameEquipo = "DISTINCT t1.id, t1.nombre";
+                    $tblnameEquipo = "equipos AS t1";
+                    $conditionEquipo = "t1.fk_id_reto = ".$arrayRetos[$i][0];
+                    $datosEquipos=$connection->seleccionarDatosCondicion($fieldnameEquipo,$tblnameEquipo,$conditionEquipo);
+                    $arrayEquipos = $datosArray->datosAArrayBid($datosEquipos);
+                    $arrayCal = array();
+                    for($n=0;$n<count($arrayEquipos);$n++){
+                        $fieldnameCal = "t1.id";
+                        $tblnameCal = "calificacion AS t1";
+                        $conditionCal = "t1.fk_id_equipo = ".$arrayEquipos[$n][0];
+                        $datosCal = $connection->seleccionarDatosCondicion($fieldnameCal, $tblnameCal, $conditionCal);
+                        $arrayCal = $datosArray->datosAArray($datosCal);
+                        ?>
+                        <tr>
+                            <td><?php echo $arrayRetos[$i][1]?></td>
+                            <td><?php echo $arrayEquipos[$n][1]?></td>
+                        <?php
+                        
+                        $arrayCalVal = array();
+                        for($s=0;$s<count($arrayCal);$s++){
+                            $fieldnameCalVal = "t1.valor_calificacion";
+                            $tblnameCalVal="valor_calificacion AS t1";
+                            $conditionCalVal = "fk_id_calificacion = ".$arrayCal[$s];
+                            $datosCalVal = $connection->seleccionarDatosCondicion($fieldnameCalVal, $tblnameCalVal, $conditionCalVal);
+                            $arrayCalVal = $datosArray->datosAArray($datosCalVal);
+//                            echo "<PRE>";
+//                            var_dump($arrayCalVal);
+//                            echo "</PRE>";
+                            
+                        
+                        
+                            for($m=0;$m<=count($arrayCalVal[0]);$m++){
+                                //$calificaciones=$consolidar->consultarIdCalificaciones($arrayEquipos[$m][0]);
+                                
+                                $todasCalificaciones = $consolidar->consultarResultadoCalificacion($arrayCal[$m]);
+                                $totalcalificacion = $consolidar->agruparResultadosCalificacion($todasCalificaciones);
+//                                echo "<PRE>";
+//                                var_dump($todasCalificaciones);
+//                                echo "</PRE>";
+                                $calificacionUsabilidad=$calificacionUsabilidad + $totalcalificacion['usabilidad'];
+                                $calificacionInterGrafica=$calificacionInterGrafica + $totalcalificacion['grafica'];
+                                $calificacionFuncionalidad=$calificacionFuncionalidad + $totalcalificacion['funcionalidad'];
+                                $calificacionInnovacion=$calificacionInnovacion + $totalcalificacion['innovacion'];
+                                $calificacionInteredes=$calificacionInteredes + $totalcalificacion['redes'];
+                                $calificacionViabilidad=$calificacionViabilidad + $totalcalificacion['viabilidad'];
+                                //echo $totalcalificacion['usabilidad'];  
+                                $grantotal = $grantotal + $consolidar->granTotal($todasCalificaciones); 
+                                echo "<PRE>";
+                                var_dump($arrayCalVal);
+                                echo "</PRE>";
+                                ?>
+
+
+                                <?php
+                            }
+                            
+                        }
+                        ?>
+                             <td><?php echo $calificacionUsabilidad; ?></td>
+                            <td><?php echo $calificacionInterGrafica; ?></td>
+                            <td><?php echo $calificacionFuncionalidad; ?></td>
+                            <td><?php echo $calificacionInnovacion; ?></td>
+                            <td><?php echo $calificacionInteredes; ?></td>
+                            <td><?php echo $calificacionViabilidad; ?></td>
+                            <?php
+                            $sumacalificaciones = $calificacionUsabilidad + 
+                                                $calificacionInterGrafica + 
+                                                $calificacionFuncionalidad + 
+                                                $calificacionInnovacion + 
+                                                $calificacionInteredes + 
+                                                $calificacionViabilidad;
                     }
+                    
+                }
+                
+                            
+//                            ?>
+                            <td><?php echo $grantotal ?></td>
+                            <?php $total = $grantotal/3; ?>
+                            <td><?php echo $total?></td>
+                            <?php
+                            
+//                for($i=0;$i<count($arrayEquipos);$i++){
+//                    $fieldnamer = "t1.nombre";
+//                    $tblnamer = "retos AS t1, equipos AS t2";
+//                    $conditionr = "t1.id = t2.fk_id_reto ORDER BY t1.id";
+//                    $datosr = $connection->seleccionarDatosCondicion($fieldnamer, $tblnamer, $conditionr);
+//                    $retoactual = $datosArray->datosAArray($datosr);
+//                    ?>
+                    <tr>
+                    <!--<td>//< ?php echo $retoactual[$i];?></td>-->
+                    //<?php 
+//                        $fieldnamen = "nombre,id";
+//                        $tblnamen = "equipos";
+//                        $conditionn = "id = ".$arrayEquipos[$i];
+//                        $datosn = $connection->seleccionarDatosCondicion($fieldnamen, $tblnamen, $conditionn);
+//                        $nombreactual = $datosArray->datosAArray($datosn);
+//                        $idCalificaciones = $consolidar->consultarIdCalificaciones($arrayEquipos[$i]);
+//                    ?>
+                    <!--<td><? php echo $nombreactual[0]; ?></td>-->
+                    <?php
+                    //$idCalificaciones = $consolidar->consultarIdCalificaciones($arrayEquipos[$i]);
+//                    echo "<PRE>";
+//                    var_dump($idCalificaciones);
+//                    echo "</PRE>";
+//                    $totalFinal = 0.0;
+//                    $cantidad = count($idCalificaciones);
+//                        for($n=0;$n<count($idCalificaciones);$n++){
+//                            $calificaciones=$consolidar->consultarResultadoCalificacion($idCalificaciones[$n]);
+//                            echo "<PRE>";
+//                            var_dump($calificaciones);
+//                            echo "</PRE>";
+//                            $totalcalificacion = $consolidar->agruparResultadosCalificacion($calificaciones);
+//                            $calificacionUsabilidad=$calificacionUsabilidad + $totalcalificacion['usabilidad'];
+//                            $calificacionInterGrafica=$calificacionInterGrafica + $totalcalificacion['grafica'];
+//                            $calificacionFuncionalidad=$calificacionFuncionalidad + $totalcalificacion['funcionalidad'];
+//                            $calificacionInnovacion=$calificacionInnovacion + $totalcalificacion['innovacion'];
+//                            $calificacionInteredes=$calificacionInteredes + $totalcalificacion['redes'];
+//                            $calificacionViabilidad=$calificacionViabilidad + $totalcalificacion['viabilidad'];
+//                            //echo $totalcalificacion['usabilidad'];  
+//                            $grantotal = $grantotal + $consolidar->granTotal($calificaciones);
+//                        }
                     ?>
-                    <td><?php echo $calificacionUsabilidad; ?></td>
-                    <td><?php echo $calificacionInterGrafica; ?></td>
-                    <td><?php echo $calificacionFuncionalidad; ?></td>
-                    <td><?php echo $calificacionInnovacion; ?></td>
-                    <td><?php echo $calificacionInteredes; ?></td>
-                    <td><?php echo $calificacionViabilidad; ?></td>
+                    
+                    <!--<td><? php echo $calificacionUsabilidad; ?></td>-->
+                    <!--<td>< ?php echo $calificacionInterGrafica; ?></td>-->
+                    <!--<td>< ?php echo $calificacionFuncionalidad; ?></td>-->
+                    <!--<td>< ?php echo $calificacionInnovacion; ?></td>-->
+                    <!--<td>< ?php echo $calificacionInteredes; ?></td>-->
+                    <!--<td>< ?php echo $calificacionViabilidad; ?></td>-->
                     <?php // $sumacalificaciones = $calificacionUsabilidad + 
 //                                                $calificacionInterGrafica + 
 //                                                $calificacionFuncionalidad + 
@@ -154,11 +253,19 @@
 //                                                $calificacionViabilidad
                     ?>
                     
-                    <td><?php echo $grantotal ?></td>
-                    <?php $total = $grantotal/3; ?>
-                    <td><?php echo $total?></td>
+                    <!--<td>< ?php echo $grantotal ?></td>-->
+                    <? php $total = $grantotal/3; ?>
+                    <!--<td>< ?php echo $total?></td>-->
+                    <!--</tr>-->
                     <?php
-               }
+//                    $calificacionUsabilidad=0.0;
+//                    $calificacionInterGrafica=0.0;
+//                    $calificacionFuncionalidad=0.0;
+//                    $calificacionInnovacion=0.0;
+//                    $calificacionInteredes=0.0;
+//                    $calificacionViabilidad=0.0;
+//                    $grantotal = 0.0;
+//               }
 //                $connection->cerrarConexion();
                 ?>
             </tr>

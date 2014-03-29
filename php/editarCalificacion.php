@@ -15,19 +15,19 @@
 	$password= $dbconnect->getPassword(); //Clave del usuario de MySQL
 	$db_name= $dbconnect->getDataBase(); //Nombre de la Base de Datos
         //SE RECIBEN DATOS DEL FORMULARIO   
-        echo $_POST['numero'];
+        //echo $_POST['numero'];
         $numero = $_POST['numero'];
-        $item1 = $_POST['item1'];
-        $item2 = $_POST['item2'];
-        $item3 = $_POST['item3'];
-        $item4 = $_POST['item4'];
-        $item5 = $_POST['item5'];
-        $item6 = $_POST['item6'];        
-        $item7 = $_POST['item7'];
-        $item8 = $_POST['item8'];
-        $item9 = $_POST['item9'];
-        $item10 = $_POST['item10'];
-        $item0 = $_POST['item0'];
+        $item1 = $_POST['item1'.$numero];
+        $item2 = $_POST['item2'.$numero];
+        $item3 = $_POST['item3'.$numero];
+        $item4 = $_POST['item4'.$numero];
+        $item5 = $_POST['item5'.$numero];
+        $item6 = $_POST['item6'.$numero];        
+        $item7 = $_POST['item7'.$numero];
+        $item8 = $_POST['item8'.$numero];
+        $item9 = $_POST['item9'.$numero];
+        $item10 = $_POST['item10'.$numero];
+        $item0 = $_POST['item0'.$numero];
         //$combinacion = $_POST['combinacion'];
 //        $renovacion = $_POST['renovacion'];
 //        $integraredes = $_POST['integraredes'];

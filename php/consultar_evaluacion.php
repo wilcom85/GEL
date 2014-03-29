@@ -20,6 +20,47 @@
         <head>  
             <link href="../css/Tablas/Tablas.css" rel="stylesheet" type="text/css" />
             <meta meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+            <script type="text/javascript">    
+                function validarEnvioFuncional(){
+//                /*var num = document.calificacionesFuncional.valueOf(nombre);
+//                if(document.calificacionesFuncional.nombreEquipo.value.length==0){
+//                    alert("El campo Nombre de Equipo es obligatorio");
+//                    document.calificacionesFuncional.nombreEquipo.focus();
+//                    return(0);
+//                }
+//                if(document.calificacionesFuncional.reto.value.length==0){
+//                    alert("Por favor seleccione un reto para el equipo")
+//                    document.calificacionesFuncional.reto.focus();
+//                    return(0);
+//                }
+//                if(document.calificacionesFuncional.juradoFuncional.value.length==0){
+//                    alert("Por favor seleccione un Jurado Funcional para el equipo")
+//                    document.calificacionesFuncional.juradoFuncional.focus();
+//                    return(0);
+//                }
+//                if(document.calificacionesFuncional.juradoTecnico.value.length==0){
+//                    alert("Por favor seleccione un Jurado Técnico para el equipo")
+//                    document.crearEquipo.juradoTecnico.focus();
+//                    return(0);
+//                }
+//                if(document.calificacionesFuncional.juradoExterno.value.length==0){
+//                    alert("Por favor seleccione un Jurado Externo para el equipo")
+//                    document.crearEquipo.juradoExterno.focus();
+//                    return(0);
+//                }*/
+                document.calificacionesFuncional.submit();
+            }
+        </script>
+        <script type="text/javascript">    
+                function validarEnvioTecnico(){
+                    document.calificacionesTecnica.submit();
+                }
+        </script>
+                <script type="text/javascript">    
+                function validarEnvioExterno(){
+                    document.calificacionesExterna.submit();
+                }
+        </script>
         </head>
 <?php
     //$conexion= mysqli_connect("$host","$username","$password") or die("No es posible conectarse a la base de datos: ". mysql_error());
@@ -28,7 +69,11 @@
     $tblnamefuncional = "equipos";
     $conditionfuncional = $_SESSION['$idUsuario'] . " = " . $fieldnamefuncional;
     $buscar = $dbconnect->seleccionarDatosCondicion($fieldnamefuncional, $tblnamefuncional, $conditionfuncional);
+    $referenciaId = 0;
     if(mysql_num_rows($buscar) > 0){
+    //Variable que lleva el conteo del id de la ultima calificación para evitar que se trunque.
+    
+    
     ?>       
         <body>
             <div clas="funcional">
@@ -80,7 +125,8 @@
                                 $contadorregistros = 0;
                                 $arrayIdCal ;
                                 while($datosevaluacion = mysql_fetch_array($buscarevaluacion)){
-                                    $datosaArray = new arrayFunction; 
+                                    $datosaArray = new arrayFunction;
+                                    
                                     ?>
                                         <tr>
                                             <td><?=$datosevaluacion[2]?></td>
@@ -88,7 +134,7 @@
                                             <?php 
                                                 $fieldnamecalif1 = "t1.valor_calificacion, t2.id";
                                                 $tblnamecalif1 = "valor_calificacion AS t1, calificacion AS t2";
-                                                $conditioncalif1 = "t1.fk_id_calificacion = t2.id AND t2.fk_id_jurado = '" .$datosevaluacion[0] ."'";
+                                                $conditioncalif1 = "t1.fk_id_calificacion = t2.id AND t2.fk_id_jurado = '" .$datosevaluacion[0] ."' AND t2.id >".$referenciaId;
                                                 $buscarcalif1 = $dbconnect->seleccionarDatosCondicion($fieldnamecalif1, $tblnamecalif1, $conditioncalif1);
                                                 $contadorcalif1 = 0;
                                                 $arraydatoscalif1 = array();
@@ -101,17 +147,21 @@
                                                 if($contadorregistros == 0){
                                                     $fieldnamecal="distinct t2.id";
                                                     $tblnamecal = "calificacion AS t2,valor_calificacion AS t1";
-                                                    $conditioncal="t1.fk_id_calificacion = t2.id AND t2.fk_id_jurado = '" .$datosevaluacion[0] ."'";
+                                                    $conditioncal="t1.fk_id_calificacion = t2.id AND t2.fk_id_jurado = '" .$datosevaluacion[0] ."' AND t2.id >".$referenciaId;
                                                     $idscalif= $dbconnect->seleccionarDatosCondicion($fieldnamecal, $tblnamecal, $conditioncal);
                                                     $arrayIdCal = $datosaArray->datosAArray($idscalif);
                                                 }
                                                 ?>
                                                 <form name="calificacionesFuncional" method="post" action="editarCalificacion.php">
                                                     <td>
-                                                        <input type="text" name="numero" readonly="readonly" value="<?php echo $arrayIdCal[$contadorregistros]?>" size="4"/>
+                                                        <input type="text" name="numero" readonly="readonly" value="<?php echo $arrayIdCal[$contadorregistros]; ?>" size="4"/>
+                                                        <?php 
+                                                            $referenciaId=$arrayIdCal[$contadorregistros];
+//                                                            $contadorTotal=$contadorTotal + 3;
+                                                        ?>
                                                     </td>
                                                     <td>
-                                                        <select name="item0" >
+                                                        <select name="item0<?php echo $arrayIdCal[$contadorregistros]; ?>">
                                                             <option value="0"<?php if($arraydatoscalif1[0]==='0'){echo "selected";}?>>0</option>
                                                             <option value="1"<?php if($arraydatoscalif1[0]==='1'){echo "selected";}?>>1</option>
                                                             <option value="2"<?php if($arraydatoscalif1[0]==='2'){echo "selected";}?>>2</option>
@@ -121,7 +171,7 @@
                                                         </select>
                                                     </td>
                                                     <td>
-                                                        <select name="item1">
+                                                        <select name="item1<?php echo $arrayIdCal[$contadorregistros]; ?>">
                                                             <option value="0"<?php if($arraydatoscalif1[1]==='0'){echo "selected";}?>>0</option>
                                                             <option value="1"<?php if($arraydatoscalif1[1]==='1'){echo "selected";}?>>1</option>
                                                             <option value="2"<?php if($arraydatoscalif1[1]==='2'){echo "selected";}?>>2</option>
@@ -131,7 +181,7 @@
                                                         </select>
                                                     </td>
                                                     <td>
-                                                        <select name="item2">
+                                                        <select name="item2<?php echo $arrayIdCal[$contadorregistros]; ?>">
                                                             <option value="0"<?php if($arraydatoscalif1[2]==='0'){echo "selected";}?>>0</option>
                                                             <option value="1"<?php if($arraydatoscalif1[2]==='1'){echo "selected";}?>>1</option>
                                                             <option value="2"<?php if($arraydatoscalif1[2]==='2'){echo "selected";}?>>2</option>
@@ -141,7 +191,7 @@
                                                         </select>
                                                     </td>
                                                     <td>
-                                                        <select name="item3">
+                                                        <select name="item3<?php echo $arrayIdCal[$contadorregistros]; ?>">
                                                             <option value="0"<?php if($arraydatoscalif1[3]==='0'){echo "selected";}?>>0</option>
                                                             <option value="1"<?php if($arraydatoscalif1[3]==='1'){echo "selected";}?>>1</option>
                                                             <option value="2"<?php if($arraydatoscalif1[3]==='2'){echo "selected";}?>>2</option>
@@ -151,7 +201,7 @@
                                                         </select>
                                                     </td> 
                                                     <td>
-                                                        <select name="item4">
+                                                        <select name="item4<?php echo $arrayIdCal[$contadorregistros]; ?>">
                                                             <option value="0"<?php if($arraydatoscalif1[4]==='0'){echo "selected";}?>>0</option>
                                                             <option value="1"<?php if($arraydatoscalif1[4]==='1'){echo "selected";}?>>1</option>
                                                             <option value="2"<?php if($arraydatoscalif1[4]==='2'){echo "selected";}?>>2</option>
@@ -161,7 +211,7 @@
                                                         </select>
                                                     </td>  
                                                     <td>
-                                                        <select name="item5">
+                                                        <select name="item5<?php echo $arrayIdCal[$contadorregistros]; ?>">
                                                             <option value="0"<?php if($arraydatoscalif1[5]==='0'){echo "selected";}?>>0</option>
                                                             <option value="1"<?php if($arraydatoscalif1[5]==='1'){echo "selected";}?>>1</option>
                                                             <option value="2"<?php if($arraydatoscalif1[5]==='2'){echo "selected";}?>>2</option>
@@ -171,7 +221,7 @@
                                                         </select>
                                                     </td>                                                    
                                                     <td>
-                                                        <select name="item6">
+                                                        <select name="item6<?php echo $arrayIdCal[$contadorregistros]; ?>">
                                                             <option value="0"<?php if($arraydatoscalif1[6]==='0'){echo "selected";}?>>0</option>
                                                             <option value="1"<?php if($arraydatoscalif1[6]==='1'){echo "selected";}?>>1</option>
                                                             <option value="2"<?php if($arraydatoscalif1[6]==='2'){echo "selected";}?>>2</option>
@@ -181,7 +231,7 @@
                                                         </select>
                                                     </td>
                                                     <td>
-                                                        <select name="item7">
+                                                        <select name="item7<?php echo $arrayIdCal[$contadorregistros]; ?>">
                                                             <option value="0"<?php if($arraydatoscalif1[7]==='0'){echo "selected";}?>>0</option>
                                                             <option value="1"<?php if($arraydatoscalif1[7]==='1'){echo "selected";}?>>1</option>
                                                             <option value="2"<?php if($arraydatoscalif1[7]==='2'){echo "selected";}?>>2</option>
@@ -191,7 +241,7 @@
                                                         </select>
                                                     </td>
                                                     <td>
-                                                        <select name="item8">
+                                                        <select name="item8<?php echo $arrayIdCal[$contadorregistros]; ?>">
                                                             <option value="0"<?php if($arraydatoscalif1[8]==='0'){echo "selected";}?>>0</option>
                                                             <option value="1"<?php if($arraydatoscalif1[8]==='1'){echo "selected";}?>>1</option>
                                                             <option value="2"<?php if($arraydatoscalif1[8]==='2'){echo "selected";}?>>2</option>
@@ -201,7 +251,7 @@
                                                         </select>
                                                     </td>
                                                     <td>
-                                                        <select name="item9">
+                                                        <select name="item9<?php echo $arrayIdCal[$contadorregistros]; ?>">
                                                             <option value="0"<?php if($arraydatoscalif1[9]==='0'){echo "selected";}?>>0</option>
                                                             <option value="1"<?php if($arraydatoscalif1[9]==='1'){echo "selected";}?>>1</option>
                                                             <option value="2"<?php if($arraydatoscalif1[9]==='2'){echo "selected";}?>>2</option>
@@ -211,7 +261,7 @@
                                                         </select>
                                                     </td>
                                                     <td>
-                                                        <select name="item10">
+                                                        <select name="item10<?php echo $arrayIdCal[$contadorregistros]; ?>">
                                                             <option value="0"<?php if($arraydatoscalif1[10]==='0'){echo "selected";}?>>0</option>
                                                             <option value="1"<?php if($arraydatoscalif1[10]==='1'){echo "selected";}?>>1</option>
                                                             <option value="2"<?php if($arraydatoscalif1[10]==='2'){echo "selected";}?>>2</option>
@@ -221,7 +271,7 @@
                                                         </select>                                        
                                                     </td>
                                                     <td>
-                                                        <input type="submit" value="Guardar" name="<?php echo $contadorregistros; ?>"/>
+                                                        <input type="button" value="Guardar" name="button" onclick="validarEnvioFuncional()"/>
                                                     </td>
                                                 </form>               
                                            </tr>
@@ -295,10 +345,12 @@
                             $conditionevaluaciont = "t1.fk_id_juradoTecnico = " .$_SESSION['$idUsuario']. " AND t1.fk_id_reto = t2.id";
                             $buscarevaluaciont = $dbconnect->seleccionarDatosCondicion($fieldnameevaluaciont, $tblnameevaluaciont, $conditionevaluaciont);
                             if(mysql_num_rows($buscarevaluaciont) > 0){
+                                $datosaArray2 = new arrayFunction;
                                 $contadorregistrost = 0;
                                 $arrayIdCalt;
+                                $arraydatoscalif3=array();
                                 while($datosevaluaciont = mysql_fetch_array($buscarevaluaciont)){
-                                    $datosaArray2 = new arrayFunction; 
+                                     
                                     ?>
                                         <tr class="alt">
                                             <td><?=$datosevaluaciont[2]?></td>
@@ -306,20 +358,26 @@
                                        <?php
                                            $fieldnamecalif3 = "t1.valor_calificacion, t2.id";
                                                 $tblnamecalif3 = "valor_calificacion AS t1, calificacion AS t2";
-                                                $conditioncalif3 = "t1.fk_id_calificacion = t2.id AND t2.fk_id_jurado = '" .$datosevaluaciont[0] ."'";
+                                                $conditioncalif3 = "t1.fk_id_calificacion = t2.id AND t2.fk_id_jurado = '" .$datosevaluaciont[0] ."'AND t2.id > ".$referenciaId;
                                                 $buscarcalif3 = $dbconnect->seleccionarDatosCondicion($fieldnamecalif3, $tblnamecalif3, $conditioncalif3);
                                                 $contadorcalif3 = 0;
                                                 $arraydatoscalif3 = array();
+                                                //Obtener 
+                                                
+                                                                                              
+                                                
                                                 while($datoscalif3 = mysql_fetch_array($buscarcalif3)){
                                                     $arraydatoscalif3[] =$datoscalif3[0]; 
                                                     $arraydcalif3[]=$datoscalif3[1];
                                                     //echo $arraydatoscalif[$contadorcalif];
                                                     $contadorcalif3 ++ ;
+                                                    
                                                 }
+                                                
                                                 if($contadorregistrost == 0){
                                                     $fieldnamecalt="distinct t2.id";
                                                     $tblnamecalt = "calificacion AS t2,valor_calificacion AS t1";
-                                                    $conditioncalt="t1.fk_id_calificacion = t2.id AND t2.fk_id_jurado = '" .$datosevaluaciont[0] ."'";
+                                                    $conditioncalt="t1.fk_id_calificacion = t2.id AND t2.fk_id_jurado = '" .$datosevaluaciont[0] ."' AND t2.id > ".$referenciaId;
                                                     $idscalift= $dbconnect->seleccionarDatosCondicion($fieldnamecalt, $tblnamecalt, $conditioncalt);
                                                     $arrayIdCalt = $datosaArray2->datosAArray($idscalift);
                                                 }
@@ -329,9 +387,13 @@
                                                 <form action="editarCalificacion.php" method="post" name="calificacionesTecnica" >
                                                     <td>
                                                         <input type="text" name="numero" readonly="readonly" value="<?php echo $arrayIdCalt[$contadorregistrost]?>" size="4"/>
+                                                        <?php 
+                                                            $referenciaId=$arrayIdCalt[$contadorregistrost];
+//                                                            $contadorTotal=$contadorTotal+3;
+                                                        ?>
                                                     </td>
                                                     <td>
-                                                        <select name="item0" >
+                                                        <select name="item0<?php echo $arrayIdCalt[$contadorregistrost]; ?>" >
                                                             <option value="0" <?php if($arraydatoscalif3[0]==='0'){echo "selected";}?>>0</option>
                                                             <option value="1" <?php if($arraydatoscalif3[0]==='1'){echo "selected";}?>>1</option>
                                                             <option value="2" <?php if($arraydatoscalif3[0]==='2'){echo "selected";}?>>2</option>
@@ -341,7 +403,7 @@
                                                         </select>
                                                     </td>
                                                     <td>
-                                                        <select name="item1">
+                                                        <select name="item1<?php echo $arrayIdCalt[$contadorregistrost]; ?>" >
                                                             <option value="0" <?php if($arraydatoscalif3[1]==='0'){echo "selected";}?>>0</option>
                                                             <option value="1" <?php if($arraydatoscalif3[1]==='1'){echo "selected";}?>>1</option>
                                                             <option value="2" <?php if($arraydatoscalif3[1]==='2'){echo "selected";}?>>2</option>
@@ -351,7 +413,7 @@
                                                         </select>
                                                     </td>
                                                     <td>
-                                                        <select name="item2">
+                                                        <select name="item2<?php echo $arrayIdCalt[$contadorregistrost]; ?>" >
                                                             <option value="0"<?php if($arraydatoscalif3[2]==='0'){echo "selected";}?>>0</option>
                                                             <option value="1"<?php if($arraydatoscalif3[2]==='1'){echo "selected";}?>>1</option>
                                                             <option value="2"<?php if($arraydatoscalif3[2]==='2'){echo "selected";}?>>2</option>
@@ -361,7 +423,7 @@
                                                         </select>
                                                     </td>
                                                     <td>
-                                                        <select name="item3">
+                                                        <select name="item3<?php echo $arrayIdCalt[$contadorregistrost]; ?>" >
                                                             <option value="0"<?php if($arraydatoscalif3[3]==='0'){echo "selected";}?>>0</option>
                                                             <option value="1"<?php if($arraydatoscalif3[3]==='1'){echo "selected";}?>>1</option>
                                                             <option value="2"<?php if($arraydatoscalif3[3]==='2'){echo "selected";}?>>2</option>
@@ -371,7 +433,7 @@
                                                         </select>
                                                     </td> 
                                                     <td>
-                                                        <select name="item4">
+                                                        <select name="item4<?php echo $arrayIdCalt[$contadorregistrost]; ?>" >
                                                             <option value="0"<?php if($arraydatoscalif3[4]==='0'){echo "selected";}?>>0</option>
                                                             <option value="1"<?php if($arraydatoscalif3[4]==='1'){echo "selected";}?>>1</option>
                                                             <option value="2"<?php if($arraydatoscalif3[4]==='2'){echo "selected";}?>>2</option>
@@ -381,7 +443,7 @@
                                                         </select>
                                                     </td>  
                                                     <td>
-                                                        <select name="item5">
+                                                        <select name="item5<?php echo $arrayIdCalt[$contadorregistrost]; ?>" >
                                                             <option value="0"<?php if($arraydatoscalif3[5]==='0'){echo "selected";}?>>0</option>
                                                             <option value="1"<?php if($arraydatoscalif3[5]==='1'){echo "selected";}?>>1</option>
                                                             <option value="2"<?php if($arraydatoscalif3[5]==='2'){echo "selected";}?>>2</option>
@@ -391,7 +453,7 @@
                                                         </select>
                                                     </td>                                                    
                                                     <td>
-                                                        <select name="item6">
+                                                        <select name="item6<?php echo $arrayIdCalt[$contadorregistrost]; ?>" >
                                                             <option value="0"<?php if($arraydatoscalif3[6]==='0'){echo "selected";}?>>0</option>
                                                             <option value="1"<?php if($arraydatoscalif3[6]==='1'){echo "selected";}?>>1</option>
                                                             <option value="2"<?php if($arraydatoscalif3[6]==='2'){echo "selected";}?>>2</option>
@@ -401,7 +463,7 @@
                                                         </select>
                                                     </td>
                                                     <td>
-                                                        <select name="item7">
+                                                        <select name="item7<?php echo $arrayIdCalt[$contadorregistrost]; ?>" >
                                                             <option value="0"<?php if($arraydatoscalif3[7]==='0'){echo "selected";}?>>0</option>
                                                             <option value="1"<?php if($arraydatoscalif3[7]==='1'){echo "selected";}?>>1</option>
                                                             <option value="2"<?php if($arraydatoscalif3[7]==='2'){echo "selected";}?>>2</option>
@@ -411,7 +473,7 @@
                                                         </select>
                                                     </td>
                                                     <td>
-                                                        <select name="item8">
+                                                        <select name="item8<?php echo $arrayIdCalt[$contadorregistrost]; ?>" >
                                                             <option value="0"<?php if($arraydatoscalif3[8]==='0'){echo "selected";}?>>0</option>
                                                             <option value="1"<?php if($arraydatoscalif3[8]==='1'){echo "selected";}?>>1</option>
                                                             <option value="2"<?php if($arraydatoscalif3[8]==='2'){echo "selected";}?>>2</option>
@@ -421,7 +483,7 @@
                                                         </select>
                                                     </td>
                                                     <td>
-                                                        <select name="item9">
+                                                        <select name="item9<?php echo $arrayIdCalt[$contadorregistrost]; ?>">
                                                             <option value="0"<?php if($arraydatoscalif3[9]==='0'){echo "selected";}?>>0</option>
                                                             <option value="1"<?php if($arraydatoscalif3[9]==='1'){echo "selected";}?>>1</option>
                                                             <option value="2"<?php if($arraydatoscalif3[9]==='2'){echo "selected";}?>>2</option>
@@ -431,7 +493,7 @@
                                                         </select>
                                                     </td>
                                                     <td>
-                                                        <select name="item10">
+                                                        <select name="item10<?php echo $arrayIdCalt[$contadorregistrost]; ?>" >
                                                             <option value="0"<?php if($arraydatoscalif3[10]==='0'){echo "selected";}?>>0</option>
                                                             <option value="1"<?php if($arraydatoscalif3[10]==='1'){echo "selected";}?>>1</option>
                                                             <option value="2"<?php if($arraydatoscalif3[10]==='2'){echo "selected";}?>>2</option>
@@ -441,7 +503,7 @@
                                                         </select>                                        
                                                     </td>
                                                     <td>
-                                                        <input type="submit" value="Guardar" name="<?php echo $contadorregistrost; ?>" />
+                                                        <input type="button" value="Guardar" name="button" onclick="validarEnvioTecnico()" />
                                                     </td>
                                                 </form>               
                                            </tr>
@@ -526,22 +588,24 @@
                                             <?php 
                                                 $fieldnamecalif2 = "t1.valor_calificacion, t2.id";
                                                 $tblnamecalif2 = "valor_calificacion AS t1, calificacion AS t2";
-                                                $conditioncalif2 = "t1.fk_id_calificacion = t2.id AND t2.fk_id_jurado = '" .$datosevaluacione[0] ."'";
+                                                $conditioncalif2 = "t1.fk_id_calificacion = t2.id AND t2.fk_id_jurado = '" .$datosevaluacione[0] ."' AND t2.id > ".$referenciaId;
                                                 $buscarcalif2 = $dbconnect->seleccionarDatosCondicion($fieldnamecalif2, $tblnamecalif2, $conditioncalif2);
                                                 $contadorcalif2 = 0;
-                                                $arraydatoscalif2 = array();
+                                                $arraydatoscalif2= array();
                                                 while($datoscalif2 = mysql_fetch_array($buscarcalif2)){
                                                     $arraydatoscalif2[] =$datoscalif2[0];      
                                                     $arraydcalif2[]=$datoscalif2[1];
                                                     //echo $arraydatoscalif[$contadorcalif];
                                                     $contadorcalif2 ++ ;
+                                                    
                                                 }
                                                 if($contadorregistrose == 0){
                                                     $fieldnamecale="distinct t2.id";
                                                     $tblnamecale = "calificacion AS t2,valor_calificacion AS t1";
-                                                    $conditioncale="t1.fk_id_calificacion = t2.id AND t2.fk_id_jurado = '" .$datosevaluacione[0] ."'";
+                                                    $conditioncale="t1.fk_id_calificacion = t2.id AND t2.fk_id_jurado = '" .$datosevaluacione[0] ."' AND t2.id > ".$referenciaId;
                                                     $idscalife= $dbconnect->seleccionarDatosCondicion($fieldnamecale, $tblnamecale, $conditioncale);
                                                     $arrayIdCale = $datosaArray3->datosAArray($idscalife);
+                                                    
                                                 }
                                                 
                                                 ?>
@@ -549,10 +613,13 @@
                                                 <form name="calificacionesExterna" method="post" action="editarCalificacion.php">
                                                     <td>
                                                         <input type="text" name="numero" readonly="readonly" value="<?php echo $arrayIdCale[$contadorregistrose]?>" size="4">
-                                                        
+                                                        <?php 
+                                                            $referenciaId=$arrayIdCale[$contadorregistrose];
+//                                                            $contadorTotal=$contadorTotal+3;
+                                                        ?>
                                                     </td>
                                                     <td>
-                                                        <select name="item0" >
+                                                        <select name="item0<?php echo $arrayIdCale[$contadorregistrose]; ?>" >
                                                             <option value="0"<?php if( $arraydatoscalif2[0]==='0'){echo "selected";}?>>0</option>
                                                             <option value="1"<?php if( $arraydatoscalif2[0]==='1'){echo "selected";}?>>1</option>
                                                             <option value="2"<?php if( $arraydatoscalif2[0]==='2'){echo "selected";}?>>2</option>
@@ -562,7 +629,7 @@
                                                         </select>
                                                     </td>
                                                     <td>
-                                                        <select name="item1">
+                                                        <select name="item1<?php echo $arrayIdCale[$contadorregistrose]; ?>">
                                                             <option value="0"<?php if( $arraydatoscalif2[1]==='0'){echo "selected";}?>>0</option>
                                                             <option value="1"<?php if( $arraydatoscalif2[1]==='1'){echo "selected";}?>>1</option>
                                                             <option value="2"<?php if( $arraydatoscalif2[1]==='2'){echo "selected";}?>>2</option>
@@ -572,7 +639,7 @@
                                                         </select>
                                                     </td>
                                                     <td>
-                                                        <select name="item2">
+                                                        <select name="item2<?php echo $arrayIdCale[$contadorregistrose]; ?>">
                                                             <option value="0"<?php if( $arraydatoscalif2[2]==='0'){echo "selected";}?>>0</option>
                                                             <option value="1"<?php if( $arraydatoscalif2[2]==='1'){echo "selected";}?>>1</option>
                                                             <option value="2"<?php if( $arraydatoscalif2[2]==='2'){echo "selected";}?>>2</option>
@@ -582,7 +649,7 @@
                                                         </select>
                                                     </td>
                                                     <td>
-                                                        <select name="item3">
+                                                        <select name="item3<?php echo $arrayIdCale[$contadorregistrose]; ?>">
                                                             <option value="0"<?php if( $arraydatoscalif2[3]==='0'){echo "selected";}?>>0</option>
                                                             <option value="1"<?php if( $arraydatoscalif2[3]==='1'){echo "selected";}?>>1</option>
                                                             <option value="2"<?php if( $arraydatoscalif2[3]==='2'){echo "selected";}?>>2</option>
@@ -592,7 +659,7 @@
                                                         </select>
                                                     </td> 
                                                     <td>
-                                                        <select name="item4">
+                                                        <select name="item4<?php echo $arrayIdCale[$contadorregistrose]; ?>">
                                                             <option value="0"<?php if( $arraydatoscalif2[4]==='0'){echo "selected";}?>>0</option>
                                                             <option value="1"<?php if( $arraydatoscalif2[4]==='1'){echo "selected";}?>>1</option>
                                                             <option value="2"<?php if( $arraydatoscalif2[4]==='2'){echo "selected";}?>>2</option>
@@ -602,7 +669,7 @@
                                                         </select>
                                                     </td>  
                                                     <td>
-                                                        <select name="item5">
+                                                        <select name="item5<?php echo $arrayIdCale[$contadorregistrose]; ?>">
                                                             <option value="0"<?php if( $arraydatoscalif2[5]==='0'){echo "selected";}?>>0</option>
                                                             <option value="1"<?php if( $arraydatoscalif2[5]==='1'){echo "selected";}?>>1</option>
                                                             <option value="2"<?php if( $arraydatoscalif2[5]==='2'){echo "selected";}?>>2</option>
@@ -612,7 +679,7 @@
                                                         </select>
                                                     </td>                                                    
                                                     <td>
-                                                        <select name="item6">
+                                                        <select name="item6<?php echo $arrayIdCale[$contadorregistrose]; ?>">
                                                             <option value="0"<?php if( $arraydatoscalif2[6]==='0'){echo "selected";}?>>0</option>
                                                             <option value="1"<?php if( $arraydatoscalif2[6]==='1'){echo "selected";}?>>1</option>
                                                             <option value="2"<?php if( $arraydatoscalif2[6]==='2'){echo "selected";}?>>2</option>
@@ -622,7 +689,8 @@
                                                         </select>
                                                     </td>
                                                     <td>
-                                                        <select name="item7">
+                                                        
+                                                        <select name="item7<?php echo $arrayIdCale[$contadorregistrose]; ?>">
                                                             <option value="0"<?php if( $arraydatoscalif2[7]==='0'){echo "selected";}?>>0</option>
                                                             <option value="1"<?php if( $arraydatoscalif2[7]==='1'){echo "selected";}?>>1</option>
                                                             <option value="2"<?php if( $arraydatoscalif2[7]==='2'){echo "selected";}?>>2</option>
@@ -632,7 +700,7 @@
                                                         </select>
                                                     </td>
                                                     <td>
-                                                        <select name="item8">
+                                                        <select name="item8<?php echo $arrayIdCale[$contadorregistrose]; ?>">
                                                             <option value="0"<?php if( $arraydatoscalif2[8]==='0'){echo "selected";}?>>0</option>
                                                             <option value="1"<?php if( $arraydatoscalif2[8]==='1'){echo "selected";}?>>1</option>
                                                             <option value="2"<?php if( $arraydatoscalif2[8]==='2'){echo "selected";}?>>2</option>
@@ -642,7 +710,7 @@
                                                         </select>
                                                     </td>
                                                     <td>
-                                                        <select name="item9">
+                                                        <select name="item9<?php echo $arrayIdCale[$contadorregistrose]; ?>">
                                                             <option value="0"<?php if( $arraydatoscalif2[9]==='0'){echo "selected";}?>>0</option>
                                                             <option value="1"<?php if( $arraydatoscalif2[9]==='1'){echo "selected";}?>>1</option>
                                                             <option value="2"<?php if( $arraydatoscalif2[9]==='2'){echo "selected";}?>>2</option>
@@ -652,7 +720,7 @@
                                                         </select>
                                                     </td>
                                                     <td>
-                                                        <select name="item10">
+                                                        <select name="item10<?php echo $arrayIdCale[$contadorregistrose]; ?>">
                                                             <option value="0"<?php if( $arraydatoscalif2[10]==='0'){echo "selected";}?>>0</option>
                                                             <option value="1"<?php if( $arraydatoscalif2[10]==='1'){echo "selected";}?>>1</option>
                                                             <option value="2"<?php if( $arraydatoscalif2[10]==='2'){echo "selected";}?>>2</option>
@@ -712,7 +780,7 @@
                                                         </select>
                                                     </th>-->
                                                     <td>
-                                                        <input type="submit" value="Guardar" name="<?php echo $contadorregistrose; ?>"/>
+                                                        <input type="button" value="Guardar" name="button" onclick="validarEnvioExterno()"/>
                                                     </td>
                                                 </form>               
                                            </tr>
