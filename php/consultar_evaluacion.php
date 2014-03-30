@@ -57,7 +57,7 @@
             <div clas="funcional">
                 <table>
                     <tr>
-                        <th colspan="15">MI CALIFICACION FUNCIONAL</th>
+                        <th colspan="15">MI CALIFICACION</th>
                     </tr>
                         
                         <!--Encabezado de la tabla con los criterios de Evaliación-->
@@ -283,7 +283,7 @@
             </div>
                     <?php
                 } else {
-                    echo "Usted no ha sido asignado como jurado funcional.";
+                    //echo "Usted no ha sido asignado como jurado funcional.";
                 }
             ?>
             <br>
@@ -301,7 +301,7 @@
                      <div>
                         <table>
                         <tr>
-                            <th colspan="15">MI CALIFICACION TECNICA</th>
+                            <th colspan="15">MI CALIFICACION</th>
                         </tr>
 
 
@@ -526,7 +526,7 @@
                      </div>
                     <?php
                 } else {
-                    echo "Usted no ha sido asignado como jurado Técnico.";
+                    //echo "Usted no ha sido asignado como jurado Técnico.";
                 }
 
             ?>
@@ -544,7 +544,7 @@
                     <div>
                         <table>
                         <tr>
-                            <th colspan="15">MI CALIFICACION EXTERNA</th>
+                            <th colspan="15">MI CALIFICACION</th>
                         </tr>
 
 
@@ -812,7 +812,7 @@
                     </table>
                     <?php
                 } else {
-                    echo "Usted no ha sido asignado como jurado Externo.";
+                    //echo "Usted no ha sido asignado como jurado Externo.";
                 }   
                 ob_end_flush();
                 $dbconnect->cerrarConexion();
