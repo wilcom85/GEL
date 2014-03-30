@@ -15,8 +15,8 @@
         </div>
  	</header>
     <section id="featured-wrapper">
-	   		<h1>CONSORCIO SOFTWARE 2012</h1>
-       		<p>Calificación de Aplicaciones - Proyecto Vive Gobierno Móvil</p>
+	   <h1>5a. Convocatoria Vive Gobierno Móvil</h1>
+       		<p>Calificación de Aplicaciones</p>
     </section>
     <section id="page-wrapper">
             <table 

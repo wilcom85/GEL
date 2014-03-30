@@ -43,7 +43,7 @@
             </div>
         </header>
         <article id="featured-wrapper">
-            <h1>CONSORCIO SOFTWARE 2012</h1>
+            <h1>5a. Convocatoria Vive Gobierno Móvil</h1>
             <p>Calificación de Aplicaciones - Proyecto Vive Gobierno Móvil</p>
             <a href="admin_login_success.php">
                     <img src="../img/Home-48.png" />

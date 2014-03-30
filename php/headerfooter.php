@@ -2,7 +2,7 @@
 	class Header_Footer
 	{
 		public function Imprime_Footer(){
-			$footer = "Consorcio Software 2012";
+			$footer = "5a. Convocatoria Vive Gobierno Móvil";
 			return $footer;	
 		}
 	}

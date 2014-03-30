@@ -1,4 +1,6 @@
 <?php
+    include './mySqlConnection.php';
+    
     session_start();
     try{
         if($_SESSION['$rol']<> "jurado"){
@@ -38,7 +40,7 @@
             </div>
         </header>
         <article id="featured-wrapper">
-            <h1>CONSORCIO SOFTWARE 2012</h1>
+            <h1>5a. Convocatoria Vive Gobierno Móvil</h1>
             <p>Calificación de Aplicaciones - Proyecto Vive Gobierno Móvil</p>
         </article>
             <div id="page-wrapper">
@@ -46,21 +48,21 @@
                     <div class="menu">
                         <!-- Start css3menu.com BODY section -->
                         <ul id="css3menu0" class="topmenu">
-                        <li class="topfirst"><a href="#" style="width:180px;"><span><img src="admin_login_success_files/css3menu0/122.png" alt=""/>Mis Retos</span></a>
+                        <li class="topfirst" style="display: none"><a href="#" style="width:180px;"><span><img src="admin_login_success_files/css3menu0/122.png" alt=""/>Mis Retos</span></a>
                             <ul>
-                                <li><a href="">Mis Retos</a></li>           
+                                <li><a href="" style="display: none">Mis Retos</a></li>           
                             </ul>
                         </li>
-                        <li class="topmenu"><a href="#" style="width:180px;"><span><img src="admin_login_success_files/css3menu0/54.png" alt=""/>Mis Equipos</span></a>
+                       <li class="topmenu"><a href="#" style="width:180px;"><span><img src="admin_login_success_files/css3menu0/54.png" alt=""/>Mis Equipos</span></a>
                             <ul>
                                 <li><a href="user_calificar_equipo.php">Mis Evaliaciones</a></li>
                             </ul>
-                        <li class="topmenu"><a href="#" style="width:180px;"><span><img src="admin_login_success_files/css3menu0/2.png" alt=""/>Mis Evaluaciones</span></a>
+                        <li class="topmenu" style="display: none"><a href="#" style="width:180px;"><span><img src="admin_login_success_files/css3menu0/2.png" alt=""/>Mis Evaluaciones</span></a>
                         <ul>
                                 <li><a href="#">Consultar Evaluaciones</a></li>
                                 <li><a href="#">Nueva Evaluacion</a></li>
                         </ul></li>
-                        <li class="topmenu"><a href="#" style="width:180px;"><span><img src="admin_login_success_files/css3menu0/81.png" alt=""/>Resultados</span></a>
+                        <li class="topmenu" style="display: none"><a href="#" style="width:180px;"><span><img src="admin_login_success_files/css3menu0/81.png" alt=""/>Resultados</span></a>
                         <ul>
                                 <li><a href="#">Consultar Resultados</a></li>
                         </ul></li>
@@ -78,7 +80,7 @@
                 </article>
             </div>
         <footer id="copyright">
-            <p>Consorcio Software 2012 - wilcom1</p>
+            <p>5a. Convocatoria Vive Gobierno Móvil - wilcom1</p>
         </footer>
     </body>
 </html>

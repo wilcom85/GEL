@@ -25,4 +25,15 @@ class GuardarTotalesClass {
     public function guardarConsolidados($idEquipo){
         
     }
+    
+    public function calificacionPorJurado ($arrayCalificaciones, $idJurado, $idEquipo) {
+        
+    }
+    
+    public function recibirDatos (){
+        $calificacionXJurado = new GuardarTotalesClass();
+        $calificacionXJurado->calificacionPorJurado($arrayActualizacionCal, $idJurado, $idEquipo);
+        
+    }
+    
 }

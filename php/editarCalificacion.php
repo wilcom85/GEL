@@ -16,7 +16,11 @@
 	$db_name= $dbconnect->getDataBase(); //Nombre de la Base de Datos
         //SE RECIBEN DATOS DEL FORMULARIO   
         //echo $_POST['numero'];
+        $nombreReto = $_POST['nombreReto'];
+        $nombreEquipo = $_POST['nombreEquipo'];;
+        $nombreJurado = $_POST['nombreJurado'];
         $numero = $_POST['numero'];
+        
         $item1 = $_POST['item1'.$numero];
         $item2 = $_POST['item2'.$numero];
         $item3 = $_POST['item3'.$numero];
@@ -33,6 +37,9 @@
 //        $integraredes = $_POST['integraredes'];
 //        $funsociales = $_POST['funsociales'];
 //        $auteredes = $_POST['auteredes'];
+        $nombreReto = stripslashes($nombreReto);
+        $nombreEquipo = stripslashes($nombreEquipo);
+        $nombreJurado = stripslashes($nombreJurado);
         $numero = stripslashes($numero);
         $item1 = stripslashes($item1);
         $item2 = stripslashes($item2);
@@ -51,6 +58,9 @@
 //        $integraredes = stripslashes($integraredes);
 //        $funsociales = stripslashes($funsociales);
 //        $auteredes = stripslashes($auteredes);
+        $nombreReto = mysql_real_escape_string($nombreReto);
+        $nombreEquipo = mysql_real_escape_string($nombreEquipo);
+        $nombreJurado = mysql_real_escape_string($nombreJurado);
         $numero = mysql_real_escape_string($numero);
         $item1 = mysql_real_escape_string($item1);
         $item2 = mysql_real_escape_string($item2);
@@ -68,7 +78,9 @@
 //        $integraredes = mysql_real_escape_string($integraredes);
 //        $funsociales = mysql_real_escape_string($funsociales);
 //        $auteredes = mysql_real_escape_string($auteredes);
-        $arrayActualizacionCal = array(0=>$item0,
+        $arrayActualizacionCal = array(
+                                        
+                                        0=>$item0,
                                         1=>$item1,
                                         2=>$item2,
                                         3=>$item3,
@@ -78,12 +90,24 @@
                                         7=>$item7, 
                                         8=>$item8,
                                         9=>$item9,
-                                        10=>$item10); 
+                                        10=>$item10);
+; 
+        
+         
         
         for($i=0;$i<=10;$i++){
 //            echo $arrayActualizacionCal[$i];
 //           echo "<script type='text/javascript'>alert('$arrayActualizacionCal[$i]');</script>";
 //          Guardar datos en la base de datos de calificaciones.    
+            $tabla="calificacion_jurado";
+            $campo="calificacion".$i;
+            $dato = $arrayActualizacionCal[$i];
+            //$condicion = "fk_id_calificacion = ".$numero." AND fk_id_criterio = ".$i;
+            $condicion2 = "fk_id_calificacion = ".$numero;
+            $dbconnect->actualizarDato($tabla, $campo, $dato, $condicion2);
+            
+            
+            
             $tabla="valor_calificacion";
             $campo="valor_calificacion";
             $dato = $arrayActualizacionCal[$i];
@@ -118,7 +142,15 @@
             $tablacal="valor_calificacion";
             $campocal=" total_calificacion ";
             $dbconnect->actualizarDato($tablacal, $campocal, $totalcalificacion, $condicion);
-        }   
+            $campo = "calificacion".$i;
+            $dato= $arrayActualizacionCal[$i];
+            $condicion = "fk_id_calificacion = ".$numero;
+            $dbconnect->actualizarDato("calificacion_jurado", $campo, $dato, $condicion);
+       } 
+       $dbconnect->actualizarDato("calificacion_jurado", 'nombre_jurado', "'".$nombreJurado."'", "fk_id_calificacion = '".$numero."'");
+       $dbconnect->actualizarDato("calificacion_jurado", 'nombre_equipo', "'".$nombreEquipo."'", "fk_id_calificacion = '".$numero."'");
+       $dbconnect->actualizarDato("calificacion_jurado", 'nombre_reto', "'".$nombreReto."'", "fk_id_calificacion = '".$numero."'");
+       
          header("location: consultar_evaluacion.php");
          ob_end_flush();
          $dbconnect->cerrarConexion();

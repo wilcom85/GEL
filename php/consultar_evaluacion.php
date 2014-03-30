@@ -14,6 +14,14 @@
     $password = $dbconnect -> getPassword(); //Clave del usuario de MySQL
     $db_name = $dbconnect -> getDataBase(); //Nombre de la Base de Datos
      //Nombre de la Tabla
+    
+    //DATOS PARA LA TABLA DE CALIFICACION DE JURADOS
+    $idJurado;
+    $idequipo;
+    $arrayCalificaciones;
+    
+    
+    
     ?>
     <html lang="es">
         
@@ -22,44 +30,14 @@
             <meta meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
             <script type="text/javascript">    
                 function validarEnvioFuncional(){
-//                /*var num = document.calificacionesFuncional.valueOf(nombre);
-//                if(document.calificacionesFuncional.nombreEquipo.value.length==0){
-//                    alert("El campo Nombre de Equipo es obligatorio");
-//                    document.calificacionesFuncional.nombreEquipo.focus();
-//                    return(0);
-//                }
-//                if(document.calificacionesFuncional.reto.value.length==0){
-//                    alert("Por favor seleccione un reto para el equipo")
-//                    document.calificacionesFuncional.reto.focus();
-//                    return(0);
-//                }
-//                if(document.calificacionesFuncional.juradoFuncional.value.length==0){
-//                    alert("Por favor seleccione un Jurado Funcional para el equipo")
-//                    document.calificacionesFuncional.juradoFuncional.focus();
-//                    return(0);
-//                }
-//                if(document.calificacionesFuncional.juradoTecnico.value.length==0){
-//                    alert("Por favor seleccione un Jurado Técnico para el equipo")
-//                    document.crearEquipo.juradoTecnico.focus();
-//                    return(0);
-//                }
-//                if(document.calificacionesFuncional.juradoExterno.value.length==0){
-//                    alert("Por favor seleccione un Jurado Externo para el equipo")
-//                    document.crearEquipo.juradoExterno.focus();
-//                    return(0);
-//                }*/
                 document.calificacionesFuncional.submit();
             }
-        </script>
-        <script type="text/javascript">    
-                function validarEnvioTecnico(){
-                    document.calificacionesTecnica.submit();
-                }
-        </script>
-                <script type="text/javascript">    
-                function validarEnvioExterno(){
-                    document.calificacionesExterna.submit();
-                }
+            function validarEnvioTecnico(){
+                document.calificacionesTecnica.submit();
+            }
+            function validarEnvioExterno(){
+                document.calificacionesExterna.submit();
+            }
         </script>
         </head>
 <?php
@@ -67,7 +45,7 @@
     //mysqli_select_db($conexion ,$db_name )or die("No es posible seleccionar una base de datos");
     $fieldnamefuncional = "fk_id_juradoFuncional ";
     $tblnamefuncional = "equipos";
-    $conditionfuncional = $_SESSION['$idUsuario'] . " = " . $fieldnamefuncional;
+    $conditionfuncional = $fieldnamefuncional ." = '" . $_SESSION['$idUsuario']."'";
     $buscar = $dbconnect->seleccionarDatosCondicion($fieldnamefuncional, $tblnamefuncional, $conditionfuncional);
     $referenciaId = 0;
     if(mysql_num_rows($buscar) > 0){
@@ -86,7 +64,7 @@
                     <tr>
                             <th rowspan="2"><p class="etiquetaEncabezado">Reto</p></th>
                             <th rowspan="2"><p class="etiquetaEncabezado">Equipo</p></th>
-                            <th rowspan="2"><p class="etiquetaEncabezado">Número</p></th>
+                            <th rowspan="2" style="display:none;"><p class="etiquetaEncabezado">Número</p></th>
                             <th colspan="2"><p class="etiquetaEncabezado">Usabilidad</p></th>
                             <th colspan="2"><p class="etiquetaEncabezado">Interfaz Gráfica</p></th>
                             <th colspan="2"><p class="etiquetaEncabezado">Funcionalidad</p></th>
@@ -101,7 +79,7 @@
                         <?php
                             $fieldname = "*";
                             $tblname = "criterios";
-                            $condition1 = "fk_id_aspectos"; 
+                            $condition1 = "'fk_id_aspectos'"; 
                             $buscarcriterios = $dbconnect->consultaTodosOrdenada($fieldname, $tblname,$condition1);
                             if(mysql_num_rows($buscarcriterios) > 0){
                                 while($datoscriterios = mysql_fetch_array($buscarcriterios)){
@@ -119,12 +97,15 @@
                         <?php
                             $fieldnameevaluacion = " t1.fk_id_juradoFuncional, t1.nombre, t2.nombre";
                             $tblnameevaluacion = "equipos AS t1, retos AS t2";
-                            $conditionevaluacion = "t1.fk_id_juradoFuncional = " .$_SESSION['$idUsuario']. " AND t1.fk_id_reto = t2.id";
+                            $conditionevaluacion = "t1.fk_id_juradoFuncional = '" .$_SESSION['$idUsuario']. "' AND t1.fk_id_reto = t2.id";
                             $buscarevaluacion = $dbconnect->seleccionarDatosCondicion($fieldnameevaluacion, $tblnameevaluacion, $conditionevaluacion);
                             if(mysql_num_rows($buscarevaluacion) > 0){
                                 $contadorregistros = 0;
                                 $arrayIdCal ;
                                 while($datosevaluacion = mysql_fetch_array($buscarevaluacion)){
+                                    //
+                                    $idJurado = $datosevaluacion[0];
+                                    //
                                     $datosaArray = new arrayFunction;
                                     
                                     ?>
@@ -150,10 +131,25 @@
                                                     $conditioncal="t1.fk_id_calificacion = t2.id AND t2.fk_id_jurado = '" .$datosevaluacion[0] ."' AND t2.id >".$referenciaId;
                                                     $idscalif= $dbconnect->seleccionarDatosCondicion($fieldnamecal, $tblnamecal, $conditioncal);
                                                     $arrayIdCal = $datosaArray->datosAArray($idscalif);
+                                                    //Array de Ids de equipos
+                                                    $fieldIdReto="fk_id_equipo";
+                                                    $tblnmReto = "calificacion";
+                                                    $conditionIdReto = "fk_id_jurado = ".$datosevaluacion[0];
+                                                    $idsEquipos=$dbconnect->seleccionarDatosCondicion($fieldIdReto, $tblnmReto, $conditionIdReto);
+                                                    $arrayIdEquipos = $datosaArray->datosAArray($idsEquipos);
                                                 }
                                                 ?>
                                                 <form name="calificacionesFuncional" method="post" action="editarCalificacion.php">
-                                                    <td>
+                                                    <td style="display:none;">
+                                                        <input type="text" name="nombreReto" readonly="readonly" value="<?php echo $datosevaluacion[2]?>">
+                                                        <input type="text" name="nombreEquipo" readonly="readonly" value="<?php echo $datosevaluacion[1]?>">
+                                                        
+                                                        <?php $jurado=$dbconnect->seleccionarDatosCondicion("nombre, apellido","persona","id = ".$datosevaluacion[0]);?>
+                                                        <?php $nombreJurado = mysql_fetch_array($jurado)?>
+                                                        <?php echo "<PRE>";
+                                                        var_dump($arrayIdCal);
+                                                        echo "</PRE>"; ?>
+                                                        <input type="text" name="nombreJurado" readonly="readonly" value="<?php echo $nombreJurado[0]." ".$nombreJurado[1]?>">
                                                         <input type="text" name="numero" readonly="readonly" value="<?php echo $arrayIdCal[$contadorregistros]; ?>" size="4"/>
                                                         <?php 
                                                             $referenciaId=$arrayIdCal[$contadorregistros];
@@ -271,7 +267,7 @@
                                                         </select>                                        
                                                     </td>
                                                     <td>
-                                                        <input type="button" value="Guardar" name="button" onclick="validarEnvioFuncional()"/>
+                                                        <input type="submit" value="Guardar" name="button" />
                                                     </td>
                                                 </form>               
                                            </tr>
@@ -297,7 +293,7 @@
                 //mysqli_select_db($conexion ,$db_name )or die("No es posible seleccionar una base de datos");
                 $fieldnametecnico = "fk_id_juradoTecnico ";
                 $tblnametecnico = "equipos";
-                $conditiontecnico = $_SESSION['$idUsuario'] . " = " . $fieldnametecnico;
+                $conditiontecnico ="'". $_SESSION['$idUsuario'] . "' = " . $fieldnametecnico;
                 $buscart = $dbconnect->seleccionarDatosCondicion($fieldnametecnico, $tblnametecnico, $conditiontecnico);
                 if(mysql_num_rows($buscart) > 0){
                 ?>
@@ -314,7 +310,7 @@
                         <tr>
                             <th rowspan="2"><p class="etiquetaEncabezado">Reto</p></th>
                             <th rowspan="2"><p class="etiquetaEncabezado">Equipo</p></th>
-                            <th rowspan="2"><p class="etiquetaEncabezado">Número</p></th>
+                            <th rowspan="2" style="display: none"><p class="etiquetaEncabezado">Número</p></th>
                             <th colspan="2"><p class="etiquetaEncabezado">Usabilidad</p></th>
                             <th colspan="2"><p class="etiquetaEncabezado">Interfaz Gráfica</p></th>
                             <th colspan="2"><p class="etiquetaEncabezado">Funcionalidad</p></th>
@@ -332,6 +328,7 @@
                             if(mysql_num_rows($buscarcriteriost) > 0){
                                 while($datoscriteriost = mysql_fetch_array($buscarcriteriost)){
                                 ?>
+                                    
                                     <th class="ui-widget-header"><p class="etiquetaEncabezado"><?=$datoscriteriost["criterio"]?></p></th>
                                     <?php
                                 }
@@ -342,7 +339,7 @@
                         <?php
                             $fieldnameevaluaciont = " t1.fk_id_juradoTecnico, t1.nombre, t2.nombre";
                             $tblnameevaluaciont = "equipos AS t1, retos AS t2";
-                            $conditionevaluaciont = "t1.fk_id_juradoTecnico = " .$_SESSION['$idUsuario']. " AND t1.fk_id_reto = t2.id";
+                            $conditionevaluaciont = "t1.fk_id_juradoTecnico = '" .$_SESSION['$idUsuario']. "' AND t1.fk_id_reto = t2.id";
                             $buscarevaluaciont = $dbconnect->seleccionarDatosCondicion($fieldnameevaluaciont, $tblnameevaluaciont, $conditionevaluaciont);
                             if(mysql_num_rows($buscarevaluaciont) > 0){
                                 $datosaArray2 = new arrayFunction;
@@ -358,10 +355,10 @@
                                        <?php
                                            $fieldnamecalif3 = "t1.valor_calificacion, t2.id";
                                                 $tblnamecalif3 = "valor_calificacion AS t1, calificacion AS t2";
-                                                $conditioncalif3 = "t1.fk_id_calificacion = t2.id AND t2.fk_id_jurado = '" .$datosevaluaciont[0] ."'AND t2.id > ".$referenciaId;
+                                                $conditioncalif3 = "t1.fk_id_calificacion = t2.id AND t2.fk_id_jurado = " .$datosevaluaciont[0] ." AND t2.id > ".$referenciaId;
                                                 $buscarcalif3 = $dbconnect->seleccionarDatosCondicion($fieldnamecalif3, $tblnamecalif3, $conditioncalif3);
                                                 $contadorcalif3 = 0;
-                                                $arraydatoscalif3 = array();
+                                                //$arraydatoscalif3 = array();
                                                 //Obtener 
                                                 
                                                                                               
@@ -385,7 +382,17 @@
                                                 
                                                 
                                                 <form action="editarCalificacion.php" method="post" name="calificacionesTecnica" >
-                                                    <td>
+                                                    <td style="display:none;">
+                                                        <input type="text" name="nombreReto" readonly="readonly" value="<?php echo $datosevaluaciont[2]?>">
+                                                        <input type="text" name="nombreEquipo" readonly="readonly" value="<?php echo $datosevaluaciont[1]?>">
+                                                        
+                                                        <?php $jurado=$dbconnect->seleccionarDatosCondicion("nombre, apellido","persona","id = ".$datosevaluaciont[0]);?>
+                                                        <?php $nombreJuradot = mysql_fetch_array($jurado)?>
+                                                        <?php echo "<PRE>";
+                                                        var_dump($arrayIdCalt);
+                                                        echo "</PRE>"; ?>
+                                                        <input type="text" name="nombreJurado" readonly="readonly" value="<?php echo $nombreJuradot[0]." ".$nombreJuradot[1]?>">
+                                                        
                                                         <input type="text" name="numero" readonly="readonly" value="<?php echo $arrayIdCalt[$contadorregistrost]?>" size="4"/>
                                                         <?php 
                                                             $referenciaId=$arrayIdCalt[$contadorregistrost];
@@ -503,7 +510,7 @@
                                                         </select>                                        
                                                     </td>
                                                     <td>
-                                                        <input type="button" value="Guardar" name="button" onclick="validarEnvioTecnico()" />
+                                                        <input type="submit" value="Guardar" name="button" />
                                                     </td>
                                                 </form>               
                                            </tr>
@@ -529,7 +536,7 @@
                 //mysqli_select_db($conexion ,$db_name )or die("No es posible seleccionar una base de datos");
                 $fieldnameext = "fk_id_juradoExterno ";
                 $tblnameext = "equipos";
-                $conditionext = $_SESSION['$idUsuario'] . " = " . $fieldnameext;
+                $conditionext = "'".$_SESSION['$idUsuario'] . "' = " . $fieldnameext;
                 $buscare = $dbconnect->seleccionarDatosCondicion($fieldnameext, $tblnameext, $conditionext);
                 if(mysql_num_rows($buscare) > 0){
                 ?>
@@ -546,7 +553,7 @@
                         <tr>
                             <th rowspan="2"><p class="etiquetaEncabezado">Reto</p></th>
                             <th rowspan="2"><p class="etiquetaEncabezado">Equipo</p></th>
-                            <th rowspan="2"><p class="etiquetaEncabezado">Número</p></th>
+                            <th rowspan="2" style="display: none"><p class="etiquetaEncabezado">Número</p></th>
                             <th colspan="2"><p class="etiquetaEncabezado">Usabilidad</p></th>
                             <th colspan="2"><p class="etiquetaEncabezado">Interfaz Gráfica</p></th>
                             <th colspan="2"><p class="etiquetaEncabezado">Funcionalidad</p></th>
@@ -611,7 +618,17 @@
                                                 ?>
                                                 
                                                 <form name="calificacionesExterna" method="post" action="editarCalificacion.php">
-                                                    <td>
+                                                    <td style="display:none;">
+                                                        <input type="text" name="nombreReto" readonly="readonly" value="<?php echo $datosevaluacione[2]?>">
+                                                        <input type="text" name="nombreEquipo" readonly="readonly" value="<?php echo $datosevaluacione[1]?>">
+                                                        
+                                                        <?php $jurado=$dbconnect->seleccionarDatosCondicion("nombre, apellido","persona","id = ".$datosevaluacione[0]);?>
+                                                        <?php $nombreJuradoe = mysql_fetch_array($jurado)?>
+                                                        <?php echo "<PRE>";
+                                                        var_dump($arrayIdCale);
+                                                        echo "</PRE>"; ?>
+                                                        <input type="text" name="nombreJurado" readonly="readonly" value="<?php echo $nombreJuradoe[0]." ".$nombreJuradoe[1]?>">
+                                                        
                                                         <input type="text" name="numero" readonly="readonly" value="<?php echo $arrayIdCale[$contadorregistrose]?>" size="4">
                                                         <?php 
                                                             $referenciaId=$arrayIdCale[$contadorregistrose];
@@ -780,7 +797,7 @@
                                                         </select>
                                                     </th>-->
                                                     <td>
-                                                        <input type="button" value="Guardar" name="button" onclick="validarEnvioExterno()"/>
+                                                        <input type="submit" value="Guardar" name="button"/>
                                                     </td>
                                                 </form>               
                                            </tr>

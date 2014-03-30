@@ -37,7 +37,7 @@
             </div>
         </header>
         <article id="featured-wrapper">
-            <h1>CONSORCIO SOFTWARE 2012</h1>
+            <h1>5a. Convocatoria Vive Gobierno Móvil</h1>
             <p>Calificación de Aplicaciones - Proyecto Vive Gobierno Móvil</p>
             <a href="user_login_success.php">
                     <img src="../img/Home-48.png" />
@@ -50,12 +50,12 @@
                 <article id="page-wrapper">
                     <iframe src= "consultar_evaluacion.php"
                             name="AllInfo"
-                            style="width:90%; height:350px; margin:10px 30px;">
+                            style="width:95%; height:850px; margin:10px 30px;">
                     </iframe>
                 </article>
             </div>
         <footer id="copyright">
-            <p>Consorcio Software 2012 - wilcom1</p>
+            <p>5a. Convocatoria Vive Gobierno Móvil - wilcom1</p>
         </footer>
     </body>
 </html>
