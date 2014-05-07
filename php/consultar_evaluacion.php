@@ -510,7 +510,7 @@
                                                         </select>                                        
                                                     </td>
                                                     <td>
-                                                        <input type="submit" value="Guardar" name="button" />
+                                                        <input type="submit" value="Guardar" name="button1" />
                                                     </td>
                                                 </form>               
                                            </tr>
@@ -797,7 +797,7 @@
                                                         </select>
                                                     </th>-->
                                                     <td>
-                                                        <input type="submit" value="Guardar" name="button"/>
+                                                        <input type="submit" value="Guardar" name="button2"/>
                                                     </td>
                                                 </form>               
                                            </tr>
