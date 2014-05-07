@@ -2,23 +2,23 @@
  <head>
  	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
  	<title>Log In</title>
-    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900" rel="stylesheet" />
+        <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900" rel="stylesheet" />
 	<link href="css/estilo/default.css" rel="stylesheet" type="text/css" media="all" />
 	<link href="css/estilo/fonts.css" rel="stylesheet" type="text/css" media="all" />
  </head>
  <body>
  	<header id="logo">
-		<div align="center">
-        	<img src="img/logoMinTIC.png" width="254" height="65">
+            <div align="center">
+            <img src="img/logoMinTIC.png" width="254" height="65">
             <img src="img/ospinternational.jpg" width="137" height="67">
             <img src="img/devant.jpg" width="137" height="67">
         </div>
  	</header>
-    <section id="featured-wrapper">
-	   <h1>5a. Convocatoria Vive Gobierno Móvil</h1>
-       		<p>Calificación de Aplicaciones</p>
-    </section>
-    <section id="page-wrapper">
+        <section id="featured-wrapper">
+            <h1>5a. Convocatoria Vive Gobierno Móvil</h1>
+            <p>Calificación de Aplicaciones</p>
+        </section>
+        <section id="page-wrapper">
             <table 
                 width="300" 
                 border="0" 
@@ -30,7 +30,7 @@
                             <form 
                                 name="form1" 
                                 method="post" 
-                                action="php/checklogin.php">
+                                action="php/Controlador/checklogin.php">
                         <td>
                             <table 
                             	width="100%" 

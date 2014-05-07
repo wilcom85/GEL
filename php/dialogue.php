@@ -9,7 +9,7 @@
 /**
  * Description of dialogue
  *
- * @author stitc_000
+ * @author Wilmer Amézquita
  */
 class dialogue {
     //put your code here
@@ -18,6 +18,9 @@ class dialogue {
     }
     public function dialogueSuccess($message){
         echo "<div id='dialog' title='Exito'><p><img src='../img/Tick-48.png'>" .$message ."</p></div>";
+    }
+    public function dialogueWarning($message){
+        echo "<div id='dialog' title='Advertenvia'><p><img src='../img/milky/Milky/Icons/48/25.png'>" .$message ."</p></div>";
     }
 }
 ?>

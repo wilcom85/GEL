@@ -5,13 +5,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-class arrayFunction{
+class arrayFunctionsClass{
     private $arraydatos;
     private $arraydatos2;
     public function datosAArray($buscar) {
-            $arraydatos0;
+
             while($datos = mysql_fetch_array($buscar)){
                 $arraydatos0[] =$datos[0];
+
             }
             $this->arraydatos = $arraydatos0;
             return $this->arraydatos;
