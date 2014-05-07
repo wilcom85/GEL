@@ -28,7 +28,7 @@ class miCalificacionClass {
         $dbconnect->establecerConexion();
         $campoCalificacion = "fk_id_jurado, fk_id_equipo";
         $tablaCalificacion = "calificacion";
-        $condicionCalificacion = "fk_id_jurado = '" .$idUsuario ."' orderby idCalificacion";
+        $condicionCalificacion = "fk_id_jurado = '" .$idUsuario ."' ORDER BY idCalificacion";
         $buscarCalificacion = $dbconnect->seleccionarDatosCondicion($campoCalificacion, $tablaCalificacion, $condicionCalificacion);
         $dbconnect->cerrarConexion();
         return mysql_num_rows($buscarCalificacion);    
@@ -42,12 +42,12 @@ class miCalificacionClass {
     private function consultarMisCalificaciones($idUsuario) {
         $dbconnect = new mySqlConnection();
         $dbconnect->establecerConexion();
-        $campoCalificacion = "fk_id_jurado, fk_id_equipo";
+        $campoCalificacion = "fk_id_jurado, fk_id_equipo, idCalificacion";
         $tablaCalificacion = "calificacion";
-        $condicionCalificacion = "fk_id_jurado = '" .$idUsuario ."'";
+        $condicionCalificacion = "fk_id_jurado = '" .$idUsuario ."' ORDER BY idCalificacion";;
         $buscarCalificacion = $dbconnect->seleccionarDatosCondicion($campoCalificacion, $tablaCalificacion, $condicionCalificacion);
         $arrayCalificaciones = new arrayFunction();
-        $misCalificaciones = $arrayCalificaciones->datosAArrayBid($buscarCalificacion);
+        $misCalificaciones = $arrayCalificaciones->datosAArrayTri($buscarCalificacion);
         $dbconnect->cerrarConexion();
         return $misCalificaciones;
     }
@@ -103,7 +103,7 @@ class miCalificacionClass {
         $tablaCriterio = "calificacion";
         $condicionCriterio = "fk_id_jurado = ".$idJurado." AND fk_id_equipo = ".$idEquipo;
         $consultaCriterio = $dbconnect->seleccionarDatosCondicion($campoCriterio, $tablaCriterio, $condicionCriterio);
-        echo $dbconnect->getSql();
+        //echo $dbconnect->getSql();
         $arrayCalificaciones = $array2->datosAArray($consultaCriterio);
         $dbconnect->cerrarConexion();
         return  $arrayCalificaciones;
@@ -133,7 +133,43 @@ class miCalificacionClass {
         return $arrayEquiposJurado;
     }
     
+    private function ordenarCalificaciones($arrayCalificaciones, $numEquipo, $numCriterios){
+        for($i=0;$i<$numCriterios;$i++){
+            $calificacionesOrdenadas[$i]=$arrayCalificaciones[$i][$numEquipo];
+        }
+        return $calificacionesOrdenadas;
+    }
     
+    public function setCalificacionesOrdenadas($arrayCalificaciones, $numEquipo, $numCriterios) {
+        $arrayOrdenado = miCalificacionClass::ordenarCalificaciones($arrayCalificaciones,$numEquipo,$numCriterios);
+        return $arrayOrdenado;
+    }
+    
+    private function guardarCalificacionEquipo($arrayCalificaciones, $numCriterios,$idCalificacion){
+        $dbconnect = new mySqlConnection();
+        $dbconnect->establecerConexion();
+        $tabla = "calificacion";
+        for($i=0;$i<$numCriterios;$i++){
+            $campo = "valorCalificacion".$i;
+            $dato = $arrayCalificaciones[$i];
+            $condicion = "idCalificacion = ".$idCalificacion;
+            $dbconnect->actualizarDato($tabla, $campo, $dato, $condicion);
+        }
+        
+    }
+    
+    public function setCalificacionEquipo($arrayCalificaciones, $numCriterios,$idCalificacion){ 
+        try
+        {
+            miCalificacionClass::guardarCalificacionEquipo($arrayCalificaciones,$numCriterios,$idCalificacion);
+            $msg="ok";
+        }
+        catch (Exception $e){
+            $msg = "Error: ". $e->getMessage();
+        }
+        return $msg;
+        echo $msg;
+    }
 }
 
 

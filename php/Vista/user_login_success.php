@@ -72,7 +72,7 @@
                     </div>
                 </nav>
                 <article id="page-wrapper">
-                    <iframe src= "<?php echo $_SESSION['$panel']; ?>"
+                    <iframe src= "#"
                             name="AllInfo"
                             style="width:75%; height:350px; margin:5px;">
                     </iframe>

@@ -30,5 +30,17 @@ class arrayFunction{
             return $this->arraydatos2;
     }
     
+    public function datosAArrayTri($buscar) {
+            $i=0;
+            $arraydatos1=array();
+            while($datos = mysql_fetch_array($buscar)){
+                $arraydatos1[$i][0] =$datos[0];
+                $arraydatos1[$i][1] =$datos[1];
+                $arraydatos1[$i][2] =$datos[2];
+                $i++;
+            }
+            $this->arraydatos2 = $arraydatos1;
+            return $this->arraydatos2;
+    }
 }
 ?>

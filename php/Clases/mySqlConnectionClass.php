@@ -131,17 +131,18 @@ class mySqlConnection {
     }
     
     public function actualizarDato($tabla,$campo,$dato,$condicion){
-        $self = new self();
-        $self->dialogue = new dialogue();
+        //$self = new self();
+        //$self->dialogue = new dialogue();
         $sql = "UPDATE ".$tabla ." SET ".$campo." = ".$dato." WHERE ".$condicion.";";
         $this->sql = $sql;
         //echo $sql;
         try{
             $result = mysql_query($sql) or die ("Error en: $sql:" .mysql_error());
-            return $result;
+            
         } catch (Exception $ex) {
-            $self->dialogue->dialogueError('Excepción capturada: ', $ex->getMessage() ,  '\n');
+            $result = 'Excepción capturada: '. $ex->getMessage();
         }
+        return $result;
         mysql_free_result($result);
     }
     

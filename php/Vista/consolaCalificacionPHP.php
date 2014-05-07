@@ -6,14 +6,49 @@
  */
 include_once '../Clases/miCalificacionClass.php';
 include_once '../Clases/criteriosClass.php';
+include_once '../Clases/mySqlConnectionClass.php';
+
+session_start();
+try{
+    if($_SESSION['$rol']<> "0"){
+        header("location:../../index.php");
+    }
+}catch(Exeption $e){
+
+}
+//Forzar el uso de codificación utf-8
+header('Content-Type: text/html; charset=UTF-8');
 ?>
 <html>
     <head>
         <meta charset="utf-8">
         <title>Mis Calificaciones</title>
         <link rel="stylesheet" href="../../skins/jquery-ui-1.10.4.custom/css/redmond/jquery-ui-1.10.4.custom.css">
+        <link href="../../css/estilo/default.css" rel="stylesheet" type="text/css" media="all" />
+        <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900" rel="stylesheet" />
     </head>
     <body>
+        <div>
+            <?php echo "Usted se ha registrado como: " .$_SESSION['$usuario'] . " ".$_SESSION['$rol'] ; ?> 
+        </div>
+        <header id="logo">
+            <div align="center">
+               <img src="../../img/logoMinTIC.png" width="254" height="65">
+               <img src="../../img/ospinternational.jpg" width="137" height="67">
+               <img src="../../img/devant.jpg" width="137" height="67">
+            </div>
+        </header>
+        <article id="featured-wrapper">
+            <h1>5a. Convocatoria Vive Gobierno Móvil</h1>
+            <p>Calificación de Aplicaciones - Proyecto Vive Gobierno Móvil</p>
+            <a href="../Vista/user_login_success.php">
+                <img src="../../img/Home-48.png" />
+                    <p>Regresar</p>
+            </a>
+        </article>
+        
+        
+        
         <table id="tabs" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
             <thead class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all" role="tablist">
             <td>
@@ -27,8 +62,6 @@ include_once '../Clases/criteriosClass.php';
                 
                 <td>
                     <?php
-                        
-                        session_start();
                         $idUsuario = $_SESSION['$idUsuario'];
                         $misCalificaciones = new miCalificacionClass();
                         $equipos = $misCalificaciones->misCalificaciones($idUsuario);
@@ -55,7 +88,7 @@ include_once '../Clases/criteriosClass.php';
                             for($m=0;$m<count($equipos);$m++){
                                 //Obtener las calificaciones del equipo
                                 $miCalificacion[$m]=$calificacion->getCalificacionJurado($idUsuario, $equipos[$m][1], $n);
-                                var_dump($miCalificacion);
+                                //var_dump($miCalificacion);
                                 echo '<td>';
                                 echo '<select name="item'.$n.'team'.$m.'">';
                                     $valor = "";
@@ -72,7 +105,7 @@ include_once '../Clases/criteriosClass.php';
                             }
                         echo '</tr>';
                     }
-                    echo '<tr>';
+                    echo '<tr valign="middle">';
                         echo '<td colspan="21">';
                         echo '<input type="submit" value="Guardar" name="button" />';
                         echo '</td>';
@@ -80,5 +113,9 @@ include_once '../Clases/criteriosClass.php';
                 ?>
             </form>
         </table>
+        <footexr id="copyright">
+            <p>5a. Convocatoria Vive Gobierno Móvil</p>
+            <p style="font-size: 7px">Desarrollado por Wilcom1</p>
+        </footer>
     </body>
 </html>

@@ -17,11 +17,11 @@ class validarSesionClass {
     public function  crearSesion(){
         $csGenerarId = new validarSesionClass();
         $csIdSesion = $csGenerarId->generarIdSesion();
-        $cstable="";
+        $cstable="sesiones";
         $csarray1=array("idsesion","estado");
         $csarray2=array($csIdSesion,1);
         $csconnection = new mySqlConnection();
-        $csconnection->insertarDatos($cstable, $array1, $array2);
+        $csconnection->insertarDatos($cstable, $csarray1, $csarray2);
         $csconnection->cerrarConexion();
         return $csIdSesion;
     }
